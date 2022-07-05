@@ -1,8 +1,5 @@
 package com.repository;
 
-import com.model.Phone;
-import com.model.Product;
-
 import java.util.List;
 import java.util.Optional;
 

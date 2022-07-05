@@ -3,11 +3,8 @@ package com.service;
 import com.model.PhoneManufacturer;
 import com.model.Phone;
 import com.repository.PhoneRepository;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -36,8 +33,17 @@ public class PhoneService {
         }
     }
 
+    public List<Phone> getFullList() {
+        return REPOSITORY.getAll();
+    }
 
+    public boolean delete(String id) {
+        return REPOSITORY.delete(id);
+    }
 
+    public boolean update(Phone phone) {
+        return REPOSITORY.update(phone);
+    }
 
     public Phone createPhone() {
         return new Phone("Title-" + RANDOM.nextInt(1000),

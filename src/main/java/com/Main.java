@@ -1,5 +1,6 @@
 package com;
 
+import com.model.Laptop;
 import com.model.Phone;
 import com.model.Tablet;
 import com.repository.PhoneRepository;
@@ -10,13 +11,15 @@ import com.service.TabletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+import java.util.Random;
+
 
 public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private static final PhoneService PHONE_SERVICE = new PhoneService();
     private static final LaptopService LAPTOP_SERVICE = new LaptopService();
     private static final TabletService TABLET_SERVICE = new TabletService();
-    private static final TabletRepository TABLET_REPOSITORY = new TabletRepository();
 
     public static void main(String[] args) {
         PHONE_SERVICE.createAndSavePhones(3);
@@ -29,6 +32,17 @@ public class Main {
         LOGGER.info("Create and save tablets");
         TABLET_SERVICE.printAll();
 
-        // TODO: 02/07/22  add tests
+        final List<Laptop> LaptopList = LAPTOP_SERVICE.getFullList();
+        final int index = new Random().nextInt(LaptopList.size());
+        LAPTOP_SERVICE.delete(LaptopList.get(index).getId());
+        LOGGER.info("Removed random Laptop");
+        LAPTOP_SERVICE.printAll();
+
+        final List<Tablet> TabletList = TABLET_SERVICE.getFullList();
+        final int index2 = new Random().nextInt(LaptopList.size());
+        TabletList.get(index2).setTitle("NEW " + TabletList.get(index2).getTitle());
+        TABLET_SERVICE.update(TabletList.get(index2));
+        LOGGER.info("Update Tablet");
+        TABLET_SERVICE.printAll();
     }
 }

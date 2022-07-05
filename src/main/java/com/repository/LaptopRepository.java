@@ -20,7 +20,6 @@ public class LaptopRepository implements CrudRepository<Laptop> {
         laptops.add(laptop);
     }
 
-
     public void saveAll(List<Laptop> laptops) {
         for (Laptop laptop : laptops ) {
             save(laptop);

@@ -32,6 +32,18 @@ public class TabletService {
         }
     }
 
+    public List<Tablet> getFullList() {
+        return REPOSITORY.getAll();
+    }
+
+    public boolean delete(String id) {
+        return REPOSITORY.delete(id);
+    }
+
+    public boolean update(Tablet tablet) {
+        return REPOSITORY.update(tablet);
+    }
+
     public Tablet createTablet() {
         return new Tablet("Title-" + RANDOM.nextInt(1000),
                 RANDOM.nextInt(500),

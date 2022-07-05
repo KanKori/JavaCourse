@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-
 public class PhoneRepository implements CrudRepository<Phone> {
     private final List<Phone> phones;
 

@@ -32,10 +32,22 @@ public class LaptopService {
         }
     }
 
+    public List<Laptop> getFullList() {
+        return REPOSITORY.getAll();
+    }
+
+    public boolean delete(String id) {
+        return REPOSITORY.delete(id);
+    }
+
+    public boolean update(Laptop laptop) {
+        return REPOSITORY.update(laptop);
+    }
+
     public Laptop createLaptop() {
         return new Laptop("Title-" + RANDOM.nextInt(1000),
                 RANDOM.nextInt(500),
-                BigDecimal.valueOf(RANDOM.nextDouble(1000.0)).setScale(2,BigDecimal.ROUND_HALF_DOWN).doubleValue(),
+                BigDecimal.valueOf(RANDOM.nextDouble(10000.0)).setScale(2,BigDecimal.ROUND_HALF_DOWN).doubleValue(),
                 "Model-" + RANDOM.nextInt(10),
                 getRandomManufacturer());
     }

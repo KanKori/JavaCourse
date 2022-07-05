@@ -69,6 +69,7 @@ public class TabletRepository implements CrudRepository<Tablet> {
         return Optional.ofNullable(result);
     }
 
+
     private static class  TabletCopy {
         private static void copy (final Tablet from, final Tablet to) {
             to.setCount(from.getCount());

@@ -1,10 +1,7 @@
 package com;
 
 import com.model.Laptop;
-import com.model.Phone;
 import com.model.Tablet;
-import com.repository.PhoneRepository;
-import com.repository.TabletRepository;
 import com.service.LaptopService;
 import com.service.PhoneService;
 import com.service.TabletService;
@@ -32,16 +29,16 @@ public class Main {
         LOGGER.info("Create and save tablets");
         TABLET_SERVICE.printAll();
 
-        final List<Laptop> LaptopList = LAPTOP_SERVICE.getFullList();
-        final int index = new Random().nextInt(LaptopList.size());
-        LAPTOP_SERVICE.delete(LaptopList.get(index).getId());
+        final List<Laptop> laptopList = LAPTOP_SERVICE.getFullList();
+        final int index = new Random().nextInt(laptopList.size());
+        LAPTOP_SERVICE.delete(laptopList.get(index).getId());
         LOGGER.info("Removed random Laptop");
         LAPTOP_SERVICE.printAll();
 
-        final List<Tablet> TabletList = TABLET_SERVICE.getFullList();
-        final int index2 = new Random().nextInt(LaptopList.size());
-        TabletList.get(index2).setTitle("NEW " + TabletList.get(index2).getTitle());
-        TABLET_SERVICE.update(TabletList.get(index2));
+        final List<Tablet> tabletList = TABLET_SERVICE.getFullList();
+        final int index2 = new Random().nextInt(tabletList.size());
+        tabletList.get(index2).setTitle("NEW " + tabletList.get(index2).getTitle());
+        TABLET_SERVICE.update(tabletList.get(index2));
         LOGGER.info("Update Tablet");
         TABLET_SERVICE.printAll();
     }

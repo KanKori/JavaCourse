@@ -1,3 +1,0 @@
-2022-07-04 17:59:11,556 INFO com.Main [main] Create and save phones
-2022-07-04 17:59:11,672 INFO com.Main [main] Create and save laptops
-2022-07-04 17:59:11,684 INFO com.Main [main] Create and save tablets

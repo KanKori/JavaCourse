@@ -21,7 +21,7 @@ public class LaptopRepository implements CrudRepository<Laptop> {
     }
 
     public void saveAll(List<Laptop> laptops) {
-        for (Laptop laptop : laptops ) {
+        for (Laptop laptop : laptops) {
             save(laptop);
         }
     }
@@ -29,8 +29,9 @@ public class LaptopRepository implements CrudRepository<Laptop> {
     @Override
     public boolean update(Laptop laptop) {
         final Optional<Laptop> result = findById(laptop.getId());
-        if (result.isEmpty())
-        return false;
+        if (result.isEmpty()) {
+            return false;
+        }
         final Laptop originLaptop = result.get();
         LaptopCopy.copy(laptop, originLaptop);
         return true;
@@ -69,7 +70,7 @@ public class LaptopRepository implements CrudRepository<Laptop> {
     }
 
     private static class LaptopCopy {
-        private static void copy (final  Laptop from, final Laptop to) {
+        private static void copy(final Laptop from, final Laptop to) {
             to.setCount(from.getCount());
             to.setPrice(from.getPrice());
             to.setTitle(from.getTitle());

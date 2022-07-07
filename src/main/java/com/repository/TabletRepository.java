@@ -30,8 +30,9 @@ public class TabletRepository implements CrudRepository<Tablet> {
     @Override
     public boolean update(Tablet tablet) {
         final Optional<Tablet> result = findById(tablet.getId());
-        if (result.isEmpty())
-        return false;
+        if (result.isEmpty()) {
+            return false;
+        }
         final Tablet originTablet = result.get();
         TabletCopy.copy(tablet, originTablet);
         return true;
@@ -70,8 +71,8 @@ public class TabletRepository implements CrudRepository<Tablet> {
     }
 
 
-    private static class  TabletCopy {
-        private static void copy (final Tablet from, final Tablet to) {
+    private static class TabletCopy {
+        private static void copy(final Tablet from, final Tablet to) {
             to.setCount(from.getCount());
             to.setPrice(from.getPrice());
             to.setTitle(from.getTitle());

@@ -47,7 +47,7 @@ public class TabletService {
     public Tablet createTablet() {
         return new Tablet("Title-" + RANDOM.nextInt(1000),
                 RANDOM.nextInt(500),
-                BigDecimal.valueOf(RANDOM.nextDouble(1000.0)).setScale(2,BigDecimal.ROUND_HALF_DOWN).doubleValue(),
+                RANDOM.nextDouble(10000.0),
                 "Model-" + RANDOM.nextInt(10),
                 getRandomManufacturer());
     }

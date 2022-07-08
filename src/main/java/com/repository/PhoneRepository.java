@@ -1,6 +1,8 @@
 package com.repository;
 
 import com.model.Phone;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -9,6 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class PhoneRepository implements CrudRepository<Phone> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PhoneRepository.class);
+
     private final List<Phone> phones;
 
     public PhoneRepository() {
@@ -16,7 +21,22 @@ public class PhoneRepository implements CrudRepository<Phone> {
     }
 
     public void save(Phone phone) {
+        if (phone == null) {
+            throw new IllegalArgumentException("Cannot save a null phone");
+        } else {
+            checkDuplicates(phone);
+        }
         phones.add(phone);
+    }
+
+    private void checkDuplicates(Phone phone) {
+        for (Phone p: phones) {
+            if (phone.hashCode() == p.hashCode() && phone.equals(p)) {
+                final IllegalArgumentException exception = new IllegalArgumentException("Duplicate phone: " + phone.getId());
+                LOGGER.error(exception.getMessage(), exception);
+                throw exception;
+            }
+        }
     }
 
     @Override

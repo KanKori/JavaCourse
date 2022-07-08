@@ -1,6 +1,8 @@
 package com.repository;
 
 import com.model.Laptop;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -9,15 +11,32 @@ import java.util.List;
 import java.util.Optional;
 
 public class LaptopRepository implements CrudRepository<Laptop> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepository.class);
+
     private final List<Laptop> laptops;
 
     public LaptopRepository() {
         laptops = new LinkedList<>();
     }
 
-    @Override
     public void save(Laptop laptop) {
+        if (laptop == null) {
+            throw new IllegalArgumentException("Cannot save a null laptop");
+        } else {
+            checkDuplicates(laptop);
+        }
         laptops.add(laptop);
+    }
+
+    private void checkDuplicates(Laptop laptop) {
+        for (Laptop l: laptops) {
+            if (laptop.hashCode() == l.hashCode() && laptop.equals(l)) {
+                final IllegalArgumentException exception = new IllegalArgumentException("Duplicate laptop: " + laptop.getId());
+                LOGGER.error(exception.getMessage(), exception);
+                throw exception;
+            }
+        }
     }
 
     public void saveAll(List<Laptop> laptops) {

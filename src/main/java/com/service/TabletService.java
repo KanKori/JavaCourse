@@ -15,7 +15,7 @@ public class TabletService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TabletService.class);
     private static final Random RANDOM = new Random();
     private static final TabletRepository REPOSITORY = new TabletRepository();
-    private final TabletRepository repository;
+    private TabletRepository repository;
 
     public TabletService(TabletRepository repository) {
         this.repository = repository;
@@ -37,7 +37,8 @@ public class TabletService {
             tablets.add(tablet);
             LOGGER.info("Tablet {} has been saved", tablet.getId());
         }
-        repository.saveAll(tablets);
+        REPOSITORY.saveAll(tablets);
+        repository = REPOSITORY;
     }
 
     public void saveTablet(Tablet tablet) {

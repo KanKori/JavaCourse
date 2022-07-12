@@ -2,6 +2,7 @@ package repository;
 
 import com.model.Tablet;
 import com.model.TabletManufacturer;
+import com.repository.PhoneRepository;
 import com.repository.TabletRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TabletRepositoryTest {
 
@@ -158,5 +163,11 @@ public class TabletRepositoryTest {
         Assertions.assertTrue(optionalTablet.isPresent());
         final Tablet actualTablet = optionalTablet.get();
         Assertions.assertEquals(tablet.getId(),actualTablet.getId());
+    }
+
+    @Test
+    void findById_CallingRealMethods() {
+        TabletRepository target = mock(TabletRepository.class);
+        when(target.findById(any())).thenCallRealMethod();
     }
 }

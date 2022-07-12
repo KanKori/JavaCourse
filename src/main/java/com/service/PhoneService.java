@@ -14,7 +14,7 @@ public class PhoneService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PhoneService.class);
     private static final Random RANDOM = new Random();
     private static final PhoneRepository REPOSITORY = new PhoneRepository();
-    private final PhoneRepository repository;
+    private PhoneRepository repository;
 
     public PhoneService(PhoneRepository repository) {
         this.repository = repository;
@@ -36,7 +36,8 @@ public class PhoneService {
             phones.add(phone);
             LOGGER.info("Phone {} has been saved", phone.getId());
         }
-        repository.saveAll(phones);
+        REPOSITORY.saveAll(phones);
+        repository = REPOSITORY;
     }
 
     public void savePhone(Phone phone) {

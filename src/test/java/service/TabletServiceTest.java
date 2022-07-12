@@ -1,6 +1,8 @@
 package service;
 
 import com.model.Tablet;
+import com.model.PhoneManufacturer;
+import com.model.Tablet;
 import com.model.TabletManufacturer;
 import com.repository.TabletRepository;
 import com.service.TabletService;
@@ -9,6 +11,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+
+import java.util.List;
+import java.util.Random;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class TabletServiceTest {
 
@@ -68,5 +77,26 @@ public class TabletServiceTest {
         Mockito.verify(repository).save(argument.capture());
         Assertions.assertEquals("Title", argument.getValue().getTitle());
         Assertions.assertEquals(-1, argument.getValue().getCount());
+    }
+
+    @Test
+    public void saveTablet_verifyTimes() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        target.saveTablet(tablet);
+        ArgumentCaptor<Tablet> phoneArgumentCaptor = ArgumentCaptor.forClass(Tablet.class);
+        verify(repository, times(1)).save(phoneArgumentCaptor.capture());
+        Assertions.assertEquals("Title", phoneArgumentCaptor.getValue().getTitle());
+    }
+
+    @Test
+    public void updateTablet() {
+        target.createAndSaveTablets(2);
+        final List<Tablet> phoneList = target.getAll();
+        final int index = new Random().nextInt(phoneList.size());
+        final Tablet tablet = (repository.findById(phoneList.get(index).getId()).get());
+        final Tablet updatedPhone = target.createTablet();
+        when(repository.findById(tablet.getId()).get()).thenReturn(tablet);
+        target.update(updatedPhone);
+        verify(repository).save(updatedPhone);
     }
 }

@@ -14,7 +14,7 @@ public class LaptopService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LaptopService.class);
     private static final Random RANDOM = new Random();
     private static final LaptopRepository REPOSITORY = new LaptopRepository();
-    private final LaptopRepository repository;
+    private LaptopRepository repository;
 
     public LaptopService(LaptopRepository repository) {
         this.repository = repository;
@@ -36,7 +36,8 @@ public class LaptopService {
             laptops.add(laptop);
             LOGGER.info("Laptop {} has been saved", laptop.getId());
         }
-        repository.saveAll(laptops);
+        REPOSITORY.saveAll(laptops);
+        repository = REPOSITORY;
     }
 
     public void saveLaptop(Laptop laptop) {

@@ -17,16 +17,18 @@ public class PhoneRepository implements CrudRepository<Phone> {
     private final List<Phone> phones;
 
     public PhoneRepository() {
-        phones = new LinkedList<>();
+        this.phones = new LinkedList<>();
     }
 
     public void save(Phone phone) {
         if (phone == null) {
-            throw new IllegalArgumentException("Cannot save a null phone");
+            final IllegalArgumentException exception = new IllegalArgumentException("Cannot save a null phone");
+            LOGGER.error(exception.getMessage(), exception);
+            throw exception;
         } else {
             checkDuplicates(phone);
+            this.phones.add(phone);
         }
-        phones.add(phone);
     }
 
     private void checkDuplicates(Phone phone) {

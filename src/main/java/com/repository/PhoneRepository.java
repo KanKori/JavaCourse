@@ -43,8 +43,8 @@ public class PhoneRepository implements CrudRepository<Phone> {
 
     @Override
     public void saveAll(List<Phone> phones) {
-        for (Phone phone : phones) {
-            save(phone);
+        for (Phone p : phones) {
+            this.save(p);
         }
     }
 

@@ -10,12 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -33,12 +29,12 @@ class PhoneServiceTest {
 
     @Test
     void createAndSavePhones_negativeCount() {
-        Assertions.assertThrows(IllegalArgumentException.class, () ->  target.createAndSavePhones(-1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSavePhones(-1));
     }
 
     @Test
     void createAndSavePhones_zeroCount() {
-        Assertions.assertThrows(IllegalArgumentException.class, () ->  target.createAndSavePhones(0));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSavePhones(0));
     }
 
     @Test
@@ -81,10 +77,9 @@ class PhoneServiceTest {
     }
 
 
-
     @Test
     public void savePhone_verifyTimes() {
-        final Phone phone = new Phone("Title", 100, 1000.0, "Model",PhoneManufacturer.APPLE);
+        final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
         target.savePhone(phone);
         ArgumentCaptor<Phone> phoneArgumentCaptor = ArgumentCaptor.forClass(Phone.class);
         verify(repository, times(1)).save(phoneArgumentCaptor.capture());
@@ -92,14 +87,17 @@ class PhoneServiceTest {
     }
 
     @Test
+    public void deletePhone() {
+        final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
+        target.delete(phone.getId());
+        verify(repository).delete(phone.getId());
+    }
+
+    @Test
     public void updatePhone() {
-        target.createAndSavePhones(2);
-        final List<Phone> phoneList = target.getAll();
-        final int index = new Random().nextInt(phoneList.size());
-        final Phone phone = (repository.findById(phoneList.get(index).getId()).get());
-        final Phone updatedPhone = target.createPhone();
-        when(repository.findById(phone.getId()).get()).thenReturn(phone);
-        target.update(updatedPhone);
-        verify(repository).save(updatedPhone);
+        final Phone phone = target.createPhone();
+        when(repository.findById("")).thenReturn(Optional.of(phone));
+        target.update(phone);
+        verify(repository).update(phone);
     }
 }

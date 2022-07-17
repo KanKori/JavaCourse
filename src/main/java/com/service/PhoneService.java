@@ -36,8 +36,7 @@ public class PhoneService {
             phones.add(phone);
             LOGGER.info("Phone {} has been saved", phone.getId());
         }
-        REPOSITORY.saveAll(phones);
-        repository = REPOSITORY;
+        repository.saveAll(phones);
     }
 
     public void savePhone(Phone phone) {
@@ -63,16 +62,12 @@ public class PhoneService {
         }
     }
 
-    public List<Phone> getFullList() {
-        return REPOSITORY.getAll();
-    }
-
     public boolean delete(String id) {
-        return REPOSITORY.delete(id);
+        return repository.delete(id);
     }
 
     public boolean update(Phone phone) {
-        return REPOSITORY.update(phone);
+        return repository.update(phone);
     }
 
     public Phone createPhone() {

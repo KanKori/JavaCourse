@@ -1,8 +1,6 @@
 package service;
 
 import com.model.Tablet;
-import com.model.PhoneManufacturer;
-import com.model.Tablet;
 import com.model.TabletManufacturer;
 import com.repository.TabletRepository;
 import com.service.TabletService;
@@ -12,8 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import java.util.List;
-import java.util.Random;
+import java.util.Optional;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -32,12 +29,12 @@ public class TabletServiceTest {
 
     @Test
     void createAndSaveTablets_negativeCount() {
-        Assertions.assertThrows(IllegalArgumentException.class, () ->  target.createAndSaveTablets(-1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveTablets(-1));
     }
 
     @Test
     void createAndSaveTablets_zeroCount() {
-        Assertions.assertThrows(IllegalArgumentException.class, () ->  target.createAndSaveTablets(0));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveTablets(0));
     }
 
     @Test
@@ -83,20 +80,23 @@ public class TabletServiceTest {
     public void saveTablet_verifyTimes() {
         final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
         target.saveTablet(tablet);
-        ArgumentCaptor<Tablet> phoneArgumentCaptor = ArgumentCaptor.forClass(Tablet.class);
-        verify(repository, times(1)).save(phoneArgumentCaptor.capture());
-        Assertions.assertEquals("Title", phoneArgumentCaptor.getValue().getTitle());
+        ArgumentCaptor<Tablet> tabletArgumentCaptor = ArgumentCaptor.forClass(Tablet.class);
+        verify(repository, times(1)).save(tabletArgumentCaptor.capture());
+        Assertions.assertEquals("Title", tabletArgumentCaptor.getValue().getTitle());
+    }
+
+    @Test
+    public void deleteTablet() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        target.delete(tablet.getId());
+        verify(repository).delete(tablet.getId());
     }
 
     @Test
     public void updateTablet() {
-        target.createAndSaveTablets(2);
-        final List<Tablet> phoneList = target.getAll();
-        final int index = new Random().nextInt(phoneList.size());
-        final Tablet tablet = (repository.findById(phoneList.get(index).getId()).get());
-        final Tablet updatedPhone = target.createTablet();
-        when(repository.findById(tablet.getId()).get()).thenReturn(tablet);
-        target.update(updatedPhone);
-        verify(repository).save(updatedPhone);
+        final Tablet tablet = target.createTablet();
+        when(repository.findById("")).thenReturn(Optional.of(tablet));
+        target.update(tablet);
+        verify(repository).update(tablet);
     }
 }

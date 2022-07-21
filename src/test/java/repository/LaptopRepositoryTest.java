@@ -3,7 +3,6 @@ package repository;
 import com.model.Laptop;
 import com.model.LaptopManufacturer;
 import com.repository.LaptopRepository;
-import com.repository.PhoneRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,9 +13,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doCallRealMethod;
+import static org.mockito.Mockito.spy;
 
 public class LaptopRepositoryTest {
 
@@ -82,7 +81,7 @@ public class LaptopRepositoryTest {
         final List<Laptop> laptops = new ArrayList<>();
         laptops.add(laptop);
         laptops.add(laptop);
-        Assertions.assertThrows(IllegalArgumentException.class, () ->target.saveAll(laptops));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.saveAll(laptops));
     }
 
     @Test
@@ -162,12 +161,13 @@ public class LaptopRepositoryTest {
         final Optional<Laptop> optionalLaptop = target.findById(laptop.getId());
         Assertions.assertTrue(optionalLaptop.isPresent());
         final Laptop actualLaptop = optionalLaptop.get();
-        Assertions.assertEquals(laptop.getId(),actualLaptop.getId());
+        Assertions.assertEquals(laptop.getId(), actualLaptop.getId());
     }
 
     @Test
     void findById_CallingRealMethods() {
-        LaptopRepository target = mock(LaptopRepository.class);
-        when(target.findById(any())).thenCallRealMethod();
+        LaptopRepository target = spy(LaptopRepository.class);
+        doCallRealMethod().when(target).findById(anyString());
+        target.findById(anyString());
     }
 }

@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doCallRealMethod;
+import static org.mockito.Mockito.spy;
 
 class PhoneRepositoryTest {
 
@@ -157,12 +157,13 @@ class PhoneRepositoryTest {
         final Optional<Phone> optionalPhone = target.findById(phone.getId());
         Assertions.assertTrue(optionalPhone.isPresent());
         final Phone actualPhone = optionalPhone.get();
-        Assertions.assertEquals(phone.getId(),actualPhone.getId());
+        Assertions.assertEquals(phone.getId(), actualPhone.getId());
     }
 
     @Test
     void findById_CallingRealMethods() {
-        PhoneRepository target = mock(PhoneRepository.class);
-        when(target.findById(any())).thenCallRealMethod();
+        PhoneRepository target = spy(PhoneRepository.class);
+        doCallRealMethod().when(target).findById(anyString());
+        target.findById(anyString());
     }
 }

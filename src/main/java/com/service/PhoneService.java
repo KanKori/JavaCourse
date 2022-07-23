@@ -87,7 +87,15 @@ public class PhoneService {
                 () -> savePhone(phone));
     }
 
-    public Phone findByIdOrGetRandom (String id) {
+    public Phone findByIdOrElseRandom (String id) {
         return repository.findById(id).orElse(repository.getRandomPhone());
+    }
+
+    public Phone findByIdOrElseGetRandom (String id) {
+        return repository.findById(id).orElseGet(repository::getRandomPhone);
+    }
+
+    public Phone findByIdOrElseThrow (String id) {
+        return repository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 }

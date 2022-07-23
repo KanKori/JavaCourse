@@ -89,8 +89,15 @@ public class TabletService {
                 () -> saveTablet(tablet));
     }
 
-    public Tablet findByIdOrGetRandom (String id) {
+    public Tablet findByIdOrElseRandom (String id) {
         return repository.findById(id).orElse(repository.getRandomTablet());
     }
 
+    public Tablet findByIdOrElseGetRandom (String id) {
+        return repository.findById(id).orElseGet(repository::getRandomTablet);
+    }
+
+    public Tablet findByIdOrElseThrow (String id) {
+        return repository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
 }

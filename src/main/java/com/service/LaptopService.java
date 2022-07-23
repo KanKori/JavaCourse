@@ -87,7 +87,15 @@ public class LaptopService {
                 () -> saveLaptop(laptop));
     }
 
-    public Laptop findByIdOrGetRandom (String id) {
+    public Laptop findByIdOrElseRandom (String id) {
         return repository.findById(id).orElse(repository.getRandomLaptop());
+    }
+
+    public Laptop findByIdOrElseGetRandom (String id) {
+        return repository.findById(id).orElseGet(repository::getRandomLaptop);
+    }
+
+    public Laptop findByIdOrElseThrow (String id) {
+        return  repository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 }

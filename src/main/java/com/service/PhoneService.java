@@ -1,6 +1,5 @@
 package com.service;
 
-import com.model.Laptop;
 import com.model.PhoneManufacturer;
 import com.model.Phone;
 import com.repository.PhoneRepository;
@@ -97,5 +96,12 @@ public class PhoneService {
 
     public Phone findByIdOrElseThrow (String id) {
         return repository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
+
+    public void deletePhoneFindByIdIfManufacturerApple (String id) {
+        repository.findById(id)
+                .filter(checkingPhone -> checkingPhone.getPhoneManufacturer().equals(PhoneManufacturer.APPLE))
+                .ifPresentOrElse(checkedPhone -> repository.delete(checkedPhone.getId()),
+                        () -> System.out.println("no one Apple Phone founded"));
     }
 }

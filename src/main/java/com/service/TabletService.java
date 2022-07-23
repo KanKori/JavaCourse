@@ -1,7 +1,5 @@
 package com.service;
 
-import com.model.Laptop;
-import com.model.Tablet;
 import com.model.Tablet;
 import com.model.TabletManufacturer;
 import com.repository.TabletRepository;
@@ -99,5 +97,12 @@ public class TabletService {
 
     public Tablet findByIdOrElseThrow (String id) {
         return repository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
+
+    public void deleteTabletFindByIdIfManufacturerGoogle (String id) {
+        repository.findById(id)
+                .filter(checkingTablet -> checkingTablet.getTabletManufacturer().equals(TabletManufacturer.GOOGLE))
+                .ifPresentOrElse(checkedTablet -> repository.delete(checkedTablet.getId()),
+                        () -> System.out.println("no one Google tablet founded"));
     }
 }

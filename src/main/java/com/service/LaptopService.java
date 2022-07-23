@@ -98,4 +98,11 @@ public class LaptopService {
     public Laptop findByIdOrElseThrow (String id) {
         return  repository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
+
+    public void deleteLaptopFindByIdIfManufacturerLenovo (String id) {
+        repository.findById(id)
+                .filter(checkingLaptop -> checkingLaptop.getLaptopManufacturer().equals(LaptopManufacturer.LENOVO))
+                .ifPresentOrElse(checkedLaptop -> repository.delete(checkedLaptop.getId()),
+                        () -> System.out.println("no one Lenovo Laptop founded"));
+    }
 }

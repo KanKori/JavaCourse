@@ -3,6 +3,7 @@ package com.service;
 import com.model.Laptop;
 import com.model.LaptopManufacturer;
 import com.model.Laptop;
+import com.model.Tablet;
 import com.repository.LaptopRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ public class LaptopService {
         this.repository = repository;
     }
 
-    public void createAndSaveLaptops (int count) {
+    public void createAndSaveLaptops(int count) {
         if (count < 1) {
             throw new IllegalArgumentException("count must been bigger then 0");
         }
@@ -47,6 +48,7 @@ public class LaptopService {
                 "Model-" + RANDOM.nextInt(10),
                 getRandomManufacturer());
     }
+
     public void saveLaptop(Laptop laptop) {
         if (laptop.getCount() == 0) {
             laptop.setCount(-1);
@@ -82,32 +84,37 @@ public class LaptopService {
         repository.findById(id).ifPresent(laptop -> repository.delete(id));
     }
 
-    public void updateIfPresentOrElseSaveNew (Laptop laptop) {
+    public void updateIfPresentOrElseSaveNew(Laptop laptop) {
         repository.findById(laptop.getId()).ifPresentOrElse(
                 updateLaptop -> repository.update(laptop),
                 () -> saveLaptop(laptop));
     }
 
-    public Laptop findByIdOrElseRandom (String id) {
+    public Laptop findByIdOrElseRandom(String id) {
         return repository.findById(id).orElse(repository.getRandomLaptop());
     }
 
-    public Laptop findByIdOrElseGetRandom (String id) {
+    public Laptop findByIdOrElseGetRandom(String id) {
         return repository.findById(id).orElseGet(repository::getRandomLaptop);
     }
 
-    public Laptop findByIdOrElseThrow (String id) {
-        return  repository.findById(id).orElseThrow(IllegalArgumentException::new);
+    public Laptop findByIdOrElseThrow(String id) {
+        return repository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
-    public void deleteLaptopFindByIdIfManufacturerLenovo (String id) {
+    public void deleteLaptopFindByIdIfManufacturerLenovo(String id) {
         repository.findById(id)
                 .filter(checkingLaptop -> checkingLaptop.getLaptopManufacturer().equals(LaptopManufacturer.LENOVO))
                 .ifPresentOrElse(checkedLaptop -> repository.delete(checkedLaptop.getId()),
                         () -> System.out.println("no one Lenovo Laptop founded"));
     }
 
-    public Optional<Laptop> findByIdOrGetAny (Laptop laptop) {
+    public Optional<Laptop> findByIdOrGetAny(Laptop laptop) {
         return repository.findById(laptop.getId()).or(() -> repository.getAll().stream().findAny());
+    }
+
+    public String mapFromLaptopToString(Laptop laptop) {
+        return repository.findById(laptop.getId()).map(Laptop::toString).orElse("Not found" + " " + laptop.getId());
+
     }
 }

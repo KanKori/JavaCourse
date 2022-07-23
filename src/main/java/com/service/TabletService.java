@@ -2,6 +2,7 @@ package com.service;
 
 import com.model.Tablet;
 import com.model.Tablet;
+import com.model.Tablet;
 import com.model.TabletManufacturer;
 import com.repository.TabletRepository;
 import org.slf4j.Logger;
@@ -110,5 +111,10 @@ public class TabletService {
 
     public Optional<Tablet> findByIdOrGetAny (Tablet tablet) {
         return repository.findById(tablet.getId()).or(() -> repository.getAll().stream().findAny());
+    }
+
+    public String mapFromTabletToString (Tablet tablet) {
+        return repository.findById(tablet.getId()).map(Tablet::toString).orElse("Not found" + " " + tablet.getId());
+
     }
 }

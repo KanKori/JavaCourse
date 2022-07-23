@@ -109,4 +109,8 @@ public class PhoneService {
     public Optional<Phone> findByIdOrGetAny (Phone phone) {
         return repository.findById(phone.getId()).or(() -> repository.getAll().stream().findAny());
     }
+
+    public String mapFromPhoneToString (Phone phone) {
+        return repository.findById(phone.getId()).map(Phone::toString).orElse("Not found" + " " + phone.getId());
+    }
 }

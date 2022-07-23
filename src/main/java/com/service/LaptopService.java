@@ -2,6 +2,7 @@ package com.service;
 
 import com.model.Laptop;
 import com.model.LaptopManufacturer;
+import com.model.Laptop;
 import com.repository.LaptopRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,5 +105,9 @@ public class LaptopService {
                 .filter(checkingLaptop -> checkingLaptop.getLaptopManufacturer().equals(LaptopManufacturer.LENOVO))
                 .ifPresentOrElse(checkedLaptop -> repository.delete(checkedLaptop.getId()),
                         () -> System.out.println("no one Lenovo Laptop founded"));
+    }
+
+    public Optional<Laptop> findByIdOrGetAny (Laptop laptop) {
+        return repository.findById(laptop.getId()).or(() -> repository.getAll().stream().findAny());
     }
 }

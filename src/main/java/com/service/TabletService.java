@@ -1,6 +1,7 @@
 package com.service;
 
 import com.model.Tablet;
+import com.model.Tablet;
 import com.model.TabletManufacturer;
 import com.repository.TabletRepository;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class TabletService {
@@ -104,5 +106,9 @@ public class TabletService {
                 .filter(checkingTablet -> checkingTablet.getTabletManufacturer().equals(TabletManufacturer.GOOGLE))
                 .ifPresentOrElse(checkedTablet -> repository.delete(checkedTablet.getId()),
                         () -> System.out.println("no one Google tablet founded"));
+    }
+
+    public Optional<Tablet> findByIdOrGetAny (Tablet tablet) {
+        return repository.findById(tablet.getId()).or(() -> repository.getAll().stream().findAny());
     }
 }

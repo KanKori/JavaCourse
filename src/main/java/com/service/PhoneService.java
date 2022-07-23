@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class PhoneService {
@@ -103,5 +104,9 @@ public class PhoneService {
                 .filter(checkingPhone -> checkingPhone.getPhoneManufacturer().equals(PhoneManufacturer.APPLE))
                 .ifPresentOrElse(checkedPhone -> repository.delete(checkedPhone.getId()),
                         () -> System.out.println("no one Apple Phone founded"));
+    }
+
+    public Optional<Phone> findByIdOrGetAny (Phone phone) {
+        return repository.findById(phone.getId()).or(() -> repository.getAll().stream().findAny());
     }
 }

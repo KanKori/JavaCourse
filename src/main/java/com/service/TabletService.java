@@ -1,5 +1,6 @@
 package com.service;
 
+import com.model.Laptop;
 import com.model.Tablet;
 import com.model.Tablet;
 import com.model.TabletManufacturer;
@@ -14,8 +15,7 @@ import java.util.Random;
 public class TabletService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TabletService.class);
     private static final Random RANDOM = new Random();
-    private static final TabletRepository REPOSITORY = new TabletRepository();
-    private TabletRepository repository;
+    private final TabletRepository repository;
 
     public TabletService(TabletRepository repository) {
         this.repository = repository;
@@ -37,8 +37,15 @@ public class TabletService {
             tablets.add(tablet);
             LOGGER.info("Tablet {} has been saved", tablet.getId());
         }
-        REPOSITORY.saveAll(tablets);
-        repository = REPOSITORY;
+        repository.saveAll(tablets);
+    }
+
+    public Tablet createTablet() {
+        return new Tablet("Title-" + RANDOM.nextInt(1000),
+                RANDOM.nextInt(500),
+                RANDOM.nextDouble(10000.0),
+                "Model-" + RANDOM.nextInt(10),
+                getRandomManufacturer());
     }
 
     public void saveTablet(Tablet tablet) {
@@ -65,10 +72,25 @@ public class TabletService {
     }
 
     public boolean delete(String id) {
-        return REPOSITORY.delete(id);
+        return repository.delete(id);
     }
 
     public boolean update(Tablet tablet) {
-        return REPOSITORY.update(tablet);
+        return repository.update(tablet);
     }
+
+    public void deleteIfPresent(String id) {
+        repository.findById(id).ifPresent(tablet -> repository.delete(id));
+    }
+
+    public void updateIfPresentOrElseSaveNew (Tablet tablet) {
+        repository.findById(tablet.getId()).ifPresentOrElse(
+                updateLaptop -> repository.update(tablet),
+                () -> saveTablet(tablet));
+    }
+
+    public Tablet findByIdOrGetRandom (String id) {
+        return repository.findById(id).orElse(repository.getRandomTablet());
+    }
+
 }

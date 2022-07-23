@@ -9,10 +9,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public class LaptopRepository implements CrudRepository<Laptop> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepository.class);
+    private static final Random RANDOM = new Random();
 
     private final List<Laptop> laptops;
 
@@ -75,6 +77,10 @@ public class LaptopRepository implements CrudRepository<Laptop> {
             return Collections.emptyList();
         }
         return laptops;
+    }
+
+    public Laptop getRandomLaptop() {
+        return laptops.get(RANDOM.nextInt(laptops.size()));
     }
 
     @Override

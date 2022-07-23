@@ -1,5 +1,6 @@
 package com.service;
 
+import com.model.Laptop;
 import com.model.PhoneManufacturer;
 import com.model.Phone;
 import com.repository.PhoneRepository;
@@ -13,8 +14,7 @@ import java.util.Random;
 public class PhoneService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PhoneService.class);
     private static final Random RANDOM = new Random();
-    private static final PhoneRepository REPOSITORY = new PhoneRepository();
-    private PhoneRepository repository;
+    private final PhoneRepository repository;
 
     public PhoneService(PhoneRepository repository) {
         this.repository = repository;
@@ -39,6 +39,13 @@ public class PhoneService {
         repository.saveAll(phones);
     }
 
+    public Phone createPhone() {
+        return new Phone("Title-" + RANDOM.nextInt(1000),
+                RANDOM.nextInt(500),
+                RANDOM.nextDouble(10000.0),
+                "Model-" + RANDOM.nextInt(10),
+                getRandomManufacturer());
+    }
     public void savePhone(Phone phone) {
         if (phone.getCount() == 0) {
             phone.setCount(-1);
@@ -68,5 +75,19 @@ public class PhoneService {
 
     public boolean update(Phone phone) {
         return repository.update(phone);
+    }
+
+    public void deleteIfPresent(String id) {
+            repository.findById(id).ifPresent(phone -> repository.delete(id));
+    }
+
+    public void updateIfPresentOrElseSaveNew (Phone phone) {
+        repository.findById(phone.getId()).ifPresentOrElse(
+                updateLaptop -> repository.update(phone),
+                () -> savePhone(phone));
+    }
+
+    public Phone findByIdOrGetRandom (String id) {
+        return repository.findById(id).orElse(repository.getRandomPhone());
     }
 }

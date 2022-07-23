@@ -75,12 +75,4 @@ public class TabletService {
     public boolean update(Tablet tablet) {
         return REPOSITORY.update(tablet);
     }
-
-    public Tablet createTablet() {
-        return new Tablet("Title-" + RANDOM.nextInt(1000),
-                RANDOM.nextInt(500),
-                RANDOM.nextDouble(10000.0),
-                "Model-" + RANDOM.nextInt(10),
-                getRandomManufacturer());
-    }
 }

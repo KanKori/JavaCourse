@@ -64,10 +64,6 @@ public class TabletService {
         }
     }
 
-    public List<Tablet> getFullList() {
-        return REPOSITORY.getAll();
-    }
-
     public boolean delete(String id) {
         return REPOSITORY.delete(id);
     }

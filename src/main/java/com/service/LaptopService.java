@@ -63,10 +63,6 @@ public class LaptopService {
         }
     }
 
-    public List<Laptop> getFullList() {
-        return REPOSITORY.getAll();
-    }
-
     public boolean delete(String id) {
         return REPOSITORY.delete(id);
     }

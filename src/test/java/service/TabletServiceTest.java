@@ -139,4 +139,11 @@ public class TabletServiceTest {
         target.findByIdOrElseRandom(tablet.getId());
         verify(repository).getRandomTablet();
     }
+
+    @Test
+    public void findByIdOrElseGetRandom() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        target.findByIdOrElseGetRandom(tablet.getId());
+        verify(repository).getRandomTablet();
+    }
 }

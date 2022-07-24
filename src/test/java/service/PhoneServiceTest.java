@@ -138,4 +138,11 @@ class PhoneServiceTest {
         target.findByIdOrElseRandom(phone.getId());
         verify(repository).getRandomPhone();
     }
+
+    @Test
+    public void findByIdOrElseGetRandom() {
+        final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
+        target.findByIdOrElseGetRandom(phone.getId());
+        verify(repository).getRandomPhone();
+    }
 }

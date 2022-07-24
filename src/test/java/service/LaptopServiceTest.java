@@ -143,4 +143,11 @@ public class LaptopServiceTest {
         target.findByIdOrElseRandom(laptop.getId());
         verify(repository).getRandomLaptop();
     }
+
+    @Test
+    public void findByIdOrElseGetRandom() {
+        final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
+        target.findByIdOrElseGetRandom(laptop.getId());
+        verify(repository).getRandomLaptop();
+    }
 }

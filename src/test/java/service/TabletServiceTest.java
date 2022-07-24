@@ -2,6 +2,8 @@ package service;
 
 import com.model.Tablet;
 import com.model.TabletManufacturer;
+import com.model.Tablet;
+import com.model.TabletManufacturer;
 import com.repository.TabletRepository;
 import com.service.TabletService;
 import org.junit.jupiter.api.Assertions;
@@ -129,5 +131,12 @@ public class TabletServiceTest {
         final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
         target.updateIfPresentOrElseSaveNew(tablet);
         verify(repository).save(tablet);
+    }
+
+    @Test
+    public void findByIdOrElseRandom() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        target.findByIdOrElseRandom(tablet.getId());
+        verify(repository).getRandomTablet();
     }
 }

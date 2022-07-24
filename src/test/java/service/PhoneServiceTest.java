@@ -131,4 +131,11 @@ class PhoneServiceTest {
         target.updateIfPresentOrElseSaveNew(phone);
         verify(repository).save(phone);
     }
+
+    @Test
+    public void findByIdOrElseRandom() {
+        final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
+        target.findByIdOrElseRandom(phone.getId());
+        verify(repository).getRandomPhone();
+    }
 }

@@ -5,6 +5,8 @@ import com.model.LaptopManufacturer;
 import com.model.Laptop;
 import com.model.Laptop;
 import com.model.LaptopManufacturer;
+import com.model.Laptop;
+import com.model.LaptopManufacturer;
 import com.repository.LaptopRepository;
 import com.service.LaptopService;
 import com.service.LaptopService;
@@ -133,5 +135,12 @@ public class LaptopServiceTest {
         final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
         target.updateIfPresentOrElseSaveNew(laptop);
         verify(repository).save(laptop);
+    }
+
+    @Test
+    public void findByIdOrElseRandom() {
+        final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
+        target.findByIdOrElseRandom(laptop.getId());
+        verify(repository).getRandomLaptop();
     }
 }

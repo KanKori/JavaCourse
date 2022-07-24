@@ -150,4 +150,11 @@ public class LaptopServiceTest {
         target.findByIdOrElseGetRandom(laptop.getId());
         verify(repository).getRandomLaptop();
     }
+
+    @Test
+    public void findByIdOrElseThrow() {
+        String incorrectId = "x";
+        when(repository.findById(incorrectId)).thenThrow(IllegalArgumentException.class);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.findByIdOrElseThrow("incorrectId"));
+    }
 }

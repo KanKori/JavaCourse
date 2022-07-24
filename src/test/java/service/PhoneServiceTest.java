@@ -145,4 +145,11 @@ class PhoneServiceTest {
         target.findByIdOrElseGetRandom(phone.getId());
         verify(repository).getRandomPhone();
     }
+
+    @Test
+    public void findByIdOrElseThrow() {
+        String incorrectId = "x";
+        when(repository.findById(incorrectId)).thenThrow(IllegalArgumentException.class);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.findByIdOrElseThrow("incorrectId"));
+    }
 }

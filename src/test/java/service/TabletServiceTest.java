@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -174,5 +175,18 @@ public class TabletServiceTest {
         when(repository.findById(anyString())).thenReturn(Optional.of(tablet));
         target.findByIdOrGetAny(tablet);
         assertEquals(target.findByIdOrGetAny(tablet), Optional.of(tablet));
+    }
+
+    @Test
+    public void mapFromTabletToString() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        when(repository.findById(anyString())).thenReturn(Optional.of(tablet));
+        assertEquals(target.mapFromTabletToString(tablet), tablet.toString());
+    }
+
+    @Test
+    public void mapFromTabletToString_null() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        assertNotEquals(target.mapFromTabletToString(tablet), null);
     }
 }

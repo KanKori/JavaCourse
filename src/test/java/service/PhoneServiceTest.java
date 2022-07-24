@@ -1,7 +1,7 @@
 package service;
 
-import com.model.PhoneManufacturer;
 import com.model.Phone;
+import com.model.PhoneManufacturer;
 import com.repository.PhoneRepository;
 import com.service.PhoneService;
 import org.junit.jupiter.api.Assertions;
@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -175,5 +176,19 @@ class PhoneServiceTest {
         when(repository.findById(anyString())).thenReturn(Optional.of(phone));
         target.findByIdOrGetAny(phone);
         assertEquals(target.findByIdOrGetAny(phone), Optional.of(phone));
+    }
+
+    @Test
+    public void mapFromPhoneToString() {
+        final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
+        when(repository.findById(anyString())).thenReturn(Optional.of(phone));
+        assertEquals(target.mapFromPhoneToString(phone), phone.toString());
+    }
+
+    @Test
+    public void mapFromPhoneToString_null() {
+        final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
+        when(repository.findById(anyString())).thenReturn(Optional.of(phone));
+        assertNotEquals(target.mapFromPhoneToString(phone), null);
     }
 }

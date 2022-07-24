@@ -2,8 +2,6 @@ package service;
 
 import com.model.Tablet;
 import com.model.TabletManufacturer;
-import com.model.Tablet;
-import com.model.TabletManufacturer;
 import com.repository.TabletRepository;
 import com.service.TabletService;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +12,7 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -167,5 +166,13 @@ public class TabletServiceTest {
         final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
         target.deleteTabletFindByIdIfManufacturerGoogle(tablet.getId());
         verify(repository, times(0)).delete(tablet.getId());
+    }
+
+    @Test
+    public void findByIdOrGetAny() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        when(repository.findById(anyString())).thenReturn(Optional.of(tablet));
+        target.findByIdOrGetAny(tablet);
+        assertEquals(target.findByIdOrGetAny(tablet), Optional.of(tablet));
     }
 }

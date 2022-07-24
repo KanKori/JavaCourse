@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -63,7 +64,7 @@ class PhoneServiceTest {
 
         ArgumentCaptor<Phone> argument = ArgumentCaptor.forClass(Phone.class);
         Mockito.verify(repository).save(argument.capture());
-        Assertions.assertEquals("Title", argument.getValue().getTitle());
+        assertEquals("Title", argument.getValue().getTitle());
     }
 
     @Test
@@ -73,8 +74,8 @@ class PhoneServiceTest {
 
         ArgumentCaptor<Phone> argument = ArgumentCaptor.forClass(Phone.class);
         Mockito.verify(repository).save(argument.capture());
-        Assertions.assertEquals("Title", argument.getValue().getTitle());
-        Assertions.assertEquals(-1, argument.getValue().getCount());
+        assertEquals("Title", argument.getValue().getTitle());
+        assertEquals(-1, argument.getValue().getCount());
     }
 
 
@@ -84,7 +85,7 @@ class PhoneServiceTest {
         target.savePhone(phone);
         ArgumentCaptor<Phone> phoneArgumentCaptor = ArgumentCaptor.forClass(Phone.class);
         verify(repository, times(1)).save(phoneArgumentCaptor.capture());
-        Assertions.assertEquals("Title", phoneArgumentCaptor.getValue().getTitle());
+        assertEquals("Title", phoneArgumentCaptor.getValue().getTitle());
     }
 
     @Test
@@ -166,5 +167,13 @@ class PhoneServiceTest {
         final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.SAMSUNG);
         target.deletePhoneFindByIdIfManufacturerApple(phone.getId());
         verify(repository, times(0)).delete(phone.getId());
+    }
+
+    @Test
+    public void findByIdOrGetAny() {
+        final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
+        when(repository.findById(anyString())).thenReturn(Optional.of(phone));
+        target.findByIdOrGetAny(phone);
+        assertEquals(target.findByIdOrGetAny(phone), Optional.of(phone));
     }
 }

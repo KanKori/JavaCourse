@@ -2,13 +2,7 @@ package service;
 
 import com.model.Laptop;
 import com.model.LaptopManufacturer;
-import com.model.Laptop;
-import com.model.Laptop;
-import com.model.LaptopManufacturer;
-import com.model.Laptop;
-import com.model.LaptopManufacturer;
 import com.repository.LaptopRepository;
-import com.service.LaptopService;
 import com.service.LaptopService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +12,7 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -171,5 +166,13 @@ public class LaptopServiceTest {
         final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
         target.deleteLaptopFindByIdIfManufacturerLenovo(laptop.getId());
         verify(repository, times(0)).delete(laptop.getId());
+    }
+
+    @Test
+    public void findByIdOrGetAny() {
+        final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
+        when(repository.findById(anyString())).thenReturn(Optional.of(laptop));
+        target.findByIdOrGetAny(laptop);
+        assertEquals(target.findByIdOrGetAny(laptop), Optional.of(laptop));
     }
 }

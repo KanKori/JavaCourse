@@ -153,4 +153,19 @@ public class TabletServiceTest {
         when(repository.findById(incorrectId)).thenThrow(IllegalArgumentException.class);
         Assertions.assertThrows(IllegalArgumentException.class, () -> target.findByIdOrElseThrow("incorrectId"));
     }
+
+    @Test
+    public void deleteTabletFindByIdIfManufacturerGoogle() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.GOOGLE);
+        when(repository.findById(anyString())).thenReturn(Optional.of(tablet));
+        target.deleteTabletFindByIdIfManufacturerGoogle(tablet.getId());
+        verify(repository).delete(tablet.getId());
+    }
+
+    @Test
+    public void deleteTabletFindByIdIfManufacturerGoogle_notGoogle() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        target.deleteTabletFindByIdIfManufacturerGoogle(tablet.getId());
+        verify(repository, times(0)).delete(tablet.getId());
+    }
 }

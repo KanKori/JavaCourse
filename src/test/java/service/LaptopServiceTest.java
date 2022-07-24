@@ -157,4 +157,19 @@ public class LaptopServiceTest {
         when(repository.findById(incorrectId)).thenThrow(IllegalArgumentException.class);
         Assertions.assertThrows(IllegalArgumentException.class, () -> target.findByIdOrElseThrow("incorrectId"));
     }
+
+    @Test
+    public void deleteLaptopFindByIdIfManufacturerLenovo() {
+        final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
+        when(repository.findById(anyString())).thenReturn(Optional.of(laptop));
+        target.deleteLaptopFindByIdIfManufacturerLenovo(laptop.getId());
+        verify(repository).delete(laptop.getId());
+    }
+
+    @Test
+    public void deleteLaptopFindByIdIfManufacturerLenovo_notLenovo() {
+        final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
+        target.deleteLaptopFindByIdIfManufacturerLenovo(laptop.getId());
+        verify(repository, times(0)).delete(laptop.getId());
+    }
 }

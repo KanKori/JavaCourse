@@ -152,4 +152,19 @@ class PhoneServiceTest {
         when(repository.findById(incorrectId)).thenThrow(IllegalArgumentException.class);
         Assertions.assertThrows(IllegalArgumentException.class, () -> target.findByIdOrElseThrow("incorrectId"));
     }
+
+    @Test
+    public void deletePhoneFindByIdIfManufacturerApple() {
+        final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
+        when(repository.findById(anyString())).thenReturn(Optional.of(phone));
+        target.deletePhoneFindByIdIfManufacturerApple(phone.getId());
+        verify(repository).delete(phone.getId());
+    }
+
+    @Test
+    public void deletePhoneFindByIdIfManufacturerApple_notApple() {
+        final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.SAMSUNG);
+        target.deletePhoneFindByIdIfManufacturerApple(phone.getId());
+        verify(repository, times(0)).delete(phone.getId());
+    }
 }

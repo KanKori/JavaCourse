@@ -2,8 +2,6 @@ package com.service;
 
 import com.model.Laptop;
 import com.model.LaptopManufacturer;
-import com.model.Laptop;
-import com.model.Tablet;
 import com.repository.LaptopRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

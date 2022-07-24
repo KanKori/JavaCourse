@@ -1,8 +1,6 @@
 package com.service;
 
 import com.model.Tablet;
-import com.model.Tablet;
-import com.model.Tablet;
 import com.model.TabletManufacturer;
 import com.repository.TabletRepository;
 import org.slf4j.Logger;

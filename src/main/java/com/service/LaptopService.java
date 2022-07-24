@@ -87,7 +87,7 @@ public class LaptopService {
     public void updateIfPresentOrElseSaveNew(Laptop laptop) {
         repository.findById(laptop.getId()).ifPresentOrElse(
                 updateLaptop -> repository.update(laptop),
-                () -> saveLaptop(laptop));
+                () -> repository.save(laptop));
     }
 
     public Laptop findByIdOrElseRandom(String id) {

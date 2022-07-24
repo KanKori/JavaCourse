@@ -84,7 +84,7 @@ public class PhoneService {
     public void updateIfPresentOrElseSaveNew (Phone phone) {
         repository.findById(phone.getId()).ifPresentOrElse(
                 updateLaptop -> repository.update(phone),
-                () -> savePhone(phone));
+                () -> repository.save(phone));
     }
 
     public Phone findByIdOrElseRandom (String id) {

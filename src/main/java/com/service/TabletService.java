@@ -87,7 +87,7 @@ public class TabletService {
     public void updateIfPresentOrElseSaveNew (Tablet tablet) {
         repository.findById(tablet.getId()).ifPresentOrElse(
                 updateLaptop -> repository.update(tablet),
-                () -> saveTablet(tablet));
+                () -> repository.save(tablet));
     }
 
     public Tablet findByIdOrElseRandom (String id) {

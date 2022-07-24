@@ -4,6 +4,8 @@ import com.model.Tablet;
 import com.model.TabletManufacturer;
 import com.model.Tablet;
 import com.model.TabletManufacturer;
+import com.model.Tablet;
+import com.model.TabletManufacturer;
 import com.repository.TabletRepository;
 import com.service.TabletService;
 import com.service.TabletService;
@@ -117,5 +119,20 @@ public class TabletServiceTest {
         final String ghostId = target.createTablet().getId();
         target.deleteIfPresent(ghostId);
         verify(repository, times(0)).delete(ghostId);
+    }
+
+    @Test
+    public void updateIfPresent() {
+        final Tablet tablet = target.createTablet();
+        when(repository.findById(tablet.getId())).thenReturn(Optional.of(tablet));
+        target.updateIfPresentOrElseSaveNew(tablet);
+        verify(repository).update(tablet);
+    }
+
+    @Test
+    public void updateOrElseSaveNew() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        target.updateIfPresentOrElseSaveNew(tablet);
+        verify(repository).save(tablet);
     }
 }

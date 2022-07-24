@@ -118,7 +118,17 @@ class PhoneServiceTest {
     }
 
     @Test
-    public void updateIfPresentOrElseSaveNew() {
+    public void updateIfPresent() {
+        final Phone phone = target.createPhone();
+        when(repository.findById(phone.getId())).thenReturn(Optional.of(phone));
+        target.updateIfPresentOrElseSaveNew(phone);
+        verify(repository).update(phone);
+    }
 
+    @Test
+    public void updateOrElseSaveNew() {
+        final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
+        target.updateIfPresentOrElseSaveNew(phone);
+        verify(repository).save(phone);
     }
 }

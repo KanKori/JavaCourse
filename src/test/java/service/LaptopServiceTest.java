@@ -3,10 +3,11 @@ package service;
 import com.model.Laptop;
 import com.model.LaptopManufacturer;
 import com.model.Laptop;
-import com.model.PhoneManufacturer;
+import com.model.Laptop;
+import com.model.LaptopManufacturer;
 import com.repository.LaptopRepository;
 import com.service.LaptopService;
-import com.service.PhoneService;
+import com.service.LaptopService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -117,5 +118,20 @@ public class LaptopServiceTest {
         final String ghostId = target.createLaptop().getId();
         target.deleteIfPresent(ghostId);
         verify(repository, times(0)).delete(ghostId);
+    }
+
+    @Test
+    public void updateIfPresent() {
+        final Laptop laptop = target.createLaptop();
+        when(repository.findById(laptop.getId())).thenReturn(Optional.of(laptop));
+        target.updateIfPresentOrElseSaveNew(laptop);
+        verify(repository).update(laptop);
+    }
+
+    @Test
+    public void updateOrElseSaveNew() {
+        final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
+        target.updateIfPresentOrElseSaveNew(laptop);
+        verify(repository).save(laptop);
     }
 }

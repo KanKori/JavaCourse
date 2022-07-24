@@ -2,8 +2,11 @@ package service;
 
 import com.model.Laptop;
 import com.model.LaptopManufacturer;
+import com.model.Laptop;
+import com.model.PhoneManufacturer;
 import com.repository.LaptopRepository;
 import com.service.LaptopService;
+import com.service.PhoneService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +15,7 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -98,5 +102,20 @@ public class LaptopServiceTest {
         when(repository.findById("")).thenReturn(Optional.of(laptop));
         target.update(laptop);
         verify(repository).update(laptop);
+    }
+
+    @Test
+    public void deleteIfPresent() {
+        final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
+        when(repository.findById(anyString())).thenReturn(Optional.of(laptop));
+        target.deleteIfPresent(laptop.getId());
+        verify(repository).delete(laptop.getId());
+    }
+
+    @Test
+    public void doNotDeleteIfMissing() {
+        final String ghostId = target.createLaptop().getId();
+        target.deleteIfPresent(ghostId);
+        verify(repository, times(0)).delete(ghostId);
     }
 }

@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -99,5 +100,25 @@ class PhoneServiceTest {
         when(repository.findById("")).thenReturn(Optional.of(phone));
         target.update(phone);
         verify(repository).update(phone);
+    }
+
+    @Test
+    public void deleteIfPresent() {
+        final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
+        when(repository.findById(anyString())).thenReturn(Optional.of(phone));
+        target.deleteIfPresent(phone.getId());
+        verify(repository).delete(phone.getId());
+    }
+
+    @Test
+    public void doNotDeleteIfMissing() {
+        final String ghostId = target.createPhone().getId();
+        target.deleteIfPresent(ghostId);
+        verify(repository, times(0)).delete(ghostId);
+    }
+
+    @Test
+    public void updateIfPresentOrElseSaveNew() {
+
     }
 }

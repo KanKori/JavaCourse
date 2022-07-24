@@ -2,7 +2,10 @@ package service;
 
 import com.model.Tablet;
 import com.model.TabletManufacturer;
+import com.model.Tablet;
+import com.model.TabletManufacturer;
 import com.repository.TabletRepository;
+import com.service.TabletService;
 import com.service.TabletService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +15,7 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -98,5 +102,20 @@ public class TabletServiceTest {
         when(repository.findById("")).thenReturn(Optional.of(tablet));
         target.update(tablet);
         verify(repository).update(tablet);
+    }
+
+    @Test
+    public void deleteIfPresent() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        when(repository.findById(anyString())).thenReturn(Optional.of(tablet));
+        target.deleteIfPresent(tablet.getId());
+        verify(repository).delete(tablet.getId());
+    }
+
+    @Test
+    public void doNotDeleteIfMissing() {
+        final String ghostId = target.createTablet().getId();
+        target.deleteIfPresent(ghostId);
+        verify(repository, times(0)).delete(ghostId);
     }
 }

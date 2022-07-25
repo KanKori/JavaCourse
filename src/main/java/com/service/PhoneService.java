@@ -8,13 +8,13 @@ import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class PhoneService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PhoneService.class);
     private static final Random RANDOM = new Random();
-    private static final PhoneRepository REPOSITORY = new PhoneRepository();
-    private PhoneRepository repository;
+    private final PhoneRepository repository;
 
     public PhoneService(PhoneRepository repository) {
         this.repository = repository;
@@ -39,6 +39,13 @@ public class PhoneService {
         repository.saveAll(phones);
     }
 
+    public Phone createPhone() {
+        return new Phone("Title-" + RANDOM.nextInt(1000),
+                RANDOM.nextInt(500),
+                RANDOM.nextDouble(10000.0),
+                "Model-" + RANDOM.nextInt(10),
+                getRandomManufacturer());
+    }
     public void savePhone(Phone phone) {
         if (phone.getCount() == 0) {
             phone.setCount(-1);
@@ -68,5 +75,42 @@ public class PhoneService {
 
     public boolean update(Phone phone) {
         return repository.update(phone);
+    }
+
+    public void deleteIfPresent(String id) {
+            repository.findById(id).ifPresent(phone -> repository.delete(id));
+    }
+
+    public void updateIfPresentOrElseSaveNew (Phone phone) {
+        repository.findById(phone.getId()).ifPresentOrElse(
+                updateLaptop -> repository.update(phone),
+                () -> repository.save(phone));
+    }
+
+    public Phone findByIdOrElseRandom (String id) {
+        return repository.findById(id).orElse(repository.getRandomPhone());
+    }
+
+    public Phone findByIdOrElseGetRandom (String id) {
+        return repository.findById(id).orElseGet(repository::getRandomPhone);
+    }
+
+    public Phone findByIdOrElseThrow (String id) {
+        return repository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
+
+    public void deletePhoneFindByIdIfManufacturerApple (String id) {
+        repository.findById(id)
+                .filter(checkingPhone -> checkingPhone.getPhoneManufacturer().equals(PhoneManufacturer.APPLE))
+                .ifPresentOrElse(checkedPhone -> repository.delete(checkedPhone.getId()),
+                        () -> System.out.println("no one Apple Phone founded"));
+    }
+
+    public Optional<Phone> findByIdOrGetAny (Phone phone) {
+        return repository.findById(phone.getId()).or(() -> repository.getAll().stream().findAny());
+    }
+
+    public String mapFromPhoneToString (Phone phone) {
+        return repository.findById(phone.getId()).map(Phone::toString).orElse("Not found" + " " + phone.getId());
     }
 }

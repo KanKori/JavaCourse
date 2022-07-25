@@ -8,19 +8,19 @@ import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class LaptopService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LaptopService.class);
     private static final Random RANDOM = new Random();
-    private static final LaptopRepository REPOSITORY = new LaptopRepository();
-    private LaptopRepository repository;
+    private final LaptopRepository repository;
 
     public LaptopService(LaptopRepository repository) {
         this.repository = repository;
     }
 
-    public void createAndSaveLaptops (int count) {
+    public void createAndSaveLaptops(int count) {
         if (count < 1) {
             throw new IllegalArgumentException("count must been bigger then 0");
         }
@@ -36,8 +36,15 @@ public class LaptopService {
             laptops.add(laptop);
             LOGGER.info("Laptop {} has been saved", laptop.getId());
         }
-        REPOSITORY.saveAll(laptops);
-        repository = REPOSITORY;
+        repository.saveAll(laptops);
+    }
+
+    public Laptop createLaptop() {
+        return new Laptop("Title-" + RANDOM.nextInt(1000),
+                RANDOM.nextInt(500),
+                RANDOM.nextDouble(10000.0),
+                "Model-" + RANDOM.nextInt(10),
+                getRandomManufacturer());
     }
 
     public void saveLaptop(Laptop laptop) {
@@ -64,10 +71,48 @@ public class LaptopService {
     }
 
     public boolean delete(String id) {
-        return REPOSITORY.delete(id);
+        return repository.delete(id);
     }
 
     public boolean update(Laptop laptop) {
-        return REPOSITORY.update(laptop);
+        return repository.update(laptop);
+    }
+
+    public void deleteIfPresent(String id) {
+        repository.findById(id).ifPresent(laptop -> repository.delete(id));
+    }
+
+    public void updateIfPresentOrElseSaveNew(Laptop laptop) {
+        repository.findById(laptop.getId()).ifPresentOrElse(
+                updateLaptop -> repository.update(laptop),
+                () -> repository.save(laptop));
+    }
+
+    public Laptop findByIdOrElseRandom(String id) {
+        return repository.findById(id).orElse(repository.getRandomLaptop());
+    }
+
+    public Laptop findByIdOrElseGetRandom(String id) {
+        return repository.findById(id).orElseGet(repository::getRandomLaptop);
+    }
+
+    public Laptop findByIdOrElseThrow(String id) {
+        return repository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
+
+    public void deleteLaptopFindByIdIfManufacturerLenovo(String id) {
+        repository.findById(id)
+                .filter(checkingLaptop -> checkingLaptop.getLaptopManufacturer().equals(LaptopManufacturer.LENOVO))
+                .ifPresentOrElse(checkedLaptop -> repository.delete(checkedLaptop.getId()),
+                        () -> System.out.println("no one Lenovo Laptop founded"));
+    }
+
+    public Optional<Laptop> findByIdOrGetAny(Laptop laptop) {
+        return repository.findById(laptop.getId()).or(() -> repository.getAll().stream().findAny());
+    }
+
+    public String mapFromLaptopToString(Laptop laptop) {
+        return repository.findById(laptop.getId()).map(Laptop::toString).orElse("Not found" + " " + laptop.getId());
+
     }
 }

@@ -12,6 +12,9 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -98,5 +101,92 @@ public class TabletServiceTest {
         when(repository.findById("")).thenReturn(Optional.of(tablet));
         target.update(tablet);
         verify(repository).update(tablet);
+    }
+
+    @Test
+    public void deleteIfPresent() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        when(repository.findById(anyString())).thenReturn(Optional.of(tablet));
+        target.deleteIfPresent(tablet.getId());
+        verify(repository).delete(tablet.getId());
+    }
+
+    @Test
+    public void doNotDeleteIfMissing() {
+        final String ghostId = target.createTablet().getId();
+        target.deleteIfPresent(ghostId);
+        verify(repository, times(0)).delete(ghostId);
+    }
+
+    @Test
+    public void updateIfPresent() {
+        final Tablet tablet = target.createTablet();
+        when(repository.findById(tablet.getId())).thenReturn(Optional.of(tablet));
+        target.updateIfPresentOrElseSaveNew(tablet);
+        verify(repository).update(tablet);
+    }
+
+    @Test
+    public void updateOrElseSaveNew() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        target.updateIfPresentOrElseSaveNew(tablet);
+        verify(repository).save(tablet);
+    }
+
+    @Test
+    public void findByIdOrElseRandom() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        target.findByIdOrElseRandom(tablet.getId());
+        verify(repository).getRandomTablet();
+    }
+
+    @Test
+    public void findByIdOrElseGetRandom() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        target.findByIdOrElseGetRandom(tablet.getId());
+        verify(repository).getRandomTablet();
+    }
+
+    @Test
+    public void findByIdOrElseThrow() {
+        String incorrectId = "x";
+        when(repository.findById(incorrectId)).thenThrow(IllegalArgumentException.class);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.findByIdOrElseThrow("incorrectId"));
+    }
+
+    @Test
+    public void deleteTabletFindByIdIfManufacturerGoogle() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.GOOGLE);
+        when(repository.findById(anyString())).thenReturn(Optional.of(tablet));
+        target.deleteTabletFindByIdIfManufacturerGoogle(tablet.getId());
+        verify(repository).delete(tablet.getId());
+    }
+
+    @Test
+    public void deleteTabletFindByIdIfManufacturerGoogle_notGoogle() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        target.deleteTabletFindByIdIfManufacturerGoogle(tablet.getId());
+        verify(repository, times(0)).delete(tablet.getId());
+    }
+
+    @Test
+    public void findByIdOrGetAny() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        when(repository.findById(anyString())).thenReturn(Optional.of(tablet));
+        target.findByIdOrGetAny(tablet);
+        assertEquals(target.findByIdOrGetAny(tablet), Optional.of(tablet));
+    }
+
+    @Test
+    public void mapFromTabletToString() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        when(repository.findById(anyString())).thenReturn(Optional.of(tablet));
+        assertEquals(target.mapFromTabletToString(tablet), tablet.toString());
+    }
+
+    @Test
+    public void mapFromTabletToString_null() {
+        final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
+        assertNotEquals(target.mapFromTabletToString(tablet), null);
     }
 }

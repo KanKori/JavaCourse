@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class PhoneRepository implements CrudRepository<Phone> {
+public class PhoneRepository implements ProductRepository<Phone> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PhoneRepository.class);
 

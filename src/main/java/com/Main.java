@@ -6,9 +6,10 @@ import com.command.Delete;
 import com.command.Print;
 import com.command.Update;
 import com.command.UserInputUtil;
-import com.model.ProductType;
+import com.model.Phone;
 import com.service.LaptopService;
 import com.service.PhoneService;
+import com.service.SimpleBinaryTree;
 import com.service.TabletService;
 
 import java.util.ArrayList;
@@ -19,8 +20,11 @@ public class Main {
     private static final PhoneService PHONE_SERVICE = PhoneService.getInstance();
     private static final TabletService TABLET_SERVICE = TabletService.getInstance();
     private static final LaptopService LAPTOP_SERVICE = LaptopService.getInstance();
+    private static final SimpleBinaryTree<Phone> SimplePhoneBinaryTree = new SimpleBinaryTree<>();
+    private static final SimpleBinaryTree<Phone> SIMPLE_PHONE_BINARY_TREE = SimplePhoneBinaryTree;
 
     public static void main(String[] args) {
+        SIMPLE_PHONE_BINARY_TREE.createAndOutputTree(PHONE_SERVICE);
         final Commands[] values = Commands.values();
         final List<String> names = getNamesOfCommand(values);
         boolean exit = false;

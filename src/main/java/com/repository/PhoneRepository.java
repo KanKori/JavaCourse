@@ -1,5 +1,6 @@
 package com.repository;
 
+import com.model.Laptop;
 import com.model.Phone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,11 +10,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public class PhoneRepository implements ProductRepository<Phone> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PhoneRepository.class);
-
+    private static final Random RANDOM = new Random();
     private final List<Phone> phones;
 
     public PhoneRepository() {
@@ -78,6 +80,10 @@ public class PhoneRepository implements ProductRepository<Phone> {
             return Collections.emptyList();
         }
         return phones;
+    }
+
+    public Phone getRandomPhone() {
+        return phones.get(RANDOM.nextInt(phones.size()));
     }
 
     @Override

@@ -32,41 +32,10 @@ public class TabletService extends ProductService<Tablet> {
         return values[index];
     }
 
-    public void deleteIfPresent(String id) {
-        repository.findById(id).ifPresent(tablet -> repository.delete(id));
-    }
-
-    public void updateIfPresentOrElseSaveNew (Tablet tablet) {
-        repository.findById(tablet.getId()).ifPresentOrElse(
-                updateLaptop -> repository.update(tablet),
-                () -> repository.save(tablet));
-    }
-
-    public Tablet findByIdOrElseRandom (String id) {
-        return repository.findById(id).orElse(repository.getRandomTablet());
-    }
-
-    public Tablet findByIdOrElseGetRandom (String id) {
-        return repository.findById(id).orElseGet(repository::getRandomTablet);
-    }
-
-    public Tablet findByIdOrElseThrow (String id) {
-        return repository.findById(id).orElseThrow(IllegalArgumentException::new);
-    }
-
     public void deleteTabletFindByIdIfManufacturerGoogle (String id) {
-        repository.findById(id)
+        getRepository().findById(id)
                 .filter(checkingTablet -> checkingTablet.getTabletManufacturer().equals(TabletManufacturer.GOOGLE))
-                .ifPresentOrElse(checkedTablet -> repository.delete(checkedTablet.getId()),
+                .ifPresentOrElse(checkedTablet -> getRepository().delete(checkedTablet.getId()),
                         () -> System.out.println("no one Google tablet founded"));
-    }
-
-    public Optional<Tablet> findByIdOrGetAny (Tablet tablet) {
-        return repository.findById(tablet.getId()).or(() -> repository.getAll().stream().findAny());
-    }
-
-    public String mapFromTabletToString (Tablet tablet) {
-        return repository.findById(tablet.getId()).map(Tablet::toString).orElse("Not found" + " " + tablet.getId());
-
     }
 }

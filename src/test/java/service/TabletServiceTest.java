@@ -113,14 +113,14 @@ public class TabletServiceTest {
 
     @Test
     public void doNotDeleteIfMissing() {
-        final String ghostId = target.createTablet().getId();
+        final String ghostId = target.createProduct().getId();
         target.deleteIfPresent(ghostId);
         verify(repository, times(0)).delete(ghostId);
     }
 
     @Test
     public void updateIfPresent() {
-        final Tablet tablet = target.createTablet();
+        final Tablet tablet = target.createProduct();
         when(repository.findById(tablet.getId())).thenReturn(Optional.of(tablet));
         target.updateIfPresentOrElseSaveNew(tablet);
         verify(repository).update(tablet);
@@ -137,14 +137,14 @@ public class TabletServiceTest {
     public void findByIdOrElseRandom() {
         final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
         target.findByIdOrElseRandom(tablet.getId());
-        verify(repository).getRandomTablet();
+        verify(repository).getRandomProduct();
     }
 
     @Test
     public void findByIdOrElseGetRandom() {
         final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
         target.findByIdOrElseGetRandom(tablet.getId());
-        verify(repository).getRandomTablet();
+        verify(repository).getRandomProduct();
     }
 
     @Test
@@ -181,12 +181,12 @@ public class TabletServiceTest {
     public void mapFromTabletToString() {
         final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
         when(repository.findById(anyString())).thenReturn(Optional.of(tablet));
-        assertEquals(target.mapFromTabletToString(tablet), tablet.toString());
+        assertEquals(target.mapFromProductToString(tablet), tablet.toString());
     }
 
     @Test
     public void mapFromTabletToString_null() {
         final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
-        assertNotEquals(target.mapFromTabletToString(tablet), null);
+        assertNotEquals(target.mapFromProductToString(tablet), null);
     }
 }

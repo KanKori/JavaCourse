@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class ProductService<T extends Product> {
     private static final Logger LOGGER = LoggerFactory.getLogger(PhoneService.class);
@@ -58,5 +59,35 @@ public abstract class ProductService<T extends Product> {
         for (T product : repository.getAll()) {
             System.out.println(product);
         }
+    }
+
+    public void deleteIfPresent(String id) {
+        repository.findById(id).ifPresent(product -> repository.delete(id));
+    }
+
+    public void updateIfPresentOrElseSaveNew(T product) {
+        repository.findById(product.getId()).ifPresentOrElse(
+                updateLaptop -> repository.update(product),
+                () -> repository.save(product));
+    }
+
+    public T findByIdOrElseRandom(String id) {
+        return repository.findById(id).orElse(repository.getRandomProduct());
+    }
+
+    public T findByIdOrElseGetRandom(String id) {
+        return repository.findById(id).orElseGet(repository::getRandomProduct);
+    }
+
+    public T findByIdOrElseThrow(String id) {
+        return repository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
+
+    public Optional<T> findByIdOrGetAny(T product) {
+        return repository.findById(product.getId()).or(() -> repository.getAll().stream().findAny());
+    }
+
+    public String mapFromProductToString(T product) {
+        return repository.findById(product.getId()).map(T::toString).orElse("Not found" + " " + product.getId());
     }
 }

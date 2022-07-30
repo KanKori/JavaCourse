@@ -113,14 +113,14 @@ public class LaptopServiceTest {
 
     @Test
     public void doNotDeleteIfMissing() {
-        final String ghostId = target.createLaptop().getId();
+        final String ghostId = target.createProduct().getId();
         target.deleteIfPresent(ghostId);
         verify(repository, times(0)).delete(ghostId);
     }
 
     @Test
     public void updateIfPresent() {
-        final Laptop laptop = target.createLaptop();
+        final Laptop laptop = target.createProduct();
         when(repository.findById(laptop.getId())).thenReturn(Optional.of(laptop));
         target.updateIfPresentOrElseSaveNew(laptop);
         verify(repository).update(laptop);
@@ -137,14 +137,14 @@ public class LaptopServiceTest {
     public void findByIdOrElseRandom() {
         final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
         target.findByIdOrElseRandom(laptop.getId());
-        verify(repository).getRandomLaptop();
+        verify(repository).getRandomProduct();
     }
 
     @Test
     public void findByIdOrElseGetRandom() {
         final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
         target.findByIdOrElseGetRandom(laptop.getId());
-        verify(repository).getRandomLaptop();
+        verify(repository).getRandomProduct();
     }
 
     @Test
@@ -181,12 +181,12 @@ public class LaptopServiceTest {
     public void mapFromLaptopToString() {
         final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
         when(repository.findById(anyString())).thenReturn(Optional.of(laptop));
-        assertEquals(target.mapFromLaptopToString(laptop), laptop.toString());
+        assertEquals(target.mapFromProductToString(laptop), laptop.toString());
     }
 
     @Test
     public void mapFromLaptopToString_null() {
         final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
-        assertNotEquals(target.mapFromLaptopToString(laptop), null);
+        assertNotEquals(target.mapFromProductToString(laptop), null);
     }
 }

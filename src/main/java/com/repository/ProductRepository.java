@@ -18,4 +18,6 @@ public interface ProductRepository<T extends Product> {
     boolean update(T product);
 
     boolean delete(String id);
+
+    T getRandomProduct();
 }

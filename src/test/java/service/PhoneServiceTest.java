@@ -114,14 +114,14 @@ class PhoneServiceTest {
 
     @Test
     public void doNotDeleteIfMissing() {
-        final String ghostId = target.createPhone().getId();
+        final String ghostId = target.createProduct().getId();
         target.deleteIfPresent(ghostId);
         verify(repository, times(0)).delete(ghostId);
     }
 
     @Test
     public void updateIfPresent() {
-        final Phone phone = target.createPhone();
+        final Phone phone = target.createProduct();
         when(repository.findById(phone.getId())).thenReturn(Optional.of(phone));
         target.updateIfPresentOrElseSaveNew(phone);
         verify(repository).update(phone);
@@ -138,14 +138,14 @@ class PhoneServiceTest {
     public void findByIdOrElseRandom() {
         final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
         target.findByIdOrElseRandom(phone.getId());
-        verify(repository).getRandomPhone();
+        verify(repository).getRandomProduct();
     }
 
     @Test
     public void findByIdOrElseGetRandom() {
         final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
         target.findByIdOrElseGetRandom(phone.getId());
-        verify(repository).getRandomPhone();
+        verify(repository).getRandomProduct();
     }
 
     @Test
@@ -182,13 +182,13 @@ class PhoneServiceTest {
     public void mapFromPhoneToString() {
         final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
         when(repository.findById(anyString())).thenReturn(Optional.of(phone));
-        assertEquals(target.mapFromPhoneToString(phone), phone.toString());
+        assertEquals(target.mapFromProductToString(phone), phone.toString());
     }
 
     @Test
     public void mapFromPhoneToString_null() {
         final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
         when(repository.findById(anyString())).thenReturn(Optional.of(phone));
-        assertNotEquals(target.mapFromPhoneToString(phone), null);
+        assertNotEquals(target.mapFromProductToString(phone), null);
     }
 }

@@ -1,6 +1,5 @@
 package com.repository;
 
-import com.model.Laptop;
 import com.model.Phone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +81,7 @@ public class PhoneRepository implements ProductRepository<Phone> {
         return phones;
     }
 
-    public Phone getRandomPhone() {
+    public Phone getRandomProduct() {
         return phones.get(RANDOM.nextInt(phones.size()));
     }
 

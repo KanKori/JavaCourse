@@ -32,40 +32,10 @@ public class PhoneService extends ProductService<Phone> {
         return values[index];
     }
 
-    public void deleteIfPresent(String id) {
-            repository.findById(id).ifPresent(phone -> repository.delete(id));
-    }
-
-    public void updateIfPresentOrElseSaveNew (Phone phone) {
-        repository.findById(phone.getId()).ifPresentOrElse(
-                updateLaptop -> repository.update(phone),
-                () -> repository.save(phone));
-    }
-
-    public Phone findByIdOrElseRandom (String id) {
-        return repository.findById(id).orElse(repository.getRandomPhone());
-    }
-
-    public Phone findByIdOrElseGetRandom (String id) {
-        return repository.findById(id).orElseGet(repository::getRandomPhone);
-    }
-
-    public Phone findByIdOrElseThrow (String id) {
-        return repository.findById(id).orElseThrow(IllegalArgumentException::new);
-    }
-
     public void deletePhoneFindByIdIfManufacturerApple (String id) {
-        repository.findById(id)
+        getRepository().findById(id)
                 .filter(checkingPhone -> checkingPhone.getPhoneManufacturer().equals(PhoneManufacturer.APPLE))
-                .ifPresentOrElse(checkedPhone -> repository.delete(checkedPhone.getId()),
+                .ifPresentOrElse(checkedPhone -> getRepository().delete(checkedPhone.getId()),
                         () -> System.out.println("no one Apple Phone founded"));
-    }
-
-    public Optional<Phone> findByIdOrGetAny (Phone phone) {
-        return repository.findById(phone.getId()).or(() -> repository.getAll().stream().findAny());
-    }
-
-    public String mapFromPhoneToString (Phone phone) {
-        return repository.findById(phone.getId()).map(Phone::toString).orElse("Not found" + " " + phone.getId());
     }
 }

@@ -79,7 +79,7 @@ public class LaptopRepository implements ProductRepository<Laptop> {
         return laptops;
     }
 
-    public Laptop getRandomLaptop() {
+    public Laptop getRandomProduct() {
         return laptops.get(RANDOM.nextInt(laptops.size()));
     }
 

@@ -1,6 +1,5 @@
 package com.repository;
 
-import com.model.Laptop;
 import com.model.Tablet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +80,7 @@ public class TabletRepository implements ProductRepository<Tablet> {
         return tablets;
     }
 
-    public Tablet getRandomTablet() {
+    public Tablet getRandomProduct() {
         return tablets.get(RANDOM.nextInt(tablets.size()));
     }
 

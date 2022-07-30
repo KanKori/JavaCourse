@@ -43,16 +43,17 @@ public abstract class ProductService<T extends Product> {
         return repository;
     }
 
-    public boolean update(T product) {
-        return repository.update(product);
+    @SuppressWarnings("unchecked")
+    public void update(Product product) {
+        repository.update((T) product);
     }
 
     public List<T> getAll() {
         return repository.getAll();
     }
 
-    public boolean delete(String id) {
-        return repository.delete(id);
+    public void delete(String id) {
+        repository.delete(id);
     }
 
     public void printAll() {

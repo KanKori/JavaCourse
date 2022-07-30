@@ -1,6 +1,7 @@
 package com.repository;
 
 import com.model.Laptop;
+import com.service.LaptopService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,11 +16,18 @@ public class LaptopRepository implements ProductRepository<Laptop> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepository.class);
     private static final Random RANDOM = new Random();
-
     private final List<Laptop> laptops;
+    private static LaptopRepository instance;
 
     public LaptopRepository() {
         laptops = new LinkedList<>();
+    }
+
+    public static LaptopRepository getInstance() {
+        if (instance == null) {
+            instance = new LaptopRepository();
+        }
+        return instance;
     }
 
     public void save(Laptop laptop) {

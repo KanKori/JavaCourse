@@ -16,9 +16,17 @@ public class PhoneRepository implements ProductRepository<Phone> {
     private static final Logger LOGGER = LoggerFactory.getLogger(PhoneRepository.class);
     private static final Random RANDOM = new Random();
     private final List<Phone> phones;
+    private static PhoneRepository instance;
 
     public PhoneRepository() {
         this.phones = new LinkedList<>();
+    }
+
+    public static PhoneRepository getInstance() {
+        if (instance == null) {
+            instance = new PhoneRepository();
+        }
+        return instance;
     }
 
     public void save(Phone phone) {
@@ -33,7 +41,7 @@ public class PhoneRepository implements ProductRepository<Phone> {
     }
 
     private void checkDuplicates(Phone phone) {
-        for (Phone p: phones) {
+        for (Phone p : phones) {
             if (phone.hashCode() == p.hashCode() && phone.equals(p)) {
                 final IllegalArgumentException exception = new IllegalArgumentException("Duplicate phone: " + phone.getId());
                 LOGGER.error(exception.getMessage(), exception);

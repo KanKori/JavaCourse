@@ -1,7 +1,9 @@
 package com.service;
 
+import com.model.Laptop;
 import com.model.Tablet;
 import com.model.TabletManufacturer;
+import com.repository.LaptopRepository;
 import com.repository.TabletRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +14,24 @@ import java.util.Random;
 
 public class TabletService extends ProductService<Tablet> {
     private static final Random RANDOM = new Random();
+    private static TabletService instance;
 
     public TabletService(TabletRepository repository) {
         super(repository);
+    }
+
+    public static TabletService getInstance() {
+        if (instance == null) {
+            instance = new TabletService(TabletRepository.getInstance());
+        }
+        return instance;
+    }
+
+    public static TabletService getInstance(final TabletRepository repository) {
+        if (instance == null) {
+            instance = new TabletService(repository);
+        }
+        return instance;
     }
 
     public Tablet createProduct() {

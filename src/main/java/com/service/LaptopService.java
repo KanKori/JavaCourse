@@ -3,14 +3,30 @@ package com.service;
 import com.model.Laptop;
 import com.model.LaptopManufacturer;
 import com.repository.LaptopRepository;
+
 import java.util.Random;
 
 public class LaptopService extends ProductService<Laptop> {
     private static final Random RANDOM = new Random();
     private static final LaptopRepository REPOSITORY = new LaptopRepository();
+    private static LaptopService instance;
 
     public LaptopService(LaptopRepository repository) {
         super(repository);
+    }
+
+    public static LaptopService getInstance() {
+        if (instance == null) {
+            instance = new LaptopService(LaptopRepository.getInstance());
+        }
+        return instance;
+    }
+
+    public static LaptopService getInstance(final LaptopRepository repository) {
+        if (instance == null) {
+            instance = new LaptopService(repository);
+        }
+        return instance;
     }
 
     public Laptop createProduct() {

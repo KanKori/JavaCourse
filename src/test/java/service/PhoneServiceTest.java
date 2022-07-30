@@ -29,17 +29,17 @@ class PhoneServiceTest {
 
     @Test
     void createAndSavePhones_negativeCount() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSavePhones(-1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveProducts(-1));
     }
 
     @Test
     void createAndSavePhones_zeroCount() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSavePhones(0));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveProducts(0));
     }
 
     @Test
     void createAndSavePhones() {
-        target.createAndSavePhones(2);
+        target.createAndSaveProducts(2);
         Mockito.verify(repository).saveAll(Mockito.anyList());
     }
 
@@ -58,7 +58,7 @@ class PhoneServiceTest {
     @Test
     void savePhone() {
         final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
-        target.savePhone(phone);
+        target.save(phone);
 
         ArgumentCaptor<Phone> argument = ArgumentCaptor.forClass(Phone.class);
         Mockito.verify(repository).save(argument.capture());
@@ -68,7 +68,7 @@ class PhoneServiceTest {
     @Test
     void savePhone_zeroCount() {
         final Phone phone = new Phone("Title", 0, 1000.0, "Model", PhoneManufacturer.APPLE);
-        target.savePhone(phone);
+        target.save(phone);
 
         ArgumentCaptor<Phone> argument = ArgumentCaptor.forClass(Phone.class);
         Mockito.verify(repository).save(argument.capture());
@@ -80,7 +80,7 @@ class PhoneServiceTest {
     @Test
     public void savePhone_verifyTimes() {
         final Phone phone = new Phone("Title", 100, 1000.0, "Model", PhoneManufacturer.APPLE);
-        target.savePhone(phone);
+        target.save(phone);
         ArgumentCaptor<Phone> phoneArgumentCaptor = ArgumentCaptor.forClass(Phone.class);
         verify(repository, times(1)).save(phoneArgumentCaptor.capture());
         Assertions.assertEquals("Title", phoneArgumentCaptor.getValue().getTitle());
@@ -95,7 +95,7 @@ class PhoneServiceTest {
 
     @Test
     public void updatePhone() {
-        final Phone phone = target.createPhone();
+        final Phone phone = target.createProduct();
         when(repository.findById("")).thenReturn(Optional.of(phone));
         target.update(phone);
         verify(repository).update(phone);

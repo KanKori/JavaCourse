@@ -29,17 +29,17 @@ public class LaptopServiceTest {
 
     @Test
     void createAndSaveLaptops_negativeCount() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveLaptops(-1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveProducts(-1));
     }
 
     @Test
     void createAndSaveLaptops_zeroCount() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveLaptops(0));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveProducts(0));
     }
 
     @Test
     void createAndSaveLaptops() {
-        target.createAndSaveLaptops(2);
+        target.createAndSaveProducts(2);
         Mockito.verify(repository).saveAll(Mockito.anyList());
     }
 
@@ -58,7 +58,7 @@ public class LaptopServiceTest {
     @Test
     void saveLaptop() {
         final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
-        target.saveLaptop(laptop);
+        target.save(laptop);
 
         ArgumentCaptor<Laptop> argument = ArgumentCaptor.forClass(Laptop.class);
         Mockito.verify(repository).save(argument.capture());
@@ -68,7 +68,7 @@ public class LaptopServiceTest {
     @Test
     void saveLaptop_zeroCount() {
         final Laptop laptop = new Laptop("Title", 0, 1000.0, "Model", LaptopManufacturer.LENOVO);
-        target.saveLaptop(laptop);
+        target.save(laptop);
 
         ArgumentCaptor<Laptop> argument = ArgumentCaptor.forClass(Laptop.class);
         Mockito.verify(repository).save(argument.capture());
@@ -79,7 +79,7 @@ public class LaptopServiceTest {
     @Test
     public void saveLaptop_verifyTimes() {
         final Laptop laptop = new Laptop("Title", 100, 1000.0, "Model", LaptopManufacturer.LENOVO);
-        target.saveLaptop(laptop);
+        target.save(laptop);
         ArgumentCaptor<Laptop> laptopArgumentCaptor = ArgumentCaptor.forClass(Laptop.class);
         verify(repository, times(1)).save(laptopArgumentCaptor.capture());
         Assertions.assertEquals("Title", laptopArgumentCaptor.getValue().getTitle());
@@ -94,7 +94,7 @@ public class LaptopServiceTest {
 
     @Test
     public void updateLaptop() {
-        final Laptop laptop = target.createLaptop();
+        final Laptop laptop = target.createProduct();
         when(repository.findById("")).thenReturn(Optional.of(laptop));
         target.update(laptop);
         verify(repository).update(laptop);

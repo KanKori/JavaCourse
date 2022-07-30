@@ -29,17 +29,17 @@ public class TabletServiceTest {
 
     @Test
     void createAndSaveTablets_negativeCount() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveTablets(-1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveProducts(-1));
     }
 
     @Test
     void createAndSaveTablets_zeroCount() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveTablets(0));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveProducts(0));
     }
 
     @Test
     void createAndSaveTablets() {
-        target.createAndSaveTablets(2);
+        target.createAndSaveProducts(2);
         Mockito.verify(repository).saveAll(Mockito.anyList());
     }
 
@@ -58,7 +58,7 @@ public class TabletServiceTest {
     @Test
     void saveTablet() {
         final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
-        target.saveTablet(tablet);
+        target.save(tablet);
 
         ArgumentCaptor<Tablet> argument = ArgumentCaptor.forClass(Tablet.class);
         Mockito.verify(repository).save(argument.capture());
@@ -68,7 +68,7 @@ public class TabletServiceTest {
     @Test
     void saveTablet_zeroCount() {
         final Tablet tablet = new Tablet("Title", 0, 1000.0, "Model", TabletManufacturer.MICROSOFT);
-        target.saveTablet(tablet);
+        target.save(tablet);
 
         ArgumentCaptor<Tablet> argument = ArgumentCaptor.forClass(Tablet.class);
         Mockito.verify(repository).save(argument.capture());
@@ -79,7 +79,7 @@ public class TabletServiceTest {
     @Test
     public void saveTablet_verifyTimes() {
         final Tablet tablet = new Tablet("Title", 100, 1000.0, "Model", TabletManufacturer.MICROSOFT);
-        target.saveTablet(tablet);
+        target.save(tablet);
         ArgumentCaptor<Tablet> tabletArgumentCaptor = ArgumentCaptor.forClass(Tablet.class);
         verify(repository, times(1)).save(tabletArgumentCaptor.capture());
         Assertions.assertEquals("Title", tabletArgumentCaptor.getValue().getTitle());
@@ -94,7 +94,7 @@ public class TabletServiceTest {
 
     @Test
     public void updateTablet() {
-        final Tablet tablet = target.createTablet();
+        final Tablet tablet = target.createProduct();
         when(repository.findById("")).thenReturn(Optional.of(tablet));
         target.update(tablet);
         verify(repository).update(tablet);

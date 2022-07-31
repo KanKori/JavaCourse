@@ -8,7 +8,6 @@ import java.util.Random;
 
 public class LaptopService extends ProductService<Laptop> {
     private static final Random RANDOM = new Random();
-    private static final LaptopRepository REPOSITORY = new LaptopRepository();
     private static LaptopService instance;
 
     public LaptopService(LaptopRepository repository) {

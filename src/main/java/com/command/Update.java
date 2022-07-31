@@ -44,8 +44,10 @@ public class Update implements Command {
         while (true) {
             System.out.println("Enter product ID");
             try {
-                String id = SCANNER.nextLine();
-                while (id.length() == 0) id = SCANNER.nextLine();
+                String id;
+                do {
+                    id = SCANNER.nextLine();
+                } while (id.length() == 0);
                 Product product = service.findByIdOrElseThrow(id);
                 final List<String> names = Arrays.asList("Update Title", "Update Price", "Update Count");
                 int stop;

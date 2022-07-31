@@ -1,50 +1,47 @@
 package com;
 
+import com.command.Command;
 import com.command.Commands;
-import com.command.Create;
-import com.command.Delete;
-import com.command.Print;
-import com.command.Update;
-import com.command.UserInputUtil;
 import com.model.Phone;
-import com.service.LaptopService;
 import com.service.PhoneService;
 import com.service.SimpleBinaryTree;
-import com.service.TabletService;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.command.Command.SCANNER;
 
 
 public class Main {
     private static final PhoneService PHONE_SERVICE = PhoneService.getInstance();
-    private static final TabletService TABLET_SERVICE = TabletService.getInstance();
-    private static final LaptopService LAPTOP_SERVICE = LaptopService.getInstance();
     private static final SimpleBinaryTree<Phone> SimplePhoneBinaryTree = new SimpleBinaryTree<>();
     private static final SimpleBinaryTree<Phone> SIMPLE_PHONE_BINARY_TREE = SimplePhoneBinaryTree;
 
     public static void main(String[] args) {
         SIMPLE_PHONE_BINARY_TREE.createAndOutputTree(PHONE_SERVICE);
+
         final Commands[] values = Commands.values();
-        final List<String> names = getNamesOfCommand(values);
-        boolean exit = false;
+        boolean exit;
+
         do {
-            int commandIndex = UserInputUtil.getUserInput(values.length, names);
-            switch (values[commandIndex]) {
-                case DELETE -> new Delete().execute();
-                case PRINT -> new Print().execute();
-                case CREATE -> new Create().execute();
-                case UPDATE -> new Update().execute();
-                case EXIT -> exit = true;
-            }
+            exit = userAction(values);
         } while (!exit);
     }
 
-    private static List<String> getNamesOfCommand(final Commands[] values) {
-        final List<String> names = new ArrayList<>(values.length);
-        for (Commands commands : values) {
-            names.add(commands.name());
+    private static boolean userAction(final Commands[] values) {
+        int userCommand = -1;
+        do {
+            for (int i = 0; i < values.length; i++) {
+                System.out.printf("%d) %s%n", i, values[i].getName());
+            }
+            int input = SCANNER.nextInt();
+            if (input >= 0 && input < values.length) {
+                userCommand = input;
+            }
+        } while (userCommand == -1);
+        final Command command = values[userCommand].getCommand();
+        if (command == null) {
+            return true;
+        } else {
+            command.execute();
+            return false;
         }
-        return names;
     }
 }

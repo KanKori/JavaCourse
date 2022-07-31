@@ -1,4 +1,6 @@
-package com.model;
+package com.service;
+
+import com.model.Product;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -23,15 +25,15 @@ public class ProductList<E extends Product> implements Iterable<E> {
         final Node<E> firstNode = first;
         final Node<E> newNode = new Node<>(product, version, LocalDateTime.now(), first, null);
         first = newNode;
-        if (firstNode == null)
+        if (firstNode == null) {
             last = newNode;
-        else
+        } else {
             firstNode.previous = newNode;
+        }
         size++;
         versions.add(newNode.version);
     }
 
-    @SuppressWarnings("unchecked")
     public E findByVersion(int version) {
         if (validateVersion(version)) {
             for (Node<E> eNode = first; eNode != null; eNode = eNode.next) {
@@ -43,7 +45,6 @@ public class ProductList<E extends Product> implements Iterable<E> {
         throw new NoSuchElementException("There are no products in this version");
     }
 
-    @SuppressWarnings("unchecked")
     public boolean deleteByVersion(int version) {
         if (validateVersion(version)) {
             for (Node<E> eNode = first; eNode != null; eNode = eNode.next) {
@@ -70,7 +71,6 @@ public class ProductList<E extends Product> implements Iterable<E> {
         return first.date;
     }
 
-    @SuppressWarnings("unchecked")
     public boolean setByVersion(int version, E product) {
         if (validateVersion(version)) {
             for (Node<E> eNode = first; eNode != null; eNode = eNode.next) {
@@ -91,7 +91,6 @@ public class ProductList<E extends Product> implements Iterable<E> {
         return versions.size();
     }
 
-    @SuppressWarnings("unchecked")
     private E unlink(Node<E> eNode) {
         final E product = eNode.product;
         final Node<E> next = eNode.next;
@@ -158,11 +157,11 @@ public class ProductList<E extends Product> implements Iterable<E> {
     }
 
     private class Node<T> {
-        public int version;
-        public LocalDateTime date;
-        public T product;
-        public Node<T> next;
-        public Node<T> previous;
+        private int version;
+        private LocalDateTime date;
+        private T product;
+        private Node<T> next;
+        private Node<T> previous;
 
         public Node(T product, int version, LocalDateTime date, Node<T> next, Node<T> previous) {
             this.product = product;

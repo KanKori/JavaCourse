@@ -1,6 +1,5 @@
 package com.repository;
 
-import com.model.Laptop;
 import com.model.Tablet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class TabletRepository implements CrudRepository<Tablet> {
+public class TabletRepository implements ProductRepository<Tablet> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TabletRepository.class);
     private static final Random RANDOM = new Random();
@@ -81,7 +80,7 @@ public class TabletRepository implements CrudRepository<Tablet> {
         return tablets;
     }
 
-    public Tablet getRandomTablet() {
+    public Tablet getRandomProduct() {
         return tablets.get(RANDOM.nextInt(tablets.size()));
     }
 

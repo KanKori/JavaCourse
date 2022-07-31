@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class LaptopRepository implements CrudRepository<Laptop> {
+public class LaptopRepository implements ProductRepository<Laptop> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepository.class);
     private static final Random RANDOM = new Random();
@@ -79,7 +79,7 @@ public class LaptopRepository implements CrudRepository<Laptop> {
         return laptops;
     }
 
-    public Laptop getRandomLaptop() {
+    public Laptop getRandomProduct() {
         return laptops.get(RANDOM.nextInt(laptops.size()));
     }
 

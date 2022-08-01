@@ -5,9 +5,12 @@ import com.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public abstract class ProductService<T extends Product> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
@@ -91,4 +94,29 @@ public abstract class ProductService<T extends Product> {
     public String mapFromProductToString(T product) {
         return repository.findById(product.getId()).map(T::toString).orElse("Not found" + " " + product.getId());
     }
+
+    public void outputProductsWithAPriceHihgerThanTheArgument(double referPrice) {
+        repository.getAll()
+                .stream().filter(product -> product.getPrice() > referPrice)
+                .forEach(System.out::println);
+    }
+
+    public int countAllProductsPrice() {
+        return repository.getAll()
+                .stream()
+                .map(Product::getCount)
+                .reduce(0, Integer::sum);
+    }
+
+    public Map<String, String> sortedByTitleAndConvertToMap() {
+        return repository.getAll()
+                .stream()
+                .sorted(Comparator.comparing(Product::getTitle))
+                .distinct()
+                .collect(Collectors.toMap
+                        (Product::getId,
+                                product -> product.getClass().getSimpleName(),
+                                (oldProduct, newProduct) -> newProduct));
+    }
+
 }

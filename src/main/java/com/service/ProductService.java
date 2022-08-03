@@ -5,12 +5,14 @@ import com.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.DoubleSummaryStatistics;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public abstract class ProductService<T extends Product> {
@@ -128,4 +130,7 @@ public abstract class ProductService<T extends Product> {
                 .mapToDouble(Product::getPrice)
                 .summaryStatistics();
     }
+
+    public Predicate<Collection<T>> availabilityOfPricesForAllCollection = (products) ->
+            products.stream().noneMatch(product -> product.getPrice() <= 0);
 }

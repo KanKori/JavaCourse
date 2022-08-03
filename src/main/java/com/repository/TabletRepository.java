@@ -16,9 +16,17 @@ public class TabletRepository implements ProductRepository<Tablet> {
     private static final Logger LOGGER = LoggerFactory.getLogger(TabletRepository.class);
     private static final Random RANDOM = new Random();
     private final List<Tablet> tablets;
+    private static TabletRepository instance;
 
     public TabletRepository() {
         tablets = new LinkedList<>();
+    }
+
+    public static TabletRepository getInstance() {
+        if (instance == null) {
+            instance = new TabletRepository();
+        }
+        return instance;
     }
 
     @Override

@@ -6,54 +6,20 @@ import java.util.Random;
 
 public class ProductFactory {
     private static final Random RANDOM = new Random();
+    private static final ProductService<Phone> PHONE_SERVICE = PhoneService.getInstance();
+    private static final ProductService<Laptop> LAPTOP_SERVICE = LaptopService.getInstance();
+    private static final ProductService<Tablet> TABLET_SERVICE = TabletService.getInstance();
+
 
     private ProductFactory() {
     }
 
-    public static Product createProduct(ProductType type) {
-        return switch (type) {
-            case TABLET -> new Tablet(
-                    "Title-" + RANDOM.nextInt(1000),
-                    RANDOM.nextInt(500),
-                    RANDOM.nextDouble(1000.0),
-                    "Model-" + RANDOM.nextInt(10),
-                    getRandomTabletManufacturer()
-            );
-            case PHONE -> new Phone(
-                    "Title-" + RANDOM.nextInt(1000),
-                    RANDOM.nextInt(500),
-                    RANDOM.nextDouble(1000.0),
-                    "Model-" + RANDOM.nextInt(10),
-                    getRandomPhoneManufacturer()
-            );
-            case LAPTOP -> new Laptop(
-                    "Title-" + RANDOM.nextInt(1000),
-                    RANDOM.nextInt(500),
-                    RANDOM.nextDouble(1000.0),
-                    "Model-" + RANDOM.nextInt(10),
-                    getRandomLaptopManufacturer()
-            );
+    public static void createAndSave(ProductType type) {
+        switch (type) {
+            case PHONE -> PHONE_SERVICE.createAndSaveProducts(1);
+            case TABLET -> TABLET_SERVICE.createAndSaveProducts(1);
+            case LAPTOP -> LAPTOP_SERVICE.createAndSaveProducts(1);
             default -> throw new IllegalArgumentException("Unknown Product type: " + type);
-        };
+        }
     }
-
-    private static LaptopManufacturer getRandomLaptopManufacturer() {
-        final LaptopManufacturer[] values = LaptopManufacturer.values();
-        final int index = RANDOM.nextInt(values.length);
-        return values[index];
-    }
-
-    private static PhoneManufacturer getRandomPhoneManufacturer() {
-        final PhoneManufacturer[] values = PhoneManufacturer.values();
-        final int index = RANDOM.nextInt(values.length);
-        return values[index];
-    }
-
-    private static TabletManufacturer getRandomTabletManufacturer() {
-        final TabletManufacturer[] values = TabletManufacturer.values();
-        final int index = RANDOM.nextInt(values.length);
-        return values[index];
-    }
-
-
 }

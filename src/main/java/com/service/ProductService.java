@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class ProductService<T extends Product> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PhoneService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
     private final ProductRepository<T> repository;
 
-    public ProductService(ProductRepository<T> repository) {
+    protected ProductService(ProductRepository<T> repository) {
         this.repository = repository;
     }
 
@@ -43,16 +43,17 @@ public abstract class ProductService<T extends Product> {
         return repository;
     }
 
-    public boolean update(T product) {
-        return repository.update(product);
+    @SuppressWarnings("unchecked")
+    public void update(Product product) {
+        repository.update((T) product);
     }
 
     public List<T> getAll() {
         return repository.getAll();
     }
 
-    public boolean delete(String id) {
-        return repository.delete(id);
+    public void delete(String id) {
+        repository.delete(id);
     }
 
     public void printAll() {

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Comparator;
+import java.util.DoubleSummaryStatistics;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -116,7 +117,15 @@ public abstract class ProductService<T extends Product> {
                 .collect(Collectors.toMap
                         (Product::getId,
                                 product -> product.getClass().getSimpleName(),
-                                (oldProduct, newProduct) -> newProduct));
+                                (oldProduct, newProduct) -> newProduct
+                        )
+                );
     }
 
+    public DoubleSummaryStatistics getPriceSummaryStatistic() {
+        return repository.getAll()
+                .stream()
+                .mapToDouble(Product::getPrice)
+                .summaryStatistics();
+    }
 }

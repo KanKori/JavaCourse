@@ -43,10 +43,15 @@ public class TabletService extends ProductService<Tablet> {
         return values[index];
     }
 
-    public void deleteTabletFindByIdIfManufacturerGoogle (String id) {
+    public void deleteTabletFindByIdIfManufacturerGoogle(String id) {
         getRepository().findById(id)
                 .filter(checkingTablet -> checkingTablet.getTabletManufacturer().equals(TabletManufacturer.GOOGLE))
                 .ifPresentOrElse(checkedTablet -> getRepository().delete(checkedTablet.getId()),
                         () -> System.out.println("no one Google tablet founded"));
+    }
+
+    public boolean checkDetailExists(String detailToCheck) {
+        return getAll().stream().flatMap(phone -> phone.getDetails().stream())
+                .anyMatch(detail -> detail.equals(detailToCheck));
     }
 }

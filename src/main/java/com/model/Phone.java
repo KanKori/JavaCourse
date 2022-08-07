@@ -17,21 +17,22 @@ public class Phone extends Product {
     private LocalDateTime creatingDate;
     private OperatingSystem OS;
 
-    public Phone(String title, int count,
-                 double price, String model,
+    public Phone(String title, String model,
+                 double price, String currency,
                  PhoneManufacturer phoneManufacturer,
-                 List<String> details, String currency,
-                 LocalDateTime creatingDate, OperatingSystem OS) {
+                 LocalDateTime creatingDate,
+                 int count, OperatingSystem OS) {
         super(title, count, price, ProductType.PHONE);
         this.model = model;
         this.phoneManufacturer = phoneManufacturer;
-        this.details = details;
         this.currency = currency;
         this.creatingDate = creatingDate;
         this.OS = OS;
     }
 
-    public Phone(String title, int count, double price, String model, PhoneManufacturer phoneManufacturer) {
+    public Phone(String title, int count,
+                 double price, String model,
+                 PhoneManufacturer phoneManufacturer) {
         super(title, count, price, ProductType.PHONE);
         this.model = model;
         this.phoneManufacturer = phoneManufacturer;
@@ -52,12 +53,12 @@ public class Phone extends Product {
 
     @Override
     public String toString() {
-        return "Phone{" +
-                "manufacturer=" + phoneManufacturer +
-                ", id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", count=" + count +
-                ", price=" + price +
-                '}';
+        return "Phone {" + "\n" +
+                "manufacturer=" + phoneManufacturer + "\n" +
+                "id='" + id + '\'' + "\n" +
+                "title='" + title + '\'' + "\n" +
+                "count=" + count + "\n" +
+                "price=" + price + currency + "\n" +
+                '}' + "\n";
     }
 }

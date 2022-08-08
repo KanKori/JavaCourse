@@ -3,6 +3,8 @@ package com.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -10,8 +12,27 @@ import java.util.Objects;
 public class Phone extends Product {
     private final String model;
     private final PhoneManufacturer phoneManufacturer;
+    private List<String> details;
+    private String currency;
+    private LocalDateTime creatingDate;
+    private OperatingSystem OS;
 
-    public Phone(String title, int count, double price, String model, PhoneManufacturer phoneManufacturer) {
+    public Phone(String title, String model,
+                 double price, String currency,
+                 PhoneManufacturer phoneManufacturer,
+                 LocalDateTime creatingDate,
+                 int count, OperatingSystem OS) {
+        super(title, count, price, ProductType.PHONE);
+        this.model = model;
+        this.phoneManufacturer = phoneManufacturer;
+        this.currency = currency;
+        this.creatingDate = creatingDate;
+        this.OS = OS;
+    }
+
+    public Phone(String title, int count,
+                 double price, String model,
+                 PhoneManufacturer phoneManufacturer) {
         super(title, count, price, ProductType.PHONE);
         this.model = model;
         this.phoneManufacturer = phoneManufacturer;
@@ -32,12 +53,12 @@ public class Phone extends Product {
 
     @Override
     public String toString() {
-        return "Phone{" +
-                "manufacturer=" + phoneManufacturer +
-                ", id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", count=" + count +
-                ", price=" + price +
-                '}';
+        return "Phone {" + "\n" +
+                "manufacturer=" + phoneManufacturer + "\n" +
+                "id='" + id + '\'' + "\n" +
+                "title='" + title + '\'' + "\n" +
+                "count=" + count + "\n" +
+                "price=" + price + currency + "\n" +
+                '}' + "\n";
     }
 }

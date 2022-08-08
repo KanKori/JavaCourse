@@ -1,13 +1,13 @@
 package com.service;
 
+import com.model.OperatingSystem;
 import com.model.PhoneManufacturer;
 import com.model.Phone;
 import com.repository.PhoneRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.Random;
 
 public class PhoneService extends ProductService<Phone> {
@@ -30,6 +30,19 @@ public class PhoneService extends ProductService<Phone> {
             instance = new PhoneService(repository);
         }
         return instance;
+    }
+
+    public static Phone createPhoneFromMap(Map<String, String> phoneMap) {
+        return new Phone(
+                phoneMap.getOrDefault("title", "DefaultTitle"),
+                phoneMap.getOrDefault("model", "DefaultModel"),
+                Double.parseDouble(phoneMap.getOrDefault("price", String.valueOf(0))),
+                phoneMap.get("currency"),
+                PhoneManufacturer.valueOf(phoneMap.getOrDefault("manufacturer", PhoneManufacturer.SAMSUNG.name())),
+                LocalDateTime.parse(phoneMap.get("created"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")),
+                Integer.parseInt(phoneMap.get("count")),
+                new OperatingSystem(phoneMap.get("designation"), Integer.parseInt(phoneMap.get("version")))
+        );
     }
 
     public Phone createProduct() {

@@ -3,7 +3,7 @@ package com.example.model;
 import lombok.Setter;
 
 @Setter
-public class NotifiableProduct extends Product implements INotifableProduct {
+public class NotifiableProduct extends Product implements INotifiableProduct {
     protected String channel;
 
     @Override

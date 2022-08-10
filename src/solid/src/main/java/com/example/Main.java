@@ -1,8 +1,6 @@
 package com.example;
 
-import com.example.model.NotifiableProduct;
 import com.example.model.Product;
-import com.example.model.ProductBundle;
 import com.example.repository.ProductRepository;
 import com.example.service.NotificationService;
 import com.example.service.ProductFactory;

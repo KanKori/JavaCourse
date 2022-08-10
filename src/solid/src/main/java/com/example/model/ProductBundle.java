@@ -1,14 +1,12 @@
 package com.example.model;
 
+import lombok.Getter;
 import lombok.Setter;
 
 @Setter
+@Getter
 public class ProductBundle extends Product {
     protected int amount;
-
-    public int getAmountInBundle() {
-        return amount;
-    }
 
     @Override
     public String getBasicInfo() {

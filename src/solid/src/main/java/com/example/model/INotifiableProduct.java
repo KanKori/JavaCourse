@@ -1,5 +1,5 @@
 package com.example.model;
 
-public interface INotifableProduct {
+public interface INotifiableProduct {
     String generateAddressForNotification();
 }

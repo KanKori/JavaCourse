@@ -5,7 +5,7 @@ import com.example.repository.IProductRepository;
 
 import java.util.List;
 
-public class AbstractProductService<T extends Product> {
+abstract public class AbstractProductService<T extends Product> {
     private final IProductRepository<T> repository;
 
     public AbstractProductService(IProductRepository<T> repository) {

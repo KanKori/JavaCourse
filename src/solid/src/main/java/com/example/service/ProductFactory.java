@@ -16,7 +16,7 @@ public class ProductFactory {
     public static Product createRandomProduct() {
         if (RANDOM.nextBoolean()) {
             ProductBundle productBundle = new ProductBundle();
-            productBundle.setAmount(RANDOM.nextInt(15));
+            productBundle.setAmount(RANDOM.nextInt(37));
             productBundle.setAvailable(RANDOM.nextBoolean());
             productBundle.setPrice(RANDOM.nextDouble());
             productBundle.setId(RANDOM.nextLong());

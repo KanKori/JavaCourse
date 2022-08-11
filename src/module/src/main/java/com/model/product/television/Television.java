@@ -1,6 +1,6 @@
 package com.model.product.television;
 
-import com.model.product.Product;
+import com.model.product.AbstractProduct;
 import com.model.product.specifications.ProductType;
 import com.model.product.television.specifications.TelevisionScreenType;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Television extends Product {
+public class Television extends AbstractProduct {
     private final double diagonal;
     private final String country;
     private final TelevisionScreenType screenType;

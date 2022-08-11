@@ -1,4 +1,4 @@
-package com.model.product;
+package com.model.product.specifications;
 
 public enum ProductType {
     TELEPHONE, TELEVISION

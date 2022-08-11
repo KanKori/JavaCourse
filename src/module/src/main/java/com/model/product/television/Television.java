@@ -1,7 +1,7 @@
 package com.model.product.television;
 
 import com.model.product.Product;
-import com.model.product.ProductType;
+import com.model.product.specifications.ProductType;
 import com.model.product.television.specifications.TelevisionScreenType;
 import lombok.Getter;
 import lombok.Setter;

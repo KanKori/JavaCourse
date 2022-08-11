@@ -1,7 +1,7 @@
 package com.model.product.telephone;
 
 import com.model.product.Product;
-import com.model.product.ProductType;
+import com.model.product.specifications.ProductType;
 import com.model.product.telephone.specifications.TelephoneScreenType;
 import lombok.Getter;
 import lombok.Setter;

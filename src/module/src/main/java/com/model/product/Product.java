@@ -1,5 +1,6 @@
 package com.model.product;
 
+import com.model.product.specifications.ProductType;
 import lombok.Getter;
 import lombok.Setter;
 

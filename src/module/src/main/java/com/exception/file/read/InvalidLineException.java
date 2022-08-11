@@ -1,4 +1,4 @@
-package com.exception;
+package com.exception.file.read;
 
 public class InvalidLineException extends Exception {
     public String toString() {

@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 public class ShopService {
@@ -28,10 +27,10 @@ public class ShopService {
 
     private static final Random RANDOM = new Random();
     private static final PersonService PERSON_SERVICE = new PersonService();
-    private static final Queue<Invoice<AbstractProduct>> invoiceQueue = new LinkedList<>();
+    private static final List<Invoice<AbstractProduct>> invoiceList = new LinkedList<>();
 
-    public Queue<Invoice<AbstractProduct>> getInvoiceQueue() {
-        return invoiceQueue;
+    public List<Invoice<AbstractProduct>> getInvoiceList() {
+        return invoiceList;
     }
 
     private Invoice<AbstractProduct> createRandomInvoice(double sumLimit) {
@@ -47,7 +46,10 @@ public class ShopService {
 
     public void createAndSaveRandomInvoice(int amountOfInvoice, double sumLimit) {
         for (int i = 0; i < amountOfInvoice; i++) {
-            invoiceQueue.add(createRandomInvoice(sumLimit));
+            invoiceList.add(createRandomInvoice(sumLimit));
+            LOGGER.info("[{}] [{}] [{} {}]", invoiceList.get(i).getCreatedTime(),
+                    invoiceList.get(i).getCustomer(), invoiceList.get(i).getType(),
+                    invoiceList);
         }
     }
 }

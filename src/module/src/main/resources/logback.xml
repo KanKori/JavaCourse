@@ -11,9 +11,9 @@
         </encoder>
     </appender>
 
-    <property name="HOME_LOG" value="logs/log.txt"/>
+    <property name="MODULE_LOG" value="src/module/logs/logModule.txt"/>
     <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${HOME_LOG}</file>
+        <file>${MODULE_LOG}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>logs/archived/app.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>

@@ -21,4 +21,13 @@ public class Customer {
     public Customer() {
         this.id = UUID.randomUUID().toString();
     }
+
+    @Override
+    public String toString() {
+        return "Customer {" + "\n" +
+                "id " + id + "\n" +
+                "email " + email + "\n" +
+                "age " + age + "\n" +
+                "}";
+    }
 }

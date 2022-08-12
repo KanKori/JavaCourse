@@ -5,7 +5,6 @@ import com.model.product.AbstractProduct;
 import com.service.ShopService;
 
 import java.util.List;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class Main {

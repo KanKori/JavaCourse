@@ -22,6 +22,11 @@ public class Telephone extends AbstractProduct {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Telephone {" + "\n" +
+                "Series " + series + "\n" +
+                "Model " + model + "\n" +
+                "Screen Type " + screenType + "\n" +
+                "Price " + price + "\n" +
+                "}";
     }
 }

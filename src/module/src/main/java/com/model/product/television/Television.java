@@ -21,4 +21,15 @@ public class Television extends AbstractProduct {
         this.country = country;
         this.screenType = screenType;
     }
+
+    @Override
+    public String toString() {
+        return "Television {" + "\n" +
+                "Series " + series + "\n" +
+                "Diagonal " + diagonal + "\n" +
+                "Country " + country + "\n" +
+                "ScreenType " + screenType + "\n" +
+                "Price " + price + "\n" +
+                "}";
+    }
 }

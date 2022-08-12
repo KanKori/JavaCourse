@@ -1,4 +1,5 @@
 type,series,model,diagonal,screen type,country,price
+Telephone,SuperChinaPhone,S-TELL,none,,none,0
 Telephone,S-10,Samsung,none,OLED,none,200
 Telephone,S-20,Samsung,none,IPS,none,500
 Telephone,9RT,OnePlus,none,AMOLED,none,500

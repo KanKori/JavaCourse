@@ -1,7 +1,6 @@
 package com.service;
 
 import com.exception.file.read.InvalidLineException;
-import com.model.customer.Customer;
 import com.model.invoice.Invoice;
 import com.model.product.AbstractProduct;
 import org.slf4j.Logger;
@@ -31,21 +30,25 @@ public class ShopService {
     private static final PersonService PERSON_SERVICE = new PersonService();
     private static final Queue<Invoice<AbstractProduct>> invoiceQueue = new LinkedList<>();
 
-    private Invoice<AbstractProduct> createRandomInvoice() {
+    public Queue<Invoice<AbstractProduct>> getInvoiceQueue() {
+        return invoiceQueue;
+    }
+
+    private Invoice<AbstractProduct> createRandomInvoice(double sumLimit) {
         List<AbstractProduct> invoiceProducts = new ArrayList<>();
-        final int RANDOM_AMOUNT_OF_PRODUCT = RANDOM.nextInt(5);
+        final int RANDOM_AMOUNT_OF_PRODUCT = RANDOM.nextInt(1, 5);
         for (int i = 0; i < RANDOM_AMOUNT_OF_PRODUCT; i++) {
             AbstractProduct productFromDefaultList = productList.get(RANDOM.nextInt(productList.size()));
             invoiceProducts.add(productFromDefaultList);
         }
         return new Invoice<>(invoiceProducts,
                 PERSON_SERVICE.createRandomCustomer(),
-                LocalDateTime.now());
+                LocalDateTime.now(), sumLimit);
     }
 
-    public void createAndSaveRandomInvoice(int amountOfInvoice) {
+    public void createAndSaveRandomInvoice(int amountOfInvoice, double sumLimit) {
         for (int i = 0; i < amountOfInvoice; i++) {
-            invoiceQueue.add(createRandomInvoice());
+            invoiceQueue.add(createRandomInvoice(sumLimit));
         }
     }
 }

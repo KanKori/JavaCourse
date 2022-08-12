@@ -19,4 +19,9 @@ public class Telephone extends AbstractProduct {
         this.model = model;
         this.screenType = screenType;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

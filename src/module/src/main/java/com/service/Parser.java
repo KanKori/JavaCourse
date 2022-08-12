@@ -20,15 +20,14 @@ import java.util.Map;
 public class Parser {
     private static final Logger LOGGER = LoggerFactory.getLogger(ShopService.class);
 
-    protected List<String> readLinesFromCSV(Path path) throws InvalidLineException {
-
-
+    protected List<String> readLinesFromCSV() throws InvalidLineException {
         String line;
         List<String> lines = new ArrayList<>();
+        String csv = "C:\\Users\\inavo\\IdeaProjects\\JavaCourse\\src\\module\\src\\main\\resources\\products.csv";
         BufferedReader bufferedReader;
 
         try {
-            bufferedReader = new BufferedReader(new FileReader(String.valueOf(path.getFileName())));
+            bufferedReader = new BufferedReader(new FileReader(csv));
         } catch (FileNotFoundException e) {
             LOGGER.error(e.getMessage());
             throw new RuntimeException(e);
@@ -49,22 +48,20 @@ public class Parser {
     }
 
     public List<AbstractProduct> parseCSV() throws InvalidLineException {
-        Path path = Paths.get("src/main/resources/ProductTable.csv");
-        if (!Files.exists(path)) {
-            throw new IllegalArgumentException();
-        }
-
+        Path path = Paths.get(".\\src\\module\\src\\main\\resources\\products.csv");
         final int STRING_WITH_NAMES_OF_COLUMN = 0;
-        String[] fields = readLinesFromCSV(path).get(STRING_WITH_NAMES_OF_COLUMN).split(",");
+        String[] columns = readLinesFromCSV().get(STRING_WITH_NAMES_OF_COLUMN).split(",");
 
-        final int FIRST_LINE_WITH_SPECIFICATIONS = 1;
-        Map<String, String> result = new HashMap<>();
+        final int FIRST_SPECIFICATION = 0;
         List<AbstractProduct> products = new ArrayList<>();
-        readLinesFromCSV(path).stream()
-                .map(l -> l.split(","))
-                .forEach(values -> {
-                    for (int i = FIRST_LINE_WITH_SPECIFICATIONS; i < values.length; i++) {
-                        result.put(fields[i], values[i]);
+        Map<String, String> result = new HashMap<>();
+        List<String> values = readLinesFromCSV();
+        values.stream()
+                .skip(1)
+                .map(splitChar -> splitChar.split(","))
+                .forEach(value -> {
+                    for (int i = FIRST_SPECIFICATION; i < value.length; i++) {
+                        result.put(columns[i], value[i]);
                     }
                     products.add(ProductFactory.createProductFromMap(result));
                 });

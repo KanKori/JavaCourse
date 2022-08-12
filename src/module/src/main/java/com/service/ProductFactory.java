@@ -24,14 +24,14 @@ public class ProductFactory {
     public static AbstractProduct createProductFromMap(Map<String, String> fields) {
         Function<Map<String, String>, AbstractProduct> mapToProduct = map -> {
             switch (map.get(TYPE)) {
-                case "telephone" -> {
+                case "Telephone" -> {
                     return new Telephone(
                             map.get(SERIES),
                             map.get(MODEL),
                             Double.parseDouble(map.get(PRICE)),
                             TelephoneScreenType.valueOf(map.get(SCREEN_TYPE)));
                 }
-                case "television" -> {
+                case "Television" -> {
                     return new Television(
                             map.get(SERIES),
                             Double.parseDouble(map.get(PRICE)),

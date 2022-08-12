@@ -19,7 +19,7 @@ public class PersonService implements ICustomerService<Customer> {
         StringBuilder emailAddress = new StringBuilder();
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         while (emailAddress.length() < MINIMAL_EMAIL_LENGTH) {
-            int index = RANDOM.nextInt() * alphabet.length();
+            int index = RANDOM.nextInt(alphabet.length());
             emailAddress.append(alphabet.charAt(index));
         }
         emailAddress.append("@favemaildomen.com");

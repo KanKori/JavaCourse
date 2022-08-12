@@ -1,6 +1,12 @@
 package com.exception.file.read;
 
-public class InvalidLineException extends Exception {
+import java.io.IOException;
+
+public class InvalidLineException extends IOException {
+    public InvalidLineException(String message) {
+        super(message);
+    }
+
     public String toString() {
         return "Read error. Invalid string specified";
     }

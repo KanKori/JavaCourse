@@ -9,8 +9,8 @@ import java.util.UUID;
 @Setter
 @Getter
 public abstract class AbstractProduct {
-    protected final String id;
-    protected final String series;
+    protected String id;
+    protected String series;
     protected double price;
     protected final ProductType type;
 

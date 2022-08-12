@@ -9,10 +9,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Telephone extends AbstractProduct {
-    private final String model;
-    private final TelephoneScreenType screenType;
+    private String model;
+    private TelephoneScreenType screenType;
 
-    protected Telephone(String series, String model, double price, ProductType type, TelephoneScreenType screenType) {
+    public Telephone(String series, String model,
+                     double price,
+                     TelephoneScreenType screenType) {
         super(series, price, ProductType.TELEPHONE);
         this.model = model;
         this.screenType = screenType;

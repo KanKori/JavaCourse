@@ -13,8 +13,10 @@ public class Television extends AbstractProduct {
     private final String country;
     private final TelevisionScreenType screenType;
 
-    public Television(String series, double price, ProductType type, double diagonal, String country, TelevisionScreenType screenType) {
-        super(series, price, type);
+    public Television(String series, double price,
+                      double diagonal, String country,
+                      TelevisionScreenType screenType) {
+        super(series, price, ProductType.TELEVISION);
         this.diagonal = diagonal;
         this.country = country;
         this.screenType = screenType;

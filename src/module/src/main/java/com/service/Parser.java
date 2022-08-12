@@ -9,40 +9,40 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Parser {
     private static final Logger LOGGER = LoggerFactory.getLogger(ShopService.class);
 
-    protected List<String> readLinesFromCSV() throws InvalidLineException {
+    protected List<String> readLinesFromCSV() {
         String line;
         List<String> lines = new ArrayList<>();
-        String csv = "C:\\Users\\inavo\\IdeaProjects\\JavaCourse\\src\\module\\src\\main\\resources\\products.csv";
+        String csv = ".\\src\\module\\src\\main\\resources\\products.csv";
         BufferedReader bufferedReader;
-
+        Pattern lineCSV = Pattern.compile("^((?:[^,]+,\\s*){6})[^,]+");
         try {
             bufferedReader = new BufferedReader(new FileReader(csv));
-        } catch (FileNotFoundException e) {
-            LOGGER.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
-
-        while (true) {
-            try {
-                if ((line = bufferedReader.readLine()) == null) {
-                    break;
+            while ((line = bufferedReader.readLine()) != null) {
+                Matcher matcher = lineCSV.matcher(line);
+                if (matcher.find()) {
+                    lines.add(line);
+                } else {
+                    try {
+                        throw new InvalidLineException(toString());
+                    } catch (InvalidLineException e) {
+                        LOGGER.error(e.getMessage());
+                    }
                 }
-                lines.add(line);
-            } catch (IOException e) {
-                LOGGER.error(e.getMessage());
-                throw new InvalidLineException(toString());
             }
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage());
         }
         return lines;
     }

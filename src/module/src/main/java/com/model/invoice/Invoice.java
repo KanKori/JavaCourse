@@ -19,7 +19,6 @@ public class Invoice<T extends AbstractProduct> {
     private LocalDateTime createdTime;
     private Double sum;
 
-
     public Invoice(List<T> products, Customer customer, LocalDateTime createdTime, double sumLimit) {
         this.products = products;
         this.customer = customer;

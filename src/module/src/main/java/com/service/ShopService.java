@@ -38,8 +38,7 @@ public class ShopService {
         List<AbstractProduct> invoiceProducts = new ArrayList<>();
         final int RANDOM_AMOUNT_OF_PRODUCT = RANDOM.nextInt(1, 5);
         for (int i = 0; i < RANDOM_AMOUNT_OF_PRODUCT; i++) {
-            AbstractProduct productFromDefaultList = productList.get(RANDOM.nextInt(productList.size()));
-            invoiceProducts.add(productFromDefaultList);
+            invoiceProducts.add(productList.get(RANDOM.nextInt(productList.size())));
         }
         return new Invoice<>(invoiceProducts,
                 PERSON_SERVICE.createRandomCustomer(),

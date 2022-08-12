@@ -17,7 +17,7 @@ public class Invoice<T extends AbstractProduct> {
     private List<T> products;
     private Customer customer;
     private LocalDateTime createdTime;
-    public Double sum;
+    private Double sum;
 
 
     public Invoice(List<T> products, Customer customer, LocalDateTime createdTime, double sumLimit) {

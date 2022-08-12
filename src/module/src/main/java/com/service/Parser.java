@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -48,7 +47,6 @@ public class Parser {
     }
 
     public List<AbstractProduct> parseCSV() throws InvalidLineException {
-        Path path = Paths.get(".\\src\\module\\src\\main\\resources\\products.csv");
         final int STRING_WITH_NAMES_OF_COLUMN = 0;
         String[] columns = readLinesFromCSV().get(STRING_WITH_NAMES_OF_COLUMN).split(",");
 

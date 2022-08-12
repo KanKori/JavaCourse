@@ -47,7 +47,7 @@ public class ShopService {
     public void createAndSaveRandomInvoice(int amountOfInvoice, double sumLimit) {
         for (int i = 0; i < amountOfInvoice; i++) {
             invoiceList.add(createRandomInvoice(sumLimit));
-            LOGGER.info("[{}] [{}] [{} {}]", invoiceList.get(i).getCreatedTime(),
+            LOGGER.info("\n [{}] \n [{}] \n [{} {}]", invoiceList.get(i).getCreatedTime(),
                     invoiceList.get(i).getCustomer(), invoiceList.get(i).getType(),
                     invoiceList);
         }

@@ -34,7 +34,7 @@ public class Main {
         System.out.println("~~~~~~~~~~~~printSumAllInvoices~~~~~~~~~~~~");
         System.out.println("\nSUM ALL : \n" + statisticsService.sumAllInvoices());
         System.out.println("~~~~~~~~~~~~printAmountOfRetail()~~~~~~~~~~~~");
-        System.out.println("\nAMOUNT OF RETAIL INVOICES : \n" + statisticsService.amountOfRetail());
+        System.out.println("\nAMOUNT OF RETAIL INVOICES : " + statisticsService.amountOfRetail());
         System.out.println("~~~~~~~~~~~~printInvoicesWithSingleProductType~~~~~~~~~~~~");
         System.out.println("\nINVOICES WITH SINGLE PRODUCT TYPE:  \n");
         if (statisticsService.invoicesWithSingleProductType() != null) {

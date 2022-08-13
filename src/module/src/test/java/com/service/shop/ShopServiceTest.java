@@ -32,14 +32,4 @@ class ShopServiceTest {
         assertEquals(abstractProducts, target.getInvoiceList());
     }
 
-    @Test
-    void createAndSaveRandomInvoice_null() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveRandomInvoice(0));
-    }
-
-    @Test
-    void createAndSaveRandomInvoice_negative() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> target.createAndSaveRandomInvoice(-1));
-    }
-
 }

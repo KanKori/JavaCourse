@@ -30,6 +30,6 @@ public class Television extends AbstractProduct {
                 "Country " + country + "\n" +
                 "ScreenType " + screenType + "\n" +
                 "Price " + price + "\n" +
-                "}";
+                "}" + "\n";
     }
 }

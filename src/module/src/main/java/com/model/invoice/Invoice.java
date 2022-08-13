@@ -25,8 +25,7 @@ public class Invoice<T extends AbstractProduct> {
         this.createdTime = createdTime;
         this.sum = products.stream()
                 .mapToDouble(AbstractProduct::getPrice)
-                .average()
-                .orElse(0);
+                .sum();
         this.type.add(
                 (sum > sumLimit) ? InvoiceType.retail : InvoiceType.wholesale);
         if (customer.getAge() < 18) {
@@ -42,6 +41,6 @@ public class Invoice<T extends AbstractProduct> {
                 "Customer " + customer + "\n" +
                 "Created Time " + createdTime + "\n" +
                 "Sum " + sum + "\n" +
-                "}";
+                "}" + "\n";
     }
 }

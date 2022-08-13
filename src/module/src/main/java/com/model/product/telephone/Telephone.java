@@ -27,6 +27,6 @@ public class Telephone extends AbstractProduct {
                 "Model " + model + "\n" +
                 "Screen Type " + screenType + "\n" +
                 "Price " + price + "\n" +
-                "}";
+                "}" + "\n";
     }
 }

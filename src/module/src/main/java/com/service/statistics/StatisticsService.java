@@ -6,9 +6,11 @@ import com.model.product.AbstractProduct;
 import com.model.product.specifications.ProductType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StatisticsService {
@@ -41,7 +43,7 @@ public class StatisticsService {
 
     public int amountOfRetail() {
         return Math.toIntExact(invoiceList.stream()
-                .filter(invoice -> invoice.getType().contains(InvoiceType.retail))
+                .filter(invoice -> invoice.getType().contains(InvoiceType.RETAIL.toString()))
                 .count());
     }
 
@@ -71,9 +73,10 @@ public class StatisticsService {
         }
     }
 
-    public Stream<Invoice<AbstractProduct>> printInvoicesByPersonsUnder18Age() {
+    public Stream<Invoice<AbstractProduct>> invoicesByPersonsUnder18Age() {
         return invoiceList.stream()
-                .filter(invoice -> invoice.getType().contains(InvoiceType.low_age));
+                .filter(invoice -> invoice.getCustomer().getAge() < 18)
+                .peek(invoice -> invoice.setType(String.valueOf(InvoiceType.LOW_AGE)));
     }
 
     public Stream<Invoice<AbstractProduct>> sortedInvoices() {

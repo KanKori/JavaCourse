@@ -14,7 +14,7 @@ public class Main {
         System.out.println("Please enter check limit");
         final Scanner scanner = new Scanner(System.in);
         final double sumLimit = Double.parseDouble(scanner.next());
-        ShopService shopService = new ShopService();
+        ShopService shopService = new ShopService(".\\src\\module\\src\\main\\resources\\products.csv");
         System.out.println();
         shopService.createAndSaveRandomInvoice(15, sumLimit);
         List<Invoice<AbstractProduct>> invoiceList = shopService.getInvoiceList();

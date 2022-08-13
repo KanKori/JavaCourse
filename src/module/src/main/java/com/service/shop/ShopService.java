@@ -17,19 +17,19 @@ import java.util.Random;
 public class ShopService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ShopService.class);
-    private static final List<AbstractProduct> ABSTRACT_PRODUCTS;
-
-    static {
-        try {
-            ABSTRACT_PRODUCTS = new ParserCSV().parseCSV();
-        } catch (InvalidLineException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static List<AbstractProduct> ABSTRACT_PRODUCTS;
 
     private static final Random RANDOM = new Random();
     private static final PersonService PERSON_SERVICE = new PersonService();
     private static final List<Invoice<AbstractProduct>> INVOICE_LIST = new LinkedList<>();
+
+    public ShopService(String csv) {
+        try {
+            ABSTRACT_PRODUCTS = new ParserCSV().parseCSV(csv);
+        } catch (InvalidLineException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public List<Invoice<AbstractProduct>> getInvoiceList() {
         return INVOICE_LIST;

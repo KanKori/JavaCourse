@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 public class Invoice<T extends AbstractProduct> {
-    private List<InvoiceType> type = new ArrayList<>();
+    private String type;
     private List<T> products;
     private Customer customer;
     private LocalDateTime createdTime;
@@ -26,11 +26,7 @@ public class Invoice<T extends AbstractProduct> {
         this.sum = products.stream()
                 .mapToDouble(AbstractProduct::getPrice)
                 .sum();
-        this.type.add(
-                (sum > sumLimit) ? InvoiceType.retail : InvoiceType.wholesale);
-        if (customer.getAge() < 18) {
-            this.type.add(InvoiceType.low_age);
-        }
+        this.type = String.valueOf((sum > sumLimit) ? InvoiceType.RETAIL : InvoiceType.WHOLESALE);
     }
 
     @Override

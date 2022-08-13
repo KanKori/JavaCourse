@@ -51,8 +51,8 @@ public class Main {
         }
         System.out.println("~~~~~~~~~~~~printInvoicesByPersonsUnder18Age~~~~~~~~~~~~");
         System.out.println("\nINVOICES OF PERSON UNDER 18 AGE : \n");
-        if (statisticsService.printInvoicesByPersonsUnder18Age() != null) {
-            statisticsService.printInvoicesByPersonsUnder18Age().forEach(System.out::println);
+        if (statisticsService.invoicesByPersonsUnder18Age() != null) {
+            statisticsService.invoicesByPersonsUnder18Age().forEach(System.out::println);
         } else {
             System.out.println("No one found");
         }

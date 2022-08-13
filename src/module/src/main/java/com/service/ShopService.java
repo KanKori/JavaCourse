@@ -27,10 +27,10 @@ public class ShopService {
 
     private static final Random RANDOM = new Random();
     private static final PersonService PERSON_SERVICE = new PersonService();
-    private static final List<Invoice<AbstractProduct>> invoiceList = new LinkedList<>();
+    private static final List<Invoice<AbstractProduct>> INVOICE_LIST = new LinkedList<>();
 
     public List<Invoice<AbstractProduct>> getInvoiceList() {
-        return invoiceList;
+        return INVOICE_LIST;
     }
 
     private Invoice<AbstractProduct> createRandomInvoice(double sumLimit) {
@@ -46,10 +46,10 @@ public class ShopService {
 
     public void createAndSaveRandomInvoice(int amountOfInvoice, double sumLimit) {
         for (int i = 0; i < amountOfInvoice; i++) {
-            invoiceList.add(createRandomInvoice(sumLimit));
+            INVOICE_LIST.add(createRandomInvoice(sumLimit));
             LOGGER.info("\n\nTime:\n[{}]\nUser-Data:\n[{}]\n\nAll-Invoice-Data:\n[{}]\n",
-                    invoiceList.get(i).getCreatedTime(),
-                    invoiceList.get(i).getCustomer(), invoiceList);
+                    INVOICE_LIST.get(i).getCreatedTime(),
+                    INVOICE_LIST.get(i).getCustomer(), INVOICE_LIST);
         }
     }
 }

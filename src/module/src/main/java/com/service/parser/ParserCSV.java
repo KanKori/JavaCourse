@@ -80,7 +80,7 @@ public class ParserCSV {
         final int LINE_WITH_COLUMNS = 1;
         List<AbstractProduct> products = new ArrayList<>();
         Map<String, String> result = new HashMap<>();
-        List<String> values = readLinesFromCSV();
+        List<String> values = readLinesFromCSV(csv);
         values.stream()
                 .skip(LINE_WITH_COLUMNS)
                 .map(splitChar -> splitChar.split(","))

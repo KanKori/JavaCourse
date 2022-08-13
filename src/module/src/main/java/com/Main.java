@@ -30,20 +30,35 @@ public class Main {
                 + "\nCOUNT OF PRODUCTS BY TELEVISION TYPE = "
                 + statisticsService.productsCountByType(ProductType.TELEVISION));
         System.out.println("~~~~~~~~~~~~printLowestSumInvoice~~~~~~~~~~~~");
-        System.out.println("INVOICE WITH LOWEST SUM : " + statisticsService.lowestSumInvoice());
+        System.out.println("\nINVOICE WITH LOWEST SUM : \n" + statisticsService.lowestSumInvoice());
         System.out.println("~~~~~~~~~~~~printSumAllInvoices~~~~~~~~~~~~");
-        System.out.println("\nSUM ALL : " + statisticsService.sumAllInvoices());
+        System.out.println("\nSUM ALL : \n" + statisticsService.sumAllInvoices());
         System.out.println("~~~~~~~~~~~~printAmountOfRetail()~~~~~~~~~~~~");
-        System.out.println("\nAMOUNT OF RETAIL INVOICES : " + statisticsService.amountOfRetail());
+        System.out.println("\nAMOUNT OF RETAIL INVOICES : \n" + statisticsService.amountOfRetail());
         System.out.println("~~~~~~~~~~~~printInvoicesWithSingleProductType~~~~~~~~~~~~");
-        System.out.println("INVOICES WITH SINGLE PRODUCT TYPE:");
-        statisticsService.printInvoicesWithSingleProductType();
+        System.out.println("\nINVOICES WITH SINGLE PRODUCT TYPE:  \n");
+        if (statisticsService.invoicesWithSingleProductType() != null) {
+            statisticsService.invoicesWithSingleProductType().forEach(System.out::println);
+        } else {
+            System.out.println("No one found");
+        }
         System.out.println("~~~~~~~~~~~~printFirstThreeInvoices~~~~~~~~~~~~");
-        statisticsService.printFirstThreeInvoices();
+        System.out.println("\nFIRST 3 INVOICES: \n");
+        if (statisticsService.firstThreeInvoices() != null) {
+            statisticsService.firstThreeInvoices().forEach(System.out::println);
+        } else {
+            System.out.println("\nLess than 3 invoices specified");
+        }
         System.out.println("~~~~~~~~~~~~printInvoicesByPersonsUnder18Age~~~~~~~~~~~~");
-        statisticsService.printInvoicesByPersonsUnder18Age();
+        System.out.println("\nINVOICES OF PERSON UNDER 18 AGE : \n");
+        if (statisticsService.printInvoicesByPersonsUnder18Age() != null) {
+            statisticsService.printInvoicesByPersonsUnder18Age().forEach(System.out::println);
+        } else {
+            System.out.println("No one found");
+        }
         System.out.println("~~~~~~~~~~~~printSortedInvoices~~~~~~~~~~~~");
-        statisticsService.printSortedInvoices();
+        System.out.println("\nSORTED INVOICES : \n");
+        statisticsService.sortedInvoices().forEach(System.out::println);
         System.out.println("~~~~~~~~~~~~STATISTICS SERVICE~~~~~~~~~~~~");
     }
 }

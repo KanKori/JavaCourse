@@ -2,10 +2,8 @@ package com.service.shop;
 
 import com.model.invoice.Invoice;
 import com.model.product.AbstractProduct;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -28,5 +26,10 @@ class ShopServiceTest {
         assertEquals(targetInvoiceList, target.getInvoiceList());
     }
 
+    @Test
+    void createAndSaveRandomInvoice() {
+        target.createAndSaveRandomInvoice(2);
+        verify(target, times(2)).createRandomInvoice();
+    }
 
 }

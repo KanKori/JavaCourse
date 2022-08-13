@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class StatisticsService {
     private final List<Invoice<AbstractProduct>> invoiceList;
@@ -44,8 +45,7 @@ public class StatisticsService {
                 .count());
     }
 
-    public void printInvoicesWithSingleProductType() {
-        System.out.println("INVOICES WITH SINGLE PRODUCT TYPE:");
+    public List<Invoice<AbstractProduct>> invoicesWithSingleProductType() {
         List<Invoice<AbstractProduct>> singleType = new ArrayList<>();
         invoiceList.forEach(invoice -> {
             if (invoice.getProducts().stream()
@@ -57,41 +57,35 @@ public class StatisticsService {
                 singleType.add(invoice);
             }
         });
-        if (singleType.isEmpty()) {
-            System.out.println("Theres no one");
+        return singleType;
+    }
+
+    public Stream<Invoice<AbstractProduct>> firstThreeInvoices() {
+        final int THREE_INVOICES = 3;
+        if (invoiceList.size() >= THREE_INVOICES) {
+            return invoiceList.stream()
+                    .sorted(Comparator.comparing(Invoice::getCreatedTime))
+                    .limit(THREE_INVOICES);
         } else {
-            singleType.forEach(System.out::println);
+            return null;
         }
     }
 
-    public void printFirstThreeInvoices() {
-        final int THREE_INVOICES = 3;
-        System.out.println("FIRST 3 INVOICES: ");
-        invoiceList.stream()
-                .sorted(Comparator.comparing(Invoice::getCreatedTime))
-                .limit(THREE_INVOICES)
-                .forEach(System.out::println);
+    public Stream<Invoice<AbstractProduct>> printInvoicesByPersonsUnder18Age() {
+        return invoiceList.stream()
+                .filter(invoice -> invoice.getType().contains(InvoiceType.low_age));
     }
 
-    public void printInvoicesByPersonsUnder18Age() {
-        System.out.println("\nINVOICES OF PERSON UNDER 18 AGE : ");
-        invoiceList.stream()
-                .filter(invoice -> invoice.getType().contains(InvoiceType.low_age))
-                .forEach(System.out::println);
-    }
-
-    public void printSortedInvoices() {
-        System.out.println("SORTED INVOICES : ");
+    public Stream<Invoice<AbstractProduct>> sortedInvoices() {
         Comparator<Invoice<AbstractProduct>> compareByAge = Comparator.comparing
                 (invoice -> invoice.getCustomer().getAge(), Comparator.reverseOrder());
         Comparator<Invoice<AbstractProduct>> compareByProductsListSize = Comparator.comparing
                 (invoice -> invoice.getProducts().size());
         Comparator<Invoice<AbstractProduct>> compareByInvoiceSum = Comparator.comparing(Invoice::getSum);
 
-        invoiceList.stream()
+        return invoiceList.stream()
                 .sorted(compareByAge
                         .thenComparing(compareByProductsListSize)
-                        .thenComparing(compareByInvoiceSum))
-                .forEach(System.out::println);
+                        .thenComparing(compareByInvoiceSum));
     }
 }

@@ -5,10 +5,13 @@ import com.model.product.AbstractProduct;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 class ShopServiceTest {
     private ShopService target;
@@ -25,11 +28,5 @@ class ShopServiceTest {
         assertEquals(targetInvoiceList, target.getInvoiceList());
     }
 
-    @Test
-    void createAndSaveRandomInvoice() {
-        target.createAndSaveRandomInvoice(2);
-        List<Invoice<AbstractProduct>> abstractProducts = target.getInvoiceList();
-        assertEquals(abstractProducts, target.getInvoiceList());
-    }
 
 }

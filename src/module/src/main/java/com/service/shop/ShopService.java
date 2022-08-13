@@ -39,7 +39,7 @@ public class ShopService {
         return INVOICE_LIST;
     }
 
-    private Invoice<AbstractProduct> createRandomInvoice() {
+    protected Invoice<AbstractProduct> createRandomInvoice() {
         List<AbstractProduct> invoiceProducts = new ArrayList<>();
         final int MAX_AMOUNT_OF_PRODUCTS = 5;
         final int MIN_AMOUNT_OF_PRODUCTS = 1;

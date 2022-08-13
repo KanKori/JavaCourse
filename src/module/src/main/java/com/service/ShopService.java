@@ -15,11 +15,11 @@ import java.util.Random;
 public class ShopService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ShopService.class);
-    private static final List<AbstractProduct> productList;
+    private static final List<AbstractProduct> ABSTRACT_PRODUCTS;
 
     static {
         try {
-            productList = new Parser().parseCSV();
+            ABSTRACT_PRODUCTS = new Parser().parseCSV();
         } catch (InvalidLineException e) {
             throw new RuntimeException(e);
         }
@@ -37,7 +37,7 @@ public class ShopService {
         List<AbstractProduct> invoiceProducts = new ArrayList<>();
         final int RANDOM_AMOUNT_OF_PRODUCT = RANDOM.nextInt(1, 5);
         for (int i = 0; i < RANDOM_AMOUNT_OF_PRODUCT; i++) {
-            invoiceProducts.add(productList.get(RANDOM.nextInt(productList.size())));
+            invoiceProducts.add(ABSTRACT_PRODUCTS.get(RANDOM.nextInt(ABSTRACT_PRODUCTS.size())));
         }
         return new Invoice<>(invoiceProducts,
                 PERSON_SERVICE.createRandomCustomer(),

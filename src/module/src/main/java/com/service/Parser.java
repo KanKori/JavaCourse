@@ -49,11 +49,12 @@ public class Parser {
         String[] columns = readLinesFromCSV().get(STRING_WITH_NAMES_OF_COLUMN).split(",");
 
         final int FIRST_SPECIFICATION = 0;
+        final int LINE_WITH_COLUMNS = 1;
         List<AbstractProduct> products = new ArrayList<>();
         Map<String, String> result = new HashMap<>();
         List<String> values = readLinesFromCSV();
         values.stream()
-                .skip(1)
+                .skip(LINE_WITH_COLUMNS)
                 .map(splitChar -> splitChar.split(","))
                 .forEach(value -> {
                     for (int i = FIRST_SPECIFICATION; i < value.length; i++) {

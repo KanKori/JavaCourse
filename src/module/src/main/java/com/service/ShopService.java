@@ -35,7 +35,9 @@ public class ShopService {
 
     private Invoice<AbstractProduct> createRandomInvoice(double sumLimit) {
         List<AbstractProduct> invoiceProducts = new ArrayList<>();
-        final int RANDOM_AMOUNT_OF_PRODUCT = RANDOM.nextInt(1, 5);
+        final int MAX_AMOUNT_OF_PRODUCTS = 5;
+        final int MIN_AMOUNT_OF_PRODUCTS = 1;
+        final int RANDOM_AMOUNT_OF_PRODUCT = RANDOM.nextInt(MIN_AMOUNT_OF_PRODUCTS, MAX_AMOUNT_OF_PRODUCTS);
         for (int i = 0; i < RANDOM_AMOUNT_OF_PRODUCT; i++) {
             invoiceProducts.add(ABSTRACT_PRODUCTS.get(RANDOM.nextInt(ABSTRACT_PRODUCTS.size())));
         }

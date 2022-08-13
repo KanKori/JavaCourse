@@ -35,12 +35,12 @@ public class Invoice<T extends AbstractProduct> {
 
     @Override
     public String toString() {
-        return "Invoice: {" + "\n" +
+        return "Invoice: {" +
                 "Type " + type + "\n" +
-                "Products " + products + "\n" +
-                "Customer " + customer + "\n" +
-                "Created Time " + createdTime + "\n" +
-                "Sum " + sum + "\n" +
-                "}" + "\n";
+                "Products " + products + "; " +
+                "\n" + customer + "; " +
+                "\nCreated Time " + createdTime + "; " +
+                "\nTotal sum " + sum +
+                "\n}" + "\n";
     }
 }

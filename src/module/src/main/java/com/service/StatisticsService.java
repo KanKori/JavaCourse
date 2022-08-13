@@ -17,12 +17,12 @@ public class StatisticsService {
     }
 
     public void printProductsCountByType() {
-        System.out.println("\nCount of products by Telephone type = " +
+        System.out.println("\nCOUNT OF PRODUCTS BY TELEPHONE TYPE = " +
                 invoiceList.stream()
                         .flatMap(invoice -> invoice.getProducts().stream())
                         .filter(invoice -> invoice.getType().equals(ProductType.TELEPHONE))
                         .count());
-        System.out.println("\nCount of products by Television type = " +
+        System.out.println("\nCOUNT OF PRODUCTS BY TELEVISION TYPE = " +
                 invoiceList.stream()
                         .flatMap(invoice -> invoice.getProducts().stream())
                         .filter(invoice -> invoice.getType().equals(ProductType.TELEVISION))
@@ -30,14 +30,14 @@ public class StatisticsService {
     }
 
     public void printSumAllInvoices() {
-        System.out.println("\nSum All " +
+        System.out.println("\nSUM ALL : " +
                 invoiceList.stream()
                         .mapToDouble(Invoice::getSum)
                         .sum());
     }
 
     public void printLowestSumInvoice() {
-        System.out.println("Lowest Sum Invoice :" +
+        System.out.println("INVOICE WITH LOWEST SUM : " +
                 invoiceList.stream()
                         .sorted(Comparator.comparing(Invoice::getSum))
                         .toList()
@@ -46,14 +46,14 @@ public class StatisticsService {
     }
 
     public void printAmountOfRetail() {
-        System.out.println("\nAmount of retail : " +
+        System.out.println("\nAMOUNT OF RETAIL INVOICES : " +
                 invoiceList.stream()
                         .filter(invoice -> invoice.getType().contains(InvoiceType.retail))
                         .count());
     }
 
     public void printInvoicesWithSingleProductType() {
-        System.out.println("Invoices with single product type:");
+        System.out.println("INVOICES WITH SINGLE PRODUCT TYPE:");
         List<Invoice<AbstractProduct>> singleType = new ArrayList<>();
         invoiceList.forEach(invoice -> {
             if (invoice.getProducts().stream()
@@ -74,7 +74,7 @@ public class StatisticsService {
 
     public void printFirstThreeInvoices() {
         final int THREE_INVOICES = 3;
-        System.out.println("First 3 invoices: ");
+        System.out.println("FIRST 3 INVOICES: ");
         invoiceList.stream()
                 .sorted(Comparator.comparing(Invoice::getCreatedTime))
                 .limit(THREE_INVOICES)
@@ -82,14 +82,14 @@ public class StatisticsService {
     }
 
     public void printInvoicesByPersonsUnder18Age() {
-        System.out.println("\nInvoices of persons under 18 age:");
+        System.out.println("\nINVOICES OF PERSON UNDER 18 AGE : ");
         invoiceList.stream()
                 .filter(invoice -> invoice.getType().contains(InvoiceType.low_age))
                 .forEach(System.out::println);
     }
 
     public void printSortedInvoices() {
-        System.out.println("Sorted invoices");
+        System.out.println("SORTED INVOICES : ");
         Comparator<Invoice<AbstractProduct>> compareByAge = Comparator.comparing
                 (invoice -> invoice.getCustomer().getAge(), Comparator.reverseOrder());
         Comparator<Invoice<AbstractProduct>> compareByProductsListSize = Comparator.comparing

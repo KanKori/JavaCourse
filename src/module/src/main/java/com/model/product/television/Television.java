@@ -24,12 +24,12 @@ public class Television extends AbstractProduct {
 
     @Override
     public String toString() {
-        return "Television {" + "\n" +
-                "Series " + series + "\n" +
-                "Diagonal " + diagonal + "\n" +
-                "Country " + country + "\n" +
-                "ScreenType " + screenType + "\n" +
-                "Price " + price + "\n" +
-                "}" + "\n";
+        return "\nTelevision {" +
+                "Series " + series + "; " +
+                "Diagonal " + diagonal + "; " +
+                "Country " + country + "; " +
+                "ScreenType " + screenType + "; " +
+                "Price " + price + "; " +
+                "}";
     }
 }

@@ -24,10 +24,10 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer {" + "\n" +
-                "id " + id + "\n" +
-                "email " + email + "\n" +
-                "age " + age + "\n" +
+        return "\nCustomer {" +
+                "id " + id + "; " +
+                "email " + email + "; " +
+                "age " + age + "; " +
                 "}";
     }
 }

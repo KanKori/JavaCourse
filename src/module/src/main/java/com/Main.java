@@ -2,8 +2,8 @@ package com;
 
 import com.model.invoice.Invoice;
 import com.model.product.AbstractProduct;
-import com.service.ShopService;
-import com.service.StatisticsService;
+import com.service.shop.ShopService;
+import com.service.statistics.StatisticsService;
 
 import java.io.FileNotFoundException;
 import java.util.List;

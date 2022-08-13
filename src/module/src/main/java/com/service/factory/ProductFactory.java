@@ -1,4 +1,4 @@
-package com.service;
+package com.service.factory;
 
 import com.model.product.AbstractProduct;
 import com.model.product.telephone.Telephone;

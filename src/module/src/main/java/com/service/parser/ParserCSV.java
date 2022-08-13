@@ -1,7 +1,9 @@
-package com.service;
+package com.service.parser;
 
 import com.exception.file.read.InvalidLineException;
 import com.model.product.AbstractProduct;
+import com.service.factory.ProductFactory;
+import com.service.shop.ShopService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +17,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Parser {
+public class ParserCSV {
     private static final Logger LOGGER = LoggerFactory.getLogger(ShopService.class);
 
     protected List<String> readLinesFromCSV() {

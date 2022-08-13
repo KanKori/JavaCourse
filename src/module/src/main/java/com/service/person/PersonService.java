@@ -1,6 +1,7 @@
-package com.service;
+package com.service.person;
 
 import com.model.customer.Customer;
+import com.service.person.interfaces.ICustomerService;
 
 import java.util.Random;
 

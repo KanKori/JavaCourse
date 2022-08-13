@@ -1,4 +1,4 @@
-package com.service;
+package com.service.person.interfaces;
 
 import com.model.customer.Customer;
 

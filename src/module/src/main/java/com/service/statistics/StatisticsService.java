@@ -1,4 +1,4 @@
-package com.service;
+package com.service.statistics;
 
 import com.model.invoice.Invoice;
 import com.model.invoice.specifications.InvoiceType;

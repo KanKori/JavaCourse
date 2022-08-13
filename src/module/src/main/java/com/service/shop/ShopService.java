@@ -1,8 +1,10 @@
-package com.service;
+package com.service.shop;
 
 import com.exception.file.read.InvalidLineException;
 import com.model.invoice.Invoice;
 import com.model.product.AbstractProduct;
+import com.service.parser.ParserCSV;
+import com.service.person.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +21,7 @@ public class ShopService {
 
     static {
         try {
-            ABSTRACT_PRODUCTS = new Parser().parseCSV();
+            ABSTRACT_PRODUCTS = new ParserCSV().parseCSV();
         } catch (InvalidLineException e) {
             throw new RuntimeException(e);
         }

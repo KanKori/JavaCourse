@@ -23,19 +23,23 @@ public class ShopService {
     private static final PersonService PERSON_SERVICE = new PersonService();
     private static final List<Invoice<AbstractProduct>> INVOICE_LIST = new LinkedList<>();
 
-    public ShopService(String csv) {
+    private final double sumLimit;
+
+    public ShopService(String csv, double sumLimit) {
         try {
             ABSTRACT_PRODUCTS = new ParserCSV().parseCSV(csv);
         } catch (InvalidLineException e) {
             throw new RuntimeException(e);
         }
+        this.sumLimit = sumLimit;
     }
+
 
     public List<Invoice<AbstractProduct>> getInvoiceList() {
         return INVOICE_LIST;
     }
 
-    private Invoice<AbstractProduct> createRandomInvoice(double sumLimit) {
+    private Invoice<AbstractProduct> createRandomInvoice() {
         List<AbstractProduct> invoiceProducts = new ArrayList<>();
         final int MAX_AMOUNT_OF_PRODUCTS = 5;
         final int MIN_AMOUNT_OF_PRODUCTS = 1;
@@ -48,9 +52,9 @@ public class ShopService {
                 LocalDateTime.now(), sumLimit);
     }
 
-    public void createAndSaveRandomInvoice(int amountOfInvoice, double sumLimit) {
+    public void createAndSaveRandomInvoice(int amountOfInvoice) {
         for (int i = 0; i < amountOfInvoice; i++) {
-            INVOICE_LIST.add(createRandomInvoice(sumLimit));
+            INVOICE_LIST.add(createRandomInvoice());
             LOGGER.info("\n\nTime:\n[{}]\nUser-Data:\n[{}]\n\nAll-Invoice-Data:\n[{}]\n",
                     INVOICE_LIST.get(i).getCreatedTime(),
                     INVOICE_LIST.get(i).getCustomer(), INVOICE_LIST);

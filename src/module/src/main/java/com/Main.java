@@ -2,6 +2,7 @@ package com;
 
 import com.model.invoice.Invoice;
 import com.model.product.AbstractProduct;
+import com.model.product.specifications.ProductType;
 import com.service.shop.ShopService;
 import com.service.statistics.StatisticsService;
 
@@ -24,14 +25,18 @@ public class Main {
         System.out.println("~~~~~~~~~~~~STATISTICS SERVICE~~~~~~~~~~~~");
         StatisticsService statisticsService = new StatisticsService(invoiceList);
         System.out.println("~~~~~~~~~~~~printProductsCountByType~~~~~~~~~~~~");
-        statisticsService.printProductsCountByType();
+        System.out.println("\nCOUNT OF PRODUCTS BY TELEPHONE TYPE = "
+                + statisticsService.productsCountByType(ProductType.TELEPHONE)
+                + "\nCOUNT OF PRODUCTS BY TELEVISION TYPE = "
+                + statisticsService.productsCountByType(ProductType.TELEVISION));
         System.out.println("~~~~~~~~~~~~printLowestSumInvoice~~~~~~~~~~~~");
-        statisticsService.printLowestSumInvoice();
+        System.out.println("INVOICE WITH LOWEST SUM : " + statisticsService.lowestSumInvoice());
         System.out.println("~~~~~~~~~~~~printSumAllInvoices~~~~~~~~~~~~");
-        statisticsService.printSumAllInvoices();
+        System.out.println("\nSUM ALL : " + statisticsService.sumAllInvoices());
         System.out.println("~~~~~~~~~~~~printAmountOfRetail()~~~~~~~~~~~~");
-        statisticsService.printAmountOfRetail();
+        System.out.println("\nAMOUNT OF RETAIL INVOICES : " + statisticsService.amountOfRetail());
         System.out.println("~~~~~~~~~~~~printInvoicesWithSingleProductType~~~~~~~~~~~~");
+        System.out.println("INVOICES WITH SINGLE PRODUCT TYPE:");
         statisticsService.printInvoicesWithSingleProductType();
         System.out.println("~~~~~~~~~~~~printFirstThreeInvoices~~~~~~~~~~~~");
         statisticsService.printFirstThreeInvoices();

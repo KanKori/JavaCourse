@@ -53,6 +53,9 @@ public class ShopService {
     }
 
     public void createAndSaveRandomInvoice(int amountOfInvoice) {
+        if (amountOfInvoice < 1) {
+            throw new IllegalArgumentException("count must been bigger then 0");
+        }
         for (int i = 0; i < amountOfInvoice; i++) {
             INVOICE_LIST.add(createRandomInvoice());
             LOGGER.info("\n\nTime:\n[{}]\nUser-Data:\n[{}]\n\nAll-Invoice-Data:\n[{}]\n",

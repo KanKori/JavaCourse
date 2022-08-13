@@ -21,14 +21,24 @@ public class Main {
         for (Object invoice : invoiceList) {
             System.out.println(invoice);
         }
+        System.out.println("~~~~~~~~~~~~STATISTICS SERVICE~~~~~~~~~~~~");
         StatisticsService statisticsService = new StatisticsService(invoiceList);
+        System.out.println("~~~~~~~~~~~~printProductsCountByType~~~~~~~~~~~~");
         statisticsService.printProductsCountByType();
+        System.out.println("~~~~~~~~~~~~printLowestSumInvoice~~~~~~~~~~~~");
         statisticsService.printLowestSumInvoice();
+        System.out.println("~~~~~~~~~~~~printSumAllInvoices~~~~~~~~~~~~");
         statisticsService.printSumAllInvoices();
+        System.out.println("~~~~~~~~~~~~printAmountOfRetail()~~~~~~~~~~~~");
         statisticsService.printAmountOfRetail();
+        System.out.println("~~~~~~~~~~~~printInvoicesWithSingleProductType~~~~~~~~~~~~");
         statisticsService.printInvoicesWithSingleProductType();
+        System.out.println("~~~~~~~~~~~~printFirstThreeInvoices~~~~~~~~~~~~");
         statisticsService.printFirstThreeInvoices();
+        System.out.println("~~~~~~~~~~~~printInvoicesByPersonsUnder18Age~~~~~~~~~~~~");
         statisticsService.printInvoicesByPersonsUnder18Age();
+        System.out.println("~~~~~~~~~~~~printSortedInvoices~~~~~~~~~~~~");
         statisticsService.printSortedInvoices();
+        System.out.println("~~~~~~~~~~~~STATISTICS SERVICE~~~~~~~~~~~~");
     }
 }

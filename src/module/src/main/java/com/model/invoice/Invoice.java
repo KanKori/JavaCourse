@@ -35,7 +35,7 @@ public class Invoice<T extends AbstractProduct> {
 
     @Override
     public String toString() {
-        return "Invoice: {" +
+        return "Invoice: {" + "\n" +
                 "Type " + type + "\n" +
                 "Products " + products + "; " +
                 "\n" + customer + "; " +

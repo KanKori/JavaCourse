@@ -11,7 +11,7 @@
         </encoder>
     </appender>
 
-    <property name="MODULE_LOG" value="src/module/logs/logModule.txt"/>
+    <property name="MODULE_LOG" value="src/logs/logModule.txt"/>
     <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${MODULE_LOG}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">

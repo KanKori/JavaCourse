@@ -28,8 +28,7 @@ public class Invoice<T extends AbstractProduct> {
                 .average()
                 .orElse(0);
         this.type.add(
-                (sum > sumLimit) ? InvoiceType.retail : InvoiceType.wholesale
-        );
+                (sum > sumLimit) ? InvoiceType.retail : InvoiceType.wholesale);
         if (customer.getAge() < 18) {
             this.type.add(InvoiceType.low_age);
         }

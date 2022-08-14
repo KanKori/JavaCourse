@@ -41,11 +41,47 @@ public class Tablet extends Product {
 
     @Override
     public String toString() {
-        return "Tablet{" + "manufacturer = " + tabletManufacturer +
-                ", id = " + id + '\'' +
-                ", title='" + title + '\'' +
-                ", count=" + count +
-                ", price=" + price +
-                '}';
+        return "Tablet{" + "manufacturer = " + tabletManufacturer + "\n" +
+                ", id = " + id + '\'' + "\n" +
+                ", title='" + title + '\'' + "\n" +
+                ", count=" + count + "\n" +
+                ", price=" + price + "\n" +
+                '}' + "\n";
+    }
+
+    public static class Builder {
+        private final Tablet tablet;
+
+        public Builder(double price, TabletManufacturer manufacturer) {
+            if (manufacturer == null) {
+                throw new IllegalArgumentException("Manufacturer cant be null");
+            }
+            tablet = new Tablet("DefaultTitle", 0, price, "DefaultModel", manufacturer);
+        }
+
+        public Builder setTitle(String title) {
+            if (title.length() > 20) {
+                throw new IllegalArgumentException("Title cant be more then 20 symbols");
+            }
+            tablet.setTitle(title);
+            return this;
+        }
+
+        public Builder setCount(int count) {
+            if (count <= 0) {
+                throw new IllegalArgumentException("Count must be < 0");
+            }
+            tablet.setCount(count);
+            return this;
+        }
+
+        public Builder setPrice(double price) {
+            tablet.setPrice(price);
+            return this;
+        }
+
+        public Tablet buildTablet() {
+            return tablet;
+        }
     }
 }

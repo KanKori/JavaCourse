@@ -25,12 +25,8 @@ public class ShopService {
 
     private final double sumLimit;
 
-    public ShopService(String csv, double sumLimit) {
-        try {
-            ABSTRACT_PRODUCTS = new ParserCSV().parseCSV(csv);
-        } catch (InvalidLineException e) {
-            throw new RuntimeException(e);
-        }
+    public ShopService(String csv, double sumLimit) throws InvalidLineException {
+        ABSTRACT_PRODUCTS = new ParserCSV().parseCSV(csv);
         this.sumLimit = sumLimit;
     }
 

@@ -21,7 +21,7 @@ class ParserCSVTest {
     private final String csv = ".\\src\\main\\resources\\products.csv";
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws InvalidLineException {
         double sumLimit = 2000;
         shopService = new ShopService(csv, sumLimit);
         target = new ParserCSV();

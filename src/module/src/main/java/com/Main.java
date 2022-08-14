@@ -1,5 +1,6 @@
 package com;
 
+import com.exception.file.read.InvalidLineException;
 import com.model.invoice.Invoice;
 import com.model.product.AbstractProduct;
 import com.model.product.specifications.ProductType;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, InvalidLineException {
         System.out.println("Please enter check limit");
         final Scanner scanner = new Scanner(System.in);
         final double sumLimit = Double.parseDouble(scanner.next());

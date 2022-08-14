@@ -1,5 +1,6 @@
 package com.service.shop;
 
+import com.exception.file.read.InvalidLineException;
 import com.model.invoice.Invoice;
 import com.model.product.AbstractProduct;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,7 @@ class ShopServiceTest {
     private ShopService target;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws InvalidLineException {
         double sumLimit = 2000;
         target = new ShopService(".\\src\\main\\resources\\products.csv", sumLimit);
     }

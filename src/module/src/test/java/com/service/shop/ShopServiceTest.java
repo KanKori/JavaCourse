@@ -27,7 +27,7 @@ class ShopServiceTest {
     }
 
     @Test
-    void createAndSaveRandomInvoice() {
+    void createAndSaveRandomInvoice_isNotNull() {
         target.createAndSaveRandomInvoice(2);
         assertThat(target.getInvoiceList()).isNotNull();
     }

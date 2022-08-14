@@ -4,15 +4,17 @@ import com.model.invoice.Invoice;
 import com.model.invoice.specifications.InvoiceType;
 import com.model.product.AbstractProduct;
 import com.model.product.specifications.ProductType;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Getter
+@Setter
 public class StatisticsService {
     private final List<Invoice<AbstractProduct>> invoiceList;
 
@@ -20,20 +22,20 @@ public class StatisticsService {
         this.invoiceList = invoiceList;
     }
 
-    public long productsCountByType(ProductType type) {
+    public long getProductsCountByType(ProductType type) {
         return invoiceList.stream()
                 .flatMap(invoice -> invoice.getProducts().stream())
                 .filter(invoice -> invoice.getType().equals(type))
                 .count();
     }
 
-    public double sumAllInvoices() {
+    public double getSumAllInvoices() {
         return invoiceList.stream()
                 .mapToDouble(Invoice::getSum)
                 .sum();
     }
 
-    public Optional<Invoice<AbstractProduct>> lowestSumInvoice() {
+    public Optional<Invoice<AbstractProduct>> getLowestSumInvoice() {
         return invoiceList.stream()
                 .sorted(Comparator.comparing(Invoice::getSum))
                 .toList()
@@ -41,13 +43,13 @@ public class StatisticsService {
                 .findFirst();
     }
 
-    public int amountOfRetail() {
+    public int getAmountOfRetail() {
         return Math.toIntExact(invoiceList.stream()
                 .filter(invoice -> invoice.getType().contains(InvoiceType.RETAIL.toString()))
                 .count());
     }
 
-    public List<Invoice<AbstractProduct>> invoicesWithSingleProductType() {
+    public List<Invoice<AbstractProduct>> getInvoicesWithSingleProductType() {
         List<Invoice<AbstractProduct>> singleType = new ArrayList<>();
         invoiceList.forEach(invoice -> {
             if (invoice.getProducts().stream()
@@ -62,24 +64,26 @@ public class StatisticsService {
         return singleType;
     }
 
-    public Stream<Invoice<AbstractProduct>> firstThreeInvoices() {
+    public Stream<Invoice<AbstractProduct>> getFirstThreeInvoices() {
         final int THREE_INVOICES = 3;
-        if (invoiceList.size() >= THREE_INVOICES) {
+        if (invoiceList.size() > THREE_INVOICES) {
             return invoiceList.stream()
                     .sorted(Comparator.comparing(Invoice::getCreatedTime))
                     .limit(THREE_INVOICES);
         } else {
-            return null;
+            return invoiceList.stream()
+                    .sorted(Comparator.comparing(Invoice::getCreatedTime));
         }
     }
 
-    public Stream<Invoice<AbstractProduct>> invoicesByPersonsUnder18Age() {
+    public Stream<Invoice<AbstractProduct>> getInvoicesByPersonsUnderAdultAge() {
+        final int ADULT_AGE = 18;
         return invoiceList.stream()
-                .filter(invoice -> invoice.getCustomer().getAge() < 18)
+                .filter(invoice -> invoice.getCustomer().getAge() < ADULT_AGE)
                 .peek(invoice -> invoice.setType(String.valueOf(InvoiceType.LOW_AGE)));
     }
 
-    public Stream<Invoice<AbstractProduct>> sortedInvoices() {
+    public Stream<Invoice<AbstractProduct>> getSortedInvoices() {
         Comparator<Invoice<AbstractProduct>> compareByAge = Comparator.comparing
                 (invoice -> invoice.getCustomer().getAge(), Comparator.reverseOrder());
         Comparator<Invoice<AbstractProduct>> compareByProductsListSize = Comparator.comparing

@@ -6,7 +6,11 @@ import com.example.repository.ProductRepository;
 import java.util.List;
 
 public class NotificationService implements INotificationService<NotifiableProduct> {
-    private final ProductRepository repository = ProductRepository.getInstance();
+    private final ProductRepository repository;
+
+    public NotificationService(ProductRepository repository) {
+        this.repository = repository;
+    }
 
     public int sendNotifications(List<NotifiableProduct> products) {
         int notifications = 0;

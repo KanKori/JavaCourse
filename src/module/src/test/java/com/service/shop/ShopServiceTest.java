@@ -8,9 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ShopServiceTest {
     private ShopService target;
@@ -30,7 +29,7 @@ class ShopServiceTest {
     @Test
     void createAndSaveRandomInvoice() {
         target.createAndSaveRandomInvoice(2);
-        verify(target, times(2)).createRandomInvoice();
+        assertThat(target.getInvoiceList()).isNotNull();
     }
 
 }

@@ -11,8 +11,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        ProductService productService = new ProductService(new ProductRepository());
-        NotificationService notificationService = new NotificationService();
+        ProductRepository productRepository = new ProductRepository();
+        ProductService productService = new ProductService(productRepository);
+        NotificationService notificationService = new NotificationService(productRepository);
         List<Product> products = new ArrayList<>();
         products.add(ProductFactory.createRandomProduct());
         products.add(ProductFactory.createRandomProduct());

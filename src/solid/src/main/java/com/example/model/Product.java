@@ -9,7 +9,7 @@ public abstract class Product implements IProduct {
     protected String title;
     protected double price;
 
-    public String getBasicInfo() {
+    public String toString() {
         return "Product{" +
                 "id=" + id +
                 ", available=" + available +

@@ -12,7 +12,7 @@ public class NotifiableProduct extends Product implements INotifiableProduct {
     }
 
     @Override
-    public String getBasicInfo() {
+    public String toString() {
         return "NotifiableProduct{" +
                 "channel='" + channel + '\'' +
                 ", id=" + id +

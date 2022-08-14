@@ -9,7 +9,7 @@ public class ProductBundle extends Product {
     protected int amount;
 
     @Override
-    public String getBasicInfo() {
+    public String toString() {
         return "ProductBundle{" +
                 ", id=" + id +
                 ", available=" + available +

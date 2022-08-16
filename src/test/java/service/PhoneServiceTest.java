@@ -1,9 +1,9 @@
 package service;
 
-import com.model.Phone;
-import com.model.PhoneManufacturer;
-import com.repository.PhoneRepository;
-import com.service.PhoneService;
+import com.model.product.phone.Phone;
+import com.model.product.phone.specifications.PhoneManufacturer;
+import com.repository.product.phone.PhoneRepository;
+import com.service.product.phone.PhoneService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

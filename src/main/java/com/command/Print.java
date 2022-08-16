@@ -1,9 +1,9 @@
 package com.command;
 
-import com.model.ProductType;
-import com.service.LaptopService;
-import com.service.PhoneService;
-import com.service.TabletService;
+import com.model.product.specifications.ProductType;
+import com.service.product.laptop.LaptopService;
+import com.service.product.phone.PhoneService;
+import com.service.product.tablet.TabletService;
 
 public class Print implements Command {
     private static final PhoneService PHONE_SERVICE = PhoneService.getInstance();

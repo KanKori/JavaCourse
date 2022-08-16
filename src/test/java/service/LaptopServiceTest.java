@@ -1,9 +1,9 @@
 package service;
 
-import com.model.Laptop;
-import com.model.LaptopManufacturer;
-import com.repository.LaptopRepository;
-import com.service.LaptopService;
+import com.model.product.laptop.Laptop;
+import com.model.product.laptop.specifications.LaptopManufacturer;
+import com.repository.product.laptop.LaptopRepository;
+import com.service.product.laptop.LaptopService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

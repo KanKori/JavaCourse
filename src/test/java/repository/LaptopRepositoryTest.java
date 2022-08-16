@@ -1,8 +1,8 @@
 package repository;
 
-import com.model.Laptop;
-import com.model.LaptopManufacturer;
-import com.repository.LaptopRepository;
+import com.model.product.laptop.Laptop;
+import com.model.product.laptop.specifications.LaptopManufacturer;
+import com.repository.product.laptop.LaptopRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -2,9 +2,9 @@ package com;
 
 import java.io.InputStream;
 
-import com.model.Phone;
-import com.service.FileParser;
-import com.service.PhoneService;
+import com.model.product.phone.Phone;
+import com.service.parser.FileParser;
+import com.service.product.phone.PhoneService;
 
 public class Main {
 

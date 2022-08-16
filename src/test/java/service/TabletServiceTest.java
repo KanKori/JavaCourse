@@ -1,9 +1,9 @@
 package service;
 
-import com.model.Tablet;
-import com.model.TabletManufacturer;
-import com.repository.TabletRepository;
-import com.service.TabletService;
+import com.model.product.tablet.Tablet;
+import com.model.product.tablet.specifications.TabletManufacturer;
+import com.repository.product.tablet.TabletRepository;
+import com.service.product.tablet.TabletService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

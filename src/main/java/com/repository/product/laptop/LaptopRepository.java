@@ -15,21 +15,21 @@ import java.util.Optional;
 import java.util.Random;
 
 @Singleton
-public class LaptopRepositoryI implements IAbstractProductRepository<Laptop> {
+public class LaptopRepository implements IAbstractProductRepository<Laptop> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepositoryI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepository.class);
     private static final Random RANDOM = new Random();
     private final List<Laptop> laptops;
-    private static LaptopRepositoryI instance;
+    private static LaptopRepository instance;
 
     @Autowired
-    public LaptopRepositoryI() {
+    public LaptopRepository() {
         laptops = new LinkedList<>();
     }
 
-    public static LaptopRepositoryI getInstance() {
+    public static LaptopRepository getInstance() {
         if (instance == null) {
-            instance = new LaptopRepositoryI();
+            instance = new LaptopRepository();
         }
         return instance;
     }

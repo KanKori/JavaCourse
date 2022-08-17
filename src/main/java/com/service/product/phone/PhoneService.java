@@ -3,7 +3,7 @@ package com.service.product.phone;
 import com.model.operating_system.OperatingSystem;
 import com.model.product.phone.specifications.PhoneManufacturer;
 import com.model.product.phone.Phone;
-import com.repository.product.phone.PhoneRepositoryI;
+import com.repository.product.phone.PhoneRepository;
 import com.service.product.AbstractProductService;
 
 import java.time.LocalDateTime;
@@ -11,17 +11,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Random;
 
-public class PhoneServiceAbstract extends AbstractProductService<Phone> {
+public class PhoneService extends AbstractProductService<Phone> {
     private static final Random RANDOM = new Random();
-    private static PhoneServiceAbstract instance;
+    private static PhoneService instance;
 
-    public PhoneServiceAbstract(PhoneRepositoryI repository) {
+    public PhoneService(PhoneRepository repository) {
         super(repository);
     }
 
-    public static PhoneServiceAbstract getInstance() {
+    public static PhoneService getInstance() {
         if (instance == null) {
-            instance = new PhoneServiceAbstract(PhoneRepositoryI.getInstance());
+            instance = new PhoneService(PhoneRepository.getInstance());
         }
         return instance;
     }

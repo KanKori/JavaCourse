@@ -2,24 +2,24 @@ package com.service.product.tablet.database;
 
 import com.model.product.tablet.Tablet;
 import com.model.product.tablet.specifications.TabletManufacturer;
-import com.repository.product.database.tablet.TabletRepositoryDBI;
-import com.repository.product.tablet.TabletRepositoryI;
+import com.repository.product.database.tablet.TabletRepositoryDB;
+import com.repository.product.tablet.TabletRepository;
 import com.service.product.AbstractProductService;
-import com.service.product.tablet.TabletServiceAbstract;
+import com.service.product.tablet.TabletService;
 
 import java.util.Random;
 
-public class TabletServiceDBAbstract extends AbstractProductService<Tablet> {
+public class TabletServiceDB extends AbstractProductService<Tablet> {
     private static final Random RANDOM = new Random();
-    private static TabletServiceAbstract instance;
+    private static TabletService instance;
 
-    public TabletServiceDBAbstract(TabletRepositoryDBI repository) {
+    public TabletServiceDB(TabletRepositoryDB repository) {
         super(repository);
     }
 
-    public static TabletServiceAbstract getInstance() {
+    public static TabletService getInstance() {
         if (instance == null) {
-            instance = new TabletServiceAbstract(TabletRepositoryI.getInstance());
+            instance = new TabletService(TabletRepository.getInstance());
         }
         return instance;
     }

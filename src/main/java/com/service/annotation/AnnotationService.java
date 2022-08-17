@@ -2,12 +2,12 @@ package com.service.annotation;
 
 import com.annotations.Autowired;
 import com.annotations.Singleton;
-import com.repository.product.laptop.LaptopRepositoryI;
-import com.repository.product.phone.PhoneRepositoryI;
-import com.repository.product.tablet.TabletRepositoryI;
-import com.service.product.laptop.LaptopServiceAbstract;
-import com.service.product.phone.PhoneServiceAbstract;
-import com.service.product.tablet.TabletServiceAbstract;
+import com.repository.product.laptop.LaptopRepository;
+import com.repository.product.phone.PhoneRepository;
+import com.repository.product.tablet.TabletRepository;
+import com.service.product.laptop.LaptopService;
+import com.service.product.phone.PhoneService;
+import com.service.product.tablet.TabletService;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,16 +52,16 @@ public class AnnotationService {
             for (Constructor<?> declaredConstructor : singletonClass.getDeclaredConstructors()) {
                 if (declaredConstructor.isAnnotationPresent(Autowired.class)) {
                     try {
-                        if (singletonClass.equals(LaptopServiceAbstract.class)) {
-                            Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(LaptopRepositoryI.class));
+                        if (singletonClass.equals(LaptopService.class)) {
+                            Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(LaptopRepository.class));
                             singletonCache.put(singletonClass, constructorOfClass);
                         } else {
-                            if (singletonClass.equals(PhoneServiceAbstract.class)) {
-                                Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(PhoneRepositoryI.class));
+                            if (singletonClass.equals(PhoneService.class)) {
+                                Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(PhoneRepository.class));
                                 singletonCache.put(singletonClass, constructorOfClass);
                             } else {
-                                if (singletonClass.equals(TabletServiceAbstract.class)) {
-                                    Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(TabletRepositoryI.class));
+                                if (singletonClass.equals(TabletService.class)) {
+                                    Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(TabletRepository.class));
                                     singletonCache.put(singletonClass, constructorOfClass);
                                 }
                             }

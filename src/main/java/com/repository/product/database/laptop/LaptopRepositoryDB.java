@@ -19,15 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class LaptopRepositoryDBI implements IAbstractProductRepository<Laptop> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepositoryDBI.class);
+public class LaptopRepositoryDB implements IAbstractProductRepository<Laptop> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepositoryDB.class);
     private static final Connection CONNECTION = JDBCConfig.getConnection();
 
-    private static LaptopRepositoryDBI instance;
+    private static LaptopRepositoryDB instance;
 
-    public static LaptopRepositoryDBI getInstance() {
+    public static LaptopRepositoryDB getInstance() {
         if (instance == null) {
-            instance = new LaptopRepositoryDBI();
+            instance = new LaptopRepositoryDB();
         }
         return instance;
     }

@@ -2,8 +2,8 @@ package service;
 
 import com.model.product.phone.Phone;
 import com.model.product.phone.specifications.PhoneManufacturer;
-import com.repository.product.phone.PhoneRepositoryI;
-import com.service.product.phone.PhoneServiceAbstract;
+import com.repository.product.phone.PhoneRepository;
+import com.service.product.phone.PhoneService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,13 +21,13 @@ import static org.mockito.Mockito.when;
 
 class PhoneServiceTest {
 
-    private PhoneServiceAbstract target;
-    private PhoneRepositoryI repository;
+    private PhoneService target;
+    private PhoneRepository repository;
 
     @BeforeEach
     void setUp() {
-        repository = Mockito.mock(PhoneRepositoryI.class);
-        target = new PhoneServiceAbstract(repository);
+        repository = Mockito.mock(PhoneRepository.class);
+        target = new PhoneService(repository);
     }
 
     @Test

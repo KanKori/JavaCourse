@@ -2,22 +2,22 @@ package com.service.product.phone.database;
 
 import com.model.product.phone.Phone;
 import com.model.product.phone.specifications.PhoneManufacturer;
-import com.repository.product.database.phone.PhoneRepositoryDBI;
+import com.repository.product.database.phone.PhoneRepositoryDB;
 import com.service.product.AbstractProductService;
 
 import java.util.Random;
 
-public class PhoneServiceDBAbstract extends AbstractProductService<Phone> {
+public class PhoneServiceDB extends AbstractProductService<Phone> {
     private static final Random RANDOM = new Random();
-    private static PhoneServiceDBAbstract instance;
+    private static PhoneServiceDB instance;
 
-    public PhoneServiceDBAbstract(PhoneRepositoryDBI repository) {
+    public PhoneServiceDB(PhoneRepositoryDB repository) {
         super(repository);
     }
 
-    public static PhoneServiceDBAbstract getInstance() {
+    public static PhoneServiceDB getInstance() {
         if (instance == null) {
-            instance = new PhoneServiceDBAbstract(PhoneRepositoryDBI.getInstance());
+            instance = new PhoneServiceDB(PhoneRepositoryDB.getInstance());
         }
         return instance;
     }

@@ -2,7 +2,7 @@ package repository;
 
 import com.model.product.phone.Phone;
 import com.model.product.phone.specifications.PhoneManufacturer;
-import com.repository.product.phone.PhoneRepositoryI;
+import com.repository.product.phone.PhoneRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,14 +15,14 @@ import static org.mockito.Mockito.spy;
 
 class PhoneRepositoryTest {
 
-    private PhoneRepositoryI target;
+    private PhoneRepository target;
 
     private Phone phone;
 
     @BeforeEach
     void setUp() {
         final Random random = new Random();
-        target = new PhoneRepositoryI();
+        target = new PhoneRepository();
         phone = new Phone(
                 "Title-" + random.nextInt(1000),
                 random.nextInt(500),
@@ -162,7 +162,7 @@ class PhoneRepositoryTest {
 
     @Test
     void findById_CallingRealMethods() {
-        PhoneRepositoryI target = spy(PhoneRepositoryI.class);
+        PhoneRepository target = spy(PhoneRepository.class);
         doCallRealMethod().when(target).findById(anyString());
         target.findById(anyString());
     }

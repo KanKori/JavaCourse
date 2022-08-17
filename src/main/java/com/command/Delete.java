@@ -3,10 +3,10 @@ package com.command;
 import com.command.util.UserInputUtil;
 import com.model.product.AbstractProduct;
 import com.model.product.specifications.ProductType;
-import com.service.product.laptop.LaptopServiceAbstract;
-import com.service.product.phone.PhoneServiceAbstract;
+import com.service.product.laptop.LaptopService;
+import com.service.product.phone.PhoneService;
 import com.service.product.AbstractProductService;
-import com.service.product.tablet.TabletServiceAbstract;
+import com.service.product.tablet.TabletService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Delete implements Command {
-    private static final PhoneServiceAbstract PHONE_SERVICE = PhoneServiceAbstract.getInstance();
-    private static final LaptopServiceAbstract LAPTOP_SERVICE = LaptopServiceAbstract.getInstance();
-    private static final TabletServiceAbstract TABLET_SERVICE = TabletServiceAbstract.getInstance();
+    private static final PhoneService PHONE_SERVICE = PhoneService.getInstance();
+    private static final LaptopService LAPTOP_SERVICE = LaptopService.getInstance();
+    private static final TabletService TABLET_SERVICE = TabletService.getInstance();
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
     @Override

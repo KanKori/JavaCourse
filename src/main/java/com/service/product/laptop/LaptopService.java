@@ -2,22 +2,22 @@ package com.service.product.laptop;
 
 import com.model.product.laptop.Laptop;
 import com.model.product.laptop.specifications.LaptopManufacturer;
-import com.repository.product.laptop.LaptopRepositoryI;
+import com.repository.product.laptop.LaptopRepository;
 import com.service.product.AbstractProductService;
 
 import java.util.Random;
 
-public class LaptopServiceAbstract extends AbstractProductService<Laptop> {
+public class LaptopService extends AbstractProductService<Laptop> {
     private static final Random RANDOM = new Random();
-    private static LaptopServiceAbstract instance;
+    private static LaptopService instance;
 
-    public LaptopServiceAbstract(LaptopRepositoryI repository) {
+    public LaptopService(LaptopRepository repository) {
         super(repository);
     }
 
-    public static LaptopServiceAbstract getInstance() {
+    public static LaptopService getInstance() {
         if (instance == null) {
-            instance = new LaptopServiceAbstract(LaptopRepositoryI.getInstance());
+            instance = new LaptopService(LaptopRepository.getInstance());
         }
         return instance;
     }

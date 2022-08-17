@@ -15,4 +15,10 @@ public class Invoice {
     private List<Product> products;
     private LocalDateTime time;
 
+    public Invoice(String id, double sum, List<Product> products, LocalDateTime time) {
+        this.id = id;
+        this.sum = sum;
+        this.products = products;
+        this.time = time;
+    }
 }

@@ -1,5 +1,7 @@
 package com.repository.product.tablet;
 
+import com.annotations.Autowired;
+import com.annotations.Singleton;
 import com.model.product.tablet.Tablet;
 import com.repository.product.ProductRepository;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+@Singleton
 public class TabletRepository implements ProductRepository<Tablet> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TabletRepository.class);
@@ -19,6 +22,7 @@ public class TabletRepository implements ProductRepository<Tablet> {
     private final List<Tablet> tablets;
     private static TabletRepository instance;
 
+    @Autowired
     public TabletRepository() {
         tablets = new LinkedList<>();
     }

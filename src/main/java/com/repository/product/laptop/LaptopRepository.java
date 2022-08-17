@@ -1,5 +1,7 @@
 package com.repository.product.laptop;
 
+import com.annotations.Autowired;
+import com.annotations.Singleton;
 import com.model.product.laptop.Laptop;
 import com.repository.product.ProductRepository;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+@Singleton
 public class LaptopRepository implements ProductRepository<Laptop> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepository.class);
@@ -19,6 +22,7 @@ public class LaptopRepository implements ProductRepository<Laptop> {
     private final List<Laptop> laptops;
     private static LaptopRepository instance;
 
+    @Autowired
     public LaptopRepository() {
         laptops = new LinkedList<>();
     }

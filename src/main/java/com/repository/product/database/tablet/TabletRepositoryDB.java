@@ -4,8 +4,11 @@ import com.config.JDBCConfig;
 import com.model.product.tablet.Tablet;
 import com.model.product.tablet.specifications.TabletManufacturer;
 import com.repository.product.ProductRepository;
+import com.service.annotation.AnnotationService;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.EnumUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.sql.Connection;
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TabletRepositoryDB implements ProductRepository<Tablet> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TabletRepositoryDB.class);
     private static final Connection CONNECTION = JDBCConfig.getConnection();
 
     private static TabletRepositoryDB instance;
@@ -36,17 +40,18 @@ public class TabletRepositoryDB implements ProductRepository<Tablet> {
             setObjectFields(statement, tablet);
             statement.execute();
         } catch (SQLException e) {
+            LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void saveAll(List<Tablet> phones) {
+    public void saveAll(List<Tablet> tablets) {
         String sql = "INSERT INTO \"public\".\"Tablet\" (id, model, manufacturer) VALUES (?, ?, ?)";
 
         try (final PreparedStatement statement = CONNECTION.prepareStatement(sql)) {
             CONNECTION.setAutoCommit(false);
-            for (Tablet tablet : phones) {
+            for (Tablet tablet : tablets) {
                 setObjectFields(statement, tablet);
                 statement.addBatch();
             }
@@ -54,6 +59,7 @@ public class TabletRepositoryDB implements ProductRepository<Tablet> {
             CONNECTION.commit();
             CONNECTION.setAutoCommit(true);
         } catch (SQLException e) {
+            LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
@@ -77,6 +83,7 @@ public class TabletRepositoryDB implements ProductRepository<Tablet> {
             statement.setString(1, id);
             return statement.execute();
         } catch (SQLException e) {
+            LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }

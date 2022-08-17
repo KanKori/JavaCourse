@@ -4,8 +4,12 @@ import com.config.JDBCConfig;
 import com.model.product.laptop.Laptop;
 import com.model.product.laptop.specifications.LaptopManufacturer;
 import com.repository.product.ProductRepository;
+import com.repository.product.database.phone.PhoneRepositoryDB;
+import com.service.annotation.AnnotationService;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.EnumUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.sql.Connection;
@@ -18,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class LaptopRepositoryDB implements ProductRepository<Laptop> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepositoryDB.class);
     private static final Connection CONNECTION = JDBCConfig.getConnection();
 
     private static LaptopRepositoryDB instance;
@@ -36,17 +41,18 @@ public class LaptopRepositoryDB implements ProductRepository<Laptop> {
             setObjectFields(statement, laptop);
             statement.execute();
         } catch (SQLException e) {
+            LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void saveAll(List<Laptop> phones) {
+    public void saveAll(List<Laptop> laptops) {
         String sql = "INSERT INTO \"public\".\"Laptop\" (id, model, manufacturer) VALUES (?, ?, ?)";
 
         try (final PreparedStatement statement = CONNECTION.prepareStatement(sql)) {
             CONNECTION.setAutoCommit(false);
-            for (Laptop laptop : phones) {
+            for (Laptop laptop : laptops) {
                 setObjectFields(statement, laptop);
                 statement.addBatch();
             }
@@ -54,6 +60,7 @@ public class LaptopRepositoryDB implements ProductRepository<Laptop> {
             CONNECTION.commit();
             CONNECTION.setAutoCommit(true);
         } catch (SQLException e) {
+            LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
@@ -77,6 +84,7 @@ public class LaptopRepositoryDB implements ProductRepository<Laptop> {
             statement.setString(1, id);
             return statement.execute();
         } catch (SQLException e) {
+            LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
@@ -90,9 +98,9 @@ public class LaptopRepositoryDB implements ProductRepository<Laptop> {
                 result.add(setFieldsToObject(resultSet));
             }
         } catch (SQLException e) {
+            LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
-
         return result;
     }
 
@@ -118,6 +126,7 @@ public class LaptopRepositoryDB implements ProductRepository<Laptop> {
                 laptop = Optional.of(setFieldsToObject(resultSet));
             }
         } catch (SQLException e) {
+            LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
         return laptop;

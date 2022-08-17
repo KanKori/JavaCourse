@@ -4,8 +4,11 @@ import com.config.JDBCConfig;
 import com.model.product.phone.Phone;
 import com.model.product.phone.specifications.PhoneManufacturer;
 import com.repository.product.ProductRepository;
+import com.service.annotation.AnnotationService;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.EnumUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.sql.Connection;
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class PhoneRepositoryDB implements ProductRepository<Phone> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PhoneRepositoryDB.class);
     private static final Connection CONNECTION = JDBCConfig.getConnection();
 
     private static PhoneRepositoryDB instance;
@@ -36,6 +40,7 @@ public class PhoneRepositoryDB implements ProductRepository<Phone> {
             setObjectFields(statement, phone);
             statement.execute();
         } catch (SQLException e) {
+            LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
@@ -54,6 +59,7 @@ public class PhoneRepositoryDB implements ProductRepository<Phone> {
             CONNECTION.commit();
             CONNECTION.setAutoCommit(true);
         } catch (SQLException e) {
+            LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
@@ -77,6 +83,7 @@ public class PhoneRepositoryDB implements ProductRepository<Phone> {
             statement.setString(1, id);
             return statement.execute();
         } catch (SQLException e) {
+            LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }

@@ -26,13 +26,6 @@ public class PhoneService extends ProductService<Phone> {
         return instance;
     }
 
-    public static PhoneService getInstance(final PhoneRepository repository) {
-        if (instance == null) {
-            instance = new PhoneService(repository);
-        }
-        return instance;
-    }
-
     public static Phone createPhoneFromMap(Map<String, String> phoneMap) {
         return new Phone(
                 phoneMap.getOrDefault("title", "DefaultTitle"),

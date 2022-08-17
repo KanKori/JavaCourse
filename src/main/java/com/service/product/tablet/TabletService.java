@@ -22,13 +22,6 @@ public class TabletService extends ProductService<Tablet> {
         return instance;
     }
 
-    public static TabletService getInstance(final TabletRepository repository) {
-        if (instance == null) {
-            instance = new TabletService(repository);
-        }
-        return instance;
-    }
-
     public Tablet createProduct() {
         return new Tablet(
                 "Title-" + RANDOM.nextInt(1000),

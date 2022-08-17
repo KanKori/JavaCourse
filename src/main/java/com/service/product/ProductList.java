@@ -1,6 +1,6 @@
 package com.service.product;
 
-import com.model.product.Product;
+import com.model.product.AbstractProduct;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-public class ProductList<E extends Product> implements Iterable<E> {
+public class ProductList<E extends AbstractProduct> implements Iterable<E> {
     private final Set<Integer> versions;
     private Node<E> first;
     private Node<E> last;

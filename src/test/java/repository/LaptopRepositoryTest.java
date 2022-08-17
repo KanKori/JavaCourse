@@ -2,7 +2,7 @@ package repository;
 
 import com.model.product.laptop.Laptop;
 import com.model.product.laptop.specifications.LaptopManufacturer;
-import com.repository.product.laptop.LaptopRepository;
+import com.repository.product.laptop.LaptopRepositoryI;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,14 +19,14 @@ import static org.mockito.Mockito.spy;
 
 public class LaptopRepositoryTest {
 
-    private LaptopRepository target;
+    private LaptopRepositoryI target;
 
     private Laptop laptop;
 
     @BeforeEach
     void setUp() {
         final Random random = new Random();
-        target = new LaptopRepository();
+        target = new LaptopRepositoryI();
         laptop = new Laptop(
                 "Title-" + random.nextInt(1000),
                 random.nextInt(500),
@@ -166,7 +166,7 @@ public class LaptopRepositoryTest {
 
     @Test
     void findById_CallingRealMethods() {
-        LaptopRepository target = spy(LaptopRepository.class);
+        LaptopRepositoryI target = spy(LaptopRepositoryI.class);
         doCallRealMethod().when(target).findById(anyString());
         target.findById(anyString());
     }

@@ -3,7 +3,7 @@ package com.repository.product.phone;
 import com.annotations.Autowired;
 import com.annotations.Singleton;
 import com.model.product.phone.Phone;
-import com.repository.product.ProductRepository;
+import com.repository.product.IAbstractProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,21 +15,21 @@ import java.util.Optional;
 import java.util.Random;
 
 @Singleton
-public class PhoneRepository implements ProductRepository<Phone> {
+public class PhoneRepositoryI implements IAbstractProductRepository<Phone> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PhoneRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PhoneRepositoryI.class);
     private static final Random RANDOM = new Random();
     private final List<Phone> phones;
-    private static PhoneRepository instance;
+    private static PhoneRepositoryI instance;
 
     @Autowired
-    public PhoneRepository() {
+    public PhoneRepositoryI() {
         this.phones = new LinkedList<>();
     }
 
-    public static PhoneRepository getInstance() {
+    public static PhoneRepositoryI getInstance() {
         if (instance == null) {
-            instance = new PhoneRepository();
+            instance = new PhoneRepositoryI();
         }
         return instance;
     }

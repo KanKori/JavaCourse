@@ -2,8 +2,8 @@ package service;
 
 import com.model.product.laptop.Laptop;
 import com.model.product.laptop.specifications.LaptopManufacturer;
-import com.repository.product.laptop.LaptopRepository;
-import com.service.product.laptop.LaptopService;
+import com.repository.product.laptop.LaptopRepositoryI;
+import com.service.product.laptop.LaptopServiceAbstract;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,13 +21,13 @@ import static org.mockito.Mockito.when;
 
 public class LaptopServiceTest {
 
-    private LaptopService target;
-    private LaptopRepository repository;
+    private LaptopServiceAbstract target;
+    private LaptopRepositoryI repository;
 
     @BeforeEach
     void setUp() {
-        repository = Mockito.mock(LaptopRepository.class);
-        target = new LaptopService(repository);
+        repository = Mockito.mock(LaptopRepositoryI.class);
+        target = new LaptopServiceAbstract(repository);
     }
 
     @Test

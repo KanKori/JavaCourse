@@ -1,6 +1,6 @@
 package com.model.invoice;
 
-import com.model.product.Product;
+import com.model.product.AbstractProduct;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class Invoice<T extends Product> {
+public class Invoice<T extends AbstractProduct> {
     private String id;
     private double sum;
     private List<T> products;

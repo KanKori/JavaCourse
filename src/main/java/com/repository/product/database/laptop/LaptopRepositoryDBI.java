@@ -3,9 +3,7 @@ package com.repository.product.database.laptop;
 import com.config.JDBCConfig;
 import com.model.product.laptop.Laptop;
 import com.model.product.laptop.specifications.LaptopManufacturer;
-import com.repository.product.ProductRepository;
-import com.repository.product.database.phone.PhoneRepositoryDB;
-import com.service.annotation.AnnotationService;
+import com.repository.product.IAbstractProductRepository;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.EnumUtils;
 import org.slf4j.Logger;
@@ -21,15 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class LaptopRepositoryDB implements ProductRepository<Laptop> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepositoryDB.class);
+public class LaptopRepositoryDBI implements IAbstractProductRepository<Laptop> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LaptopRepositoryDBI.class);
     private static final Connection CONNECTION = JDBCConfig.getConnection();
 
-    private static LaptopRepositoryDB instance;
+    private static LaptopRepositoryDBI instance;
 
-    public static LaptopRepositoryDB getInstance() {
+    public static LaptopRepositoryDBI getInstance() {
         if (instance == null) {
-            instance = new LaptopRepositoryDB();
+            instance = new LaptopRepositoryDBI();
         }
         return instance;
     }
@@ -87,6 +85,11 @@ public class LaptopRepositoryDB implements ProductRepository<Laptop> {
             LOGGER.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Laptop getRandomProduct() {
+        return null;
     }
 
     @Override

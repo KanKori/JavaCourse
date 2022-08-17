@@ -1,13 +1,13 @@
 package com.service.tree;
 
-import com.model.product.Product;
+import com.model.product.AbstractProduct;
 import com.model.product.comparator.ProductComparator;
-import com.service.product.ProductService;
+import com.service.product.AbstractProductService;
 import lombok.Getter;
 
 import java.io.PrintStream;
 
-public class SimpleBinaryTree<E extends Product> {
+public class SimpleBinaryTree<E extends AbstractProduct> {
 
     private Node<E> root;
     private final ProductComparator<E> productComparator = new ProductComparator<>();
@@ -15,10 +15,10 @@ public class SimpleBinaryTree<E extends Product> {
     public SimpleBinaryTree() {
     }
 
-    public void createAndOutputTree(ProductService<E> productService) {
-        productService.createAndSaveProducts(14);
+    public void createAndOutputTree(AbstractProductService<E> abstractProductService) {
+        abstractProductService.createAndSaveProducts(14);
         SimpleBinaryTree<E> productTree = new SimpleBinaryTree<>();
-        for (E product : productService.getAll()) {
+        for (E product : abstractProductService.getAll()) {
             productTree.add(product);
         }
 
@@ -117,7 +117,7 @@ public class SimpleBinaryTree<E extends Product> {
     }
 
     @Getter
-    private static class Node<T extends Product> {
+    private static class Node<T extends AbstractProduct> {
         T item;
         Node<T> left;
         Node<T> right;

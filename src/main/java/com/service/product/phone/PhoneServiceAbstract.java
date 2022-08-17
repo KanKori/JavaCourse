@@ -3,25 +3,25 @@ package com.service.product.phone;
 import com.model.operating_system.OperatingSystem;
 import com.model.product.phone.specifications.PhoneManufacturer;
 import com.model.product.phone.Phone;
-import com.repository.product.phone.PhoneRepository;
-import com.service.product.ProductService;
+import com.repository.product.phone.PhoneRepositoryI;
+import com.service.product.AbstractProductService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Random;
 
-public class PhoneService extends ProductService<Phone> {
+public class PhoneServiceAbstract extends AbstractProductService<Phone> {
     private static final Random RANDOM = new Random();
-    private static PhoneService instance;
+    private static PhoneServiceAbstract instance;
 
-    public PhoneService(PhoneRepository repository) {
+    public PhoneServiceAbstract(PhoneRepositoryI repository) {
         super(repository);
     }
 
-    public static PhoneService getInstance() {
+    public static PhoneServiceAbstract getInstance() {
         if (instance == null) {
-            instance = new PhoneService(PhoneRepository.getInstance());
+            instance = new PhoneServiceAbstract(PhoneRepositoryI.getInstance());
         }
         return instance;
     }

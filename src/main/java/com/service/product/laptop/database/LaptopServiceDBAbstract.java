@@ -2,24 +2,22 @@ package com.service.product.laptop.database;
 
 import com.model.product.laptop.Laptop;
 import com.model.product.laptop.specifications.LaptopManufacturer;
-import com.repository.product.database.laptop.LaptopRepositoryDB;
-import com.repository.product.laptop.LaptopRepository;
-import com.service.product.ProductService;
-import com.service.product.laptop.LaptopService;
+import com.repository.product.database.laptop.LaptopRepositoryDBI;
+import com.service.product.AbstractProductService;
 
 import java.util.Random;
 
-public class LaptopServiceDB extends ProductService<Laptop> {
+public class LaptopServiceDBAbstract extends AbstractProductService<Laptop> {
     private static final Random RANDOM = new Random();
-    private static LaptopServiceDB instance;
+    private static LaptopServiceDBAbstract instance;
 
-    public LaptopServiceDB(LaptopRepositoryDB repository) {
+    public LaptopServiceDBAbstract(LaptopRepositoryDBI repository) {
         super(repository);
     }
 
-    public static LaptopServiceDB getInstance() {
+    public static LaptopServiceDBAbstract getInstance() {
         if (instance == null) {
-            instance = new LaptopServiceDB(LaptopRepositoryDB.getInstance());
+            instance = new LaptopServiceDBAbstract(LaptopRepositoryDBI.getInstance());
         }
         return instance;
     }

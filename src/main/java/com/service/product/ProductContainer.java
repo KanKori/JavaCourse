@@ -1,10 +1,10 @@
 package com.service.product;
 
-import com.model.product.Product;
+import com.model.product.AbstractProduct;
 
 import java.util.Random;
 
-public class ProductContainer<T extends Product> {
+public class ProductContainer<T extends AbstractProduct> {
     private static final Random RANDOM = new Random();
     private T product;
 

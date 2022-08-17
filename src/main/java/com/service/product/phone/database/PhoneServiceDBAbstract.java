@@ -1,29 +1,23 @@
 package com.service.product.phone.database;
 
-import com.model.operating_system.OperatingSystem;
 import com.model.product.phone.Phone;
 import com.model.product.phone.specifications.PhoneManufacturer;
-import com.repository.product.database.phone.PhoneRepositoryDB;
-import com.repository.product.phone.PhoneRepository;
-import com.service.product.ProductService;
-import com.service.product.phone.PhoneService;
+import com.repository.product.database.phone.PhoneRepositoryDBI;
+import com.service.product.AbstractProductService;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Map;
 import java.util.Random;
 
-public class PhoneServiceDB extends ProductService<Phone> {
+public class PhoneServiceDBAbstract extends AbstractProductService<Phone> {
     private static final Random RANDOM = new Random();
-    private static PhoneServiceDB instance;
+    private static PhoneServiceDBAbstract instance;
 
-    public PhoneServiceDB(PhoneRepositoryDB repository) {
+    public PhoneServiceDBAbstract(PhoneRepositoryDBI repository) {
         super(repository);
     }
 
-    public static PhoneServiceDB getInstance() {
+    public static PhoneServiceDBAbstract getInstance() {
         if (instance == null) {
-            instance = new PhoneServiceDB(PhoneRepositoryDB.getInstance());
+            instance = new PhoneServiceDBAbstract(PhoneRepositoryDBI.getInstance());
         }
         return instance;
     }

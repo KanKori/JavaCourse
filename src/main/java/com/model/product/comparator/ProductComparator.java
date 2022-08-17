@@ -1,10 +1,10 @@
 package com.model.product.comparator;
 
-import com.model.product.Product;
+import com.model.product.AbstractProduct;
 
 import java.util.Comparator;
 
-public class ProductComparator<T extends Product> implements Comparator<T> {
+public class ProductComparator<T extends AbstractProduct> implements Comparator<T> {
     @Override
     public int compare(T firstProduct, T secondProduct) {
         if (secondProduct.getPrice() == firstProduct.getPrice()) {

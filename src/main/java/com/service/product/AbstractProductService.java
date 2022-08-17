@@ -1,14 +1,14 @@
 package com.service.product;
 
+import com.model.product.AbstractProduct;
 import com.model.product.laptop.Laptop;
 import com.model.product.laptop.specifications.LaptopManufacturer;
 import com.model.product.phone.Phone;
 import com.model.product.phone.specifications.PhoneManufacturer;
-import com.model.product.Product;
 import com.model.product.specifications.ProductType;
 import com.model.product.tablet.Tablet;
 import com.model.product.tablet.specifications.TabletManufacturer;
-import com.repository.product.ProductRepository;
+import com.repository.product.IAbstractProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,11 +23,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public abstract class ProductService<T extends Product> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
-    private final ProductRepository<T> repository;
+public abstract class AbstractProductService<T extends AbstractProduct> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractProductService.class);
+    private final IAbstractProductRepository<T> repository;
 
-    protected ProductService(ProductRepository<T> repository) {
+    protected AbstractProductService(IAbstractProductRepository<T> repository) {
         this.repository = repository;
     }
 
@@ -53,13 +53,13 @@ public abstract class ProductService<T extends Product> {
         repository.save(product);
     }
 
-    protected ProductRepository<T> getRepository() {
+    protected IAbstractProductRepository<T> getRepository() {
         return repository;
     }
 
     @SuppressWarnings("unchecked")
-    public void update(Product product) {
-        repository.update((T) product);
+    public void update(AbstractProduct abstractProduct) {
+        repository.update((T) abstractProduct);
     }
 
     public List<T> getAll() {
@@ -115,17 +115,17 @@ public abstract class ProductService<T extends Product> {
     public int countAllProductsPrice() {
         return repository.getAll()
                 .stream()
-                .map(Product::getCount)
+                .map(AbstractProduct::getCount)
                 .reduce(0, Integer::sum);
     }
 
     public Map<String, String> sortedByTitleAndConvertToMap() {
         return repository.getAll()
                 .stream()
-                .sorted(Comparator.comparing(Product::getTitle))
+                .sorted(Comparator.comparing(AbstractProduct::getTitle))
                 .distinct()
                 .collect(Collectors.toMap
-                        (Product::getId,
+                        (AbstractProduct::getId,
                                 product -> product.getClass().getSimpleName(),
                                 (oldProduct, newProduct) -> newProduct
                         )
@@ -135,19 +135,19 @@ public abstract class ProductService<T extends Product> {
     public DoubleSummaryStatistics getPriceSummaryStatistic() {
         return repository.getAll()
                 .stream()
-                .mapToDouble(Product::getPrice)
+                .mapToDouble(AbstractProduct::getPrice)
                 .summaryStatistics();
     }
 
     public Predicate<Collection<T>> availabilityOfPricesForAllCollection =
             (products) -> products.stream().noneMatch(product -> product.getPrice() <= 0);
 
-    public Product mapToProduct(Map<String, Object> fields) {
+    public AbstractProduct mapToProduct(Map<String, Object> fields) {
         final String defaultTitle = "Default Title";
         final Integer defaultCount = 0;
         final Double defaultPrice = 0D;
         final String defaultModel = "Model-1";
-        Function<Map<String, Object>, Product> mapToProduct = (map) -> {
+        Function<Map<String, Object>, AbstractProduct> mapToProduct = (map) -> {
             Object productType = map.get("productType");
             if (productType instanceof ProductType type) {
                 return switch (type) {

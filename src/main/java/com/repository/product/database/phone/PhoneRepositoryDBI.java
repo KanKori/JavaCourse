@@ -1,10 +1,9 @@
-package com.repository.product.database.tablet;
+package com.repository.product.database.phone;
 
 import com.config.JDBCConfig;
-import com.model.product.tablet.Tablet;
-import com.model.product.tablet.specifications.TabletManufacturer;
-import com.repository.product.ProductRepository;
-import com.service.annotation.AnnotationService;
+import com.model.product.phone.Phone;
+import com.model.product.phone.specifications.PhoneManufacturer;
+import com.repository.product.IAbstractProductRepository;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.EnumUtils;
 import org.slf4j.Logger;
@@ -20,24 +19,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TabletRepositoryDB implements ProductRepository<Tablet> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TabletRepositoryDB.class);
+public class PhoneRepositoryDBI implements IAbstractProductRepository<Phone> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PhoneRepositoryDBI.class);
     private static final Connection CONNECTION = JDBCConfig.getConnection();
 
-    private static TabletRepositoryDB instance;
+    private static PhoneRepositoryDBI instance;
 
-    public static TabletRepositoryDB getInstance() {
+    public static PhoneRepositoryDBI getInstance() {
         if (instance == null) {
-            instance = new TabletRepositoryDB();
+            instance = new PhoneRepositoryDBI();
         }
         return instance;
     }
 
     @Override
-    public void save(Tablet tablet) {
-        String sql = "INSERT INTO \"public\".\"Tablet\" (id, model, manufacturer) VALUES (?, ?, ?)";
+    public void save(Phone phone) {
+        String sql = "INSERT INTO \"public\".\"Phone\" (id, model, manufacturer) VALUES (?, ?, ?)";
         try (final PreparedStatement statement = CONNECTION.prepareStatement(sql)) {
-            setObjectFields(statement, tablet);
+            setObjectFields(statement, phone);
             statement.execute();
         } catch (SQLException e) {
             LOGGER.error(String.valueOf(e));
@@ -46,13 +45,13 @@ public class TabletRepositoryDB implements ProductRepository<Tablet> {
     }
 
     @Override
-    public void saveAll(List<Tablet> tablets) {
-        String sql = "INSERT INTO \"public\".\"Tablet\" (id, model, manufacturer) VALUES (?, ?, ?)";
+    public void saveAll(List<Phone> phones) {
+        String sql = "INSERT INTO \"public\".\"Phone\" (id, model, manufacturer) VALUES (?, ?, ?)";
 
         try (final PreparedStatement statement = CONNECTION.prepareStatement(sql)) {
             CONNECTION.setAutoCommit(false);
-            for (Tablet tablet : tablets) {
-                setObjectFields(statement, tablet);
+            for (Phone phone : phones) {
+                setObjectFields(statement, phone);
                 statement.addBatch();
             }
             statement.executeBatch();
@@ -65,20 +64,20 @@ public class TabletRepositoryDB implements ProductRepository<Tablet> {
     }
 
     @SneakyThrows
-    private void setObjectFields(final PreparedStatement statement, final Tablet tablet) {
-        statement.setString(1, tablet.getId());
-        statement.setString(2, tablet.getModel());
-        statement.setString(3, tablet.getTabletManufacturer().name());
+    private void setObjectFields(final PreparedStatement statement, final Phone phone) {
+        statement.setString(1, phone.getId());
+        statement.setString(2, phone.getModel());
+        statement.setString(3, phone.getPhoneManufacturer().name());
     }
 
     @Override
-    public boolean update(Tablet tablet) {
+    public boolean update(Phone phone) {
         return false;
     }
 
     @Override
     public boolean delete(String id) {
-        String sql = "DELETE FROM \"public\".\"Tablet\" WHERE id = ?";
+        String sql = "DELETE FROM \"public\".\"Phone\" WHERE id = ?";
         try (final PreparedStatement statement = CONNECTION.prepareStatement(sql)) {
             statement.setString(1, id);
             return statement.execute();
@@ -89,10 +88,15 @@ public class TabletRepositoryDB implements ProductRepository<Tablet> {
     }
 
     @Override
-    public List<Tablet> getAll() {
-        final List<Tablet> result = new ArrayList<>();
+    public Phone getRandomProduct() {
+        return null;
+    }
+
+    @Override
+    public List<Phone> getAll() {
+        final List<Phone> result = new ArrayList<>();
         try (final Statement statement = CONNECTION.createStatement()) {
-            final ResultSet resultSet = statement.executeQuery("SELECT * FROM \"public\".\"Tablet\"");
+            final ResultSet resultSet = statement.executeQuery("SELECT * FROM \"public\".\"Phone\"");
             while (resultSet.next()) {
                 result.add(setFieldsToObject(resultSet));
             }
@@ -104,29 +108,29 @@ public class TabletRepositoryDB implements ProductRepository<Tablet> {
     }
 
     @SneakyThrows
-    private Tablet setFieldsToObject(final ResultSet resultSet) {
+    private Phone setFieldsToObject(final ResultSet resultSet) {
         final String model = resultSet.getString("model");
-        final TabletManufacturer manufacturer = EnumUtils.getEnum(TabletManufacturer.class, resultSet.getString("manufacturer"),
-                TabletManufacturer.NONE);
-        final Tablet tablet = new Tablet("", 0, 0.0, model, manufacturer);
-        tablet.setId(resultSet.getString("id"));
-        return tablet;
+        final PhoneManufacturer manufacturer = EnumUtils.getEnum(PhoneManufacturer.class, resultSet.getString("manufacturer"),
+                PhoneManufacturer.NONE);
+        final Phone phone = new Phone("", 0, 0.0, model, manufacturer);
+        phone.setId(resultSet.getString("id"));
+        return phone;
     }
 
     @Override
-    public Optional<Tablet> findById(String id) {
-        String sql = "SELECT * FROM \"public\".\"Tablet\" WHERE id = ?";
-        Optional<Tablet> tablet = Optional.empty();
+    public Optional<Phone> findById(String id) {
+        String sql = "SELECT * FROM \"public\".\"Phone\" WHERE id = ?";
+        Optional<Phone> phone = Optional.empty();
 
         try (final PreparedStatement statement = CONNECTION.prepareStatement(sql)) {
             statement.setString(1, id);
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                tablet = Optional.of(setFieldsToObject(resultSet));
+                phone = Optional.of(setFieldsToObject(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return tablet;
+        return phone;
     }
 }

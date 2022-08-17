@@ -2,7 +2,7 @@ package com.repository.invoice.database;
 
 import com.config.JDBCConfig;
 import com.model.invoice.Invoice;
-import com.model.product.Product;
+import com.model.product.AbstractProduct;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,9 +99,9 @@ public class InvoiceRepositoryDB {
 
     @SneakyThrows
     private Invoice setFieldsToObject(final ResultSet resultSet) {
-        final List<Product> products = new ArrayList<>(0);
+        final List<AbstractProduct> abstractProducts = new ArrayList<>(0);
         final LocalDateTime time = LocalDateTime.of(LocalDate.now(), LocalTime.now());
-        final Invoice invoice = new Invoice("", 0, products, time);
+        final Invoice invoice = new Invoice("", 0, abstractProducts, time);
         invoice.setId(resultSet.getString("id"));
         return invoice;
     }

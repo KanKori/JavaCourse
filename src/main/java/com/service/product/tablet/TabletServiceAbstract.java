@@ -2,22 +2,22 @@ package com.service.product.tablet;
 
 import com.model.product.tablet.Tablet;
 import com.model.product.tablet.specifications.TabletManufacturer;
-import com.repository.product.tablet.TabletRepository;
-import com.service.product.ProductService;
+import com.repository.product.tablet.TabletRepositoryI;
+import com.service.product.AbstractProductService;
 
 import java.util.Random;
 
-public class TabletService extends ProductService<Tablet> {
+public class TabletServiceAbstract extends AbstractProductService<Tablet> {
     private static final Random RANDOM = new Random();
-    private static TabletService instance;
+    private static TabletServiceAbstract instance;
 
-    public TabletService(TabletRepository repository) {
+    public TabletServiceAbstract(TabletRepositoryI repository) {
         super(repository);
     }
 
-    public static TabletService getInstance() {
+    public static TabletServiceAbstract getInstance() {
         if (instance == null) {
-            instance = new TabletService(TabletRepository.getInstance());
+            instance = new TabletServiceAbstract(TabletRepositoryI.getInstance());
         }
         return instance;
     }

@@ -9,13 +9,13 @@ import java.util.List;
 
 @Setter
 @Getter
-public class Invoice {
+public class Invoice<T extends Product> {
     private String id;
     private double sum;
-    private List<Product> products;
+    private List<T> products;
     private LocalDateTime time;
 
-    public Invoice(String id, double sum, List<Product> products, LocalDateTime time) {
+    public Invoice(String id, double sum, List<T> products, LocalDateTime time) {
         this.id = id;
         this.sum = sum;
         this.products = products;

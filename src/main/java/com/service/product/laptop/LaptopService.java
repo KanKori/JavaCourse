@@ -22,13 +22,6 @@ public class LaptopService extends ProductService<Laptop> {
         return instance;
     }
 
-    public static LaptopService getInstance(final LaptopRepository repository) {
-        if (instance == null) {
-            instance = new LaptopService(repository);
-        }
-        return instance;
-    }
-
     public Laptop createProduct() {
         return new Laptop(
                 "Title-" + RANDOM.nextInt(1000),

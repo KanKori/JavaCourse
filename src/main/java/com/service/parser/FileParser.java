@@ -52,7 +52,7 @@ public class FileParser {
         List<String> lines = readLines(inputStream);
         Map<String, String> map = new HashMap<>();
         Pattern paramsPattern = Pattern.compile(">(.*)<(.*)");
-        Pattern atributePattern = Pattern.compile("\\s\\w*\\b.*\".*\">");
+        Pattern attributePattern = Pattern.compile("\\s\\w*\\b.*\".*\">");
         lines.stream()
                 .map(String::trim)
                 .forEach(line -> {
@@ -62,11 +62,11 @@ public class FileParser {
                         String paramsValue = matcher.group().substring(line.indexOf(">") + 1 - matcher.start(), line.lastIndexOf("<") - matcher.start());
                         map.put(paramsField, paramsValue);
                     }
-                    matcher = atributePattern.matcher(line);
+                    matcher = attributePattern.matcher(line);
                     if (matcher.find()) {
-                        String atributeField = matcher.group().substring(1, line.indexOf("=") - matcher.start());
-                        String atributeValue = matcher.group().substring(line.indexOf("\"") + 1 - matcher.start(), line.lastIndexOf("\"") - matcher.start());
-                        map.put(atributeField, atributeValue);
+                        String attributeField = matcher.group().substring(1, line.indexOf("=") - matcher.start());
+                        String attributeValue = matcher.group().substring(line.indexOf("\"") + 1 - matcher.start(), line.lastIndexOf("\"") - matcher.start());
+                        map.put(attributeField, attributeValue);
                     }
                 });
         return map;

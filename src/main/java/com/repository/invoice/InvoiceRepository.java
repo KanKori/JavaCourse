@@ -67,7 +67,7 @@ public class InvoiceRepository {
             to.setId(from.getId());
             to.setSum(from.getSum());
             to.setProducts(from.getProducts());
-            to.setTime(from.getTime());
+            to.setLocalDateTime(from.getLocalDateTime());
         }
     }
 }

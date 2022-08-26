@@ -14,13 +14,13 @@ public class Invoice<T extends AbstractProduct> {
     private String id;
     private double sum;
     private List<T> products;
-    private LocalDateTime time;
+    private LocalDateTime localDateTime;
 
-    public Invoice(String id, double sum, List<T> products, LocalDateTime time) {
+    public Invoice(String id, double sum, List<T> products, LocalDateTime localDateTime) {
         this.id = id;
         this.sum = sum;
         this.products = products;
-        this.time = time;
+        this.localDateTime = localDateTime;
     }
 
     public Invoice() {

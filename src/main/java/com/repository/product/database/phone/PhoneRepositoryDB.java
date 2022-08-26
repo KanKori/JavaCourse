@@ -34,7 +34,7 @@ public class PhoneRepositoryDB implements IAbstractProductRepository<Phone> {
 
     @Override
     public void save(Phone phone) {
-        String sql = "INSERT INTO \"public\".\"Phone\" (id, model, manufacturer) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO \"public\".\"Phone\" (id, model, manufacturer, title, count, price) VALUES (?, ?, ?, ?, ?, ?)";
         try (final PreparedStatement statement = CONNECTION.prepareStatement(sql)) {
             setObjectFields(statement, phone);
             statement.execute();
@@ -68,6 +68,9 @@ public class PhoneRepositoryDB implements IAbstractProductRepository<Phone> {
         statement.setString(1, phone.getId());
         statement.setString(2, phone.getModel());
         statement.setString(3, phone.getPhoneManufacturer().name());
+        statement.setString(4, phone.getTitle());
+        statement.setInt(5, phone.getCount());
+        statement.setDouble(6, phone.getCount());
     }
 
     @Override

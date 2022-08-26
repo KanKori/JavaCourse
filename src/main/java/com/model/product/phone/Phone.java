@@ -42,6 +42,13 @@ public class Phone extends AbstractProduct {
         this.phoneManufacturer = phoneManufacturer;
     }
 
+    public Phone(String id, String title, int count, double price, String model, PhoneManufacturer phoneManufacturer) {
+        super(title, count, price, ProductType.PHONE);
+        this.id = id;
+        this.model = model;
+        this.phoneManufacturer = phoneManufacturer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,11 +1,12 @@
 package com.command;
 
-import com.model.Product;
-import com.model.ProductType;
-import com.service.LaptopService;
-import com.service.PhoneService;
-import com.service.ProductService;
-import com.service.TabletService;
+import com.command.util.UserInputUtil;
+import com.model.product.Product;
+import com.model.product.specifications.ProductType;
+import com.service.product.laptop.LaptopService;
+import com.service.product.phone.PhoneService;
+import com.service.product.ProductService;
+import com.service.product.tablet.TabletService;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;

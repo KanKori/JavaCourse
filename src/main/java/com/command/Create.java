@@ -1,7 +1,8 @@
 package com.command;
 
-import com.model.ProductType;
-import com.service.ProductFactory;
+import com.command.util.UserInputUtil;
+import com.model.product.specifications.ProductType;
+import com.service.product.ProductFactory;
 
 import java.util.ArrayList;
 import java.util.List;

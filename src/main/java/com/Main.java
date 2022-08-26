@@ -1,24 +1,10 @@
 package com;
 
-import java.io.InputStream;
-
-import com.model.Phone;
-import com.service.FileParser;
-import com.service.PhoneService;
+import com.service.annotation.AnnotationService;
 
 public class Main {
 
     public static void main(String[] args) {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        InputStream inputStreamXML = classLoader.getResourceAsStream("phone.xml");
-        InputStream inputStreamJSON = classLoader.getResourceAsStream("phone.json");
-
-        Phone phoneXML = PhoneService.createPhoneFromMap(new FileParser().parseXMLToMap(inputStreamXML));
-        System.out.println("XML: " + phoneXML);
-        System.out.println("XML Phone OS: " + phoneXML.getOS().getDesignation() + " " + phoneXML.getOS().getVersion());
-
-        Phone phoneJSON = PhoneService.createPhoneFromMap(new FileParser().parseJSONToMap(inputStreamJSON));
-        System.out.println("JSON: " + phoneJSON);
-        System.out.println("JSON Phone OS: " + phoneJSON.getOS().getDesignation() + " " + phoneJSON.getOS().getVersion());
+        System.out.println(new AnnotationService().getSingletonCache());
     }
 }

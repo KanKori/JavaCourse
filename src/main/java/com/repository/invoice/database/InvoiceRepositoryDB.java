@@ -90,9 +90,9 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
         }
     }
 
-    public List<AbstractProduct> createProducts(List<String> sql, Invoice<AbstractProduct> invoice) {
+    public List<AbstractProduct> createProducts(List<String> sqlList, Invoice<AbstractProduct> invoice) {
         List<AbstractProduct> abstractProduct = new ArrayList<>();
-        for (String sqlQuery : sql) {
+        for (String sqlQuery : sqlList) {
             try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(sqlQuery)) {
                 preparedStatement.setString(1, invoice.getId());
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -100,7 +100,6 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
                 while (resultSet.next()) {
                     if (sqlQuery.contains(Phone.class.getSimpleName())) {
                         abstractProduct.add(new Phone(
-                                resultSet.getString("id"),
                                 resultSet.getString("title"),
                                 resultSet.getInt("count"),
                                 resultSet.getDouble("price"),

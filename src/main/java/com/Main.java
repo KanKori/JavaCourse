@@ -25,9 +25,10 @@ public class Main {
         LaptopRepositoryDB laptopRepositoryDB = new LaptopRepositoryDB();
         LaptopServiceDB laptopServiceDB = new LaptopServiceDB(laptopRepositoryDB);*/
         List<String> products = new ArrayList<>(3);
-        products.add("INSERT INTO SELECT * \"public\".\"Phone\" ( id, model, title, count, price) VALUES (?, model, title, 3, 300)");
+        products.add("INSERT INTO \"public\".\"Phone\" (id) VALUES (?)");
         Invoice<AbstractProduct> invoice = new Invoice<>();
-        invoice.setProducts(invoiceRepositoryDB.createProducts(products, invoice));
         invoiceRepositoryDB.save(invoice);
+        invoiceRepositoryDB.createProducts(products, invoice);
+
     }
 }

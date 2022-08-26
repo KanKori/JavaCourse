@@ -56,9 +56,9 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
         String sql = "INSERT INTO \"public\".\"Invoice\" (id, sum, time, date) VALUES (?, ?, ?, ?);";
 
         Map<Class<? extends AbstractProduct>, String> sqlPutMap = new HashMap<>();
-        sqlPutMap.put(Phone.class, "UPDATE \"public\".\"Phone\" SET invoice_Phone_id = ? WHERE id = ? AND invoice_id IS NULL;");
-        sqlPutMap.put(Tablet.class, "UPDATE \"public\".\"Tablet\" SET invoice_Tablet_id = ? WHERE id = ? AND invoice_id IS NULL;");
-        sqlPutMap.put(Laptop.class, "UPDATE \"public\".\"Laptop\" SET invoice_Laptop_id = ? WHERE id = ? AND invoice_id IS NULL;");
+        sqlPutMap.put(Phone.class, "UPDATE \"public\".\"Phone\" SET invoice_Phone_id = ? WHERE id = ? AND invoice_Phone_id IS NULL;");
+        sqlPutMap.put(Tablet.class, "UPDATE \"public\".\"Tablet\" SET invoice_Tablet_id = ? WHERE id = ? AND invoice_Tablet_id IS NULL;");
+        sqlPutMap.put(Laptop.class, "UPDATE \"public\".\"Laptop\" SET invoice_Laptop_id = ? WHERE id = ? AND invoice_Laptop_id IS NULL;");
 
         try (PreparedStatement preparedStatementSQL = CONNECTION.prepareStatement(sql)) {
             CONNECTION.setAutoCommit(false);

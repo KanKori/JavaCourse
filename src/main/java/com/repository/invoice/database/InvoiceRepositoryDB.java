@@ -56,9 +56,9 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
         String sql = "INSERT INTO \"public\".\"Invoice\" (id, sum, time, date) VALUES (?, ?, ?, ?);";
 
         Map<Class<? extends AbstractProduct>, String> sqlPutMap = new HashMap<>();
-        sqlPutMap.put(Phone.class, "UPDATE \"public\".\"Phone\" SET invoice_Phone_id = ? WHERE id = ? AND invoice_Phone_id IS NULL;");
-        sqlPutMap.put(Tablet.class, "UPDATE \"public\".\"Tablet\" SET invoice_Tablet_id = ? WHERE id = ? AND invoice_Tablet_id IS NULL;");
-        sqlPutMap.put(Laptop.class, "UPDATE \"public\".\"Laptop\" SET invoice_Laptop_id = ? WHERE id = ? AND invoice_Laptop_id IS NULL;");
+        sqlPutMap.put(Phone.class, "UPDATE \"public\".\"Phone\" SET id = ? WHERE id = ? AND id IS NULL;");
+        sqlPutMap.put(Tablet.class, "UPDATE \"public\".\"Tablet\" SET id = ? WHERE id = ? AND id IS NULL;");
+        sqlPutMap.put(Laptop.class, "UPDATE \"public\".\"Laptop\" SET id = ? WHERE id = ? AND id IS NULL;");
 
         try (PreparedStatement preparedStatementSQL = CONNECTION.prepareStatement(sql)) {
             CONNECTION.setAutoCommit(false);
@@ -138,9 +138,9 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
         String sql = "SELECT * FROM \"public\".\"Invoice\" WHERE id = ?;";
 
         List<String> sqlList = new ArrayList<>();
-        sqlList.add("SELECT * FROM \"public\".\"Phone\" WHERE invoice_Phone_id = ?;");
-        sqlList.add("SELECT * FROM \"public\".\"Tablet\" WHERE invoice_Tablet_id = ?;");
-        sqlList.add("SELECT * FROM \"public\".\"Laptop\" WHERE invoice_Laptop_id = ?;");
+        sqlList.add("SELECT * FROM \"public\".\"Phone\" WHERE id = ?;");
+        sqlList.add("SELECT * FROM \"public\".\"Tablet\" WHERE id = ?;");
+        sqlList.add("SELECT * FROM \"public\".\"Laptop\" WHERE id = ?;");
 
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(sql)) {
             preparedStatement.setString(1, id);
@@ -162,9 +162,9 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
     public List<Invoice<AbstractProduct>> findAll() {
         String sql = "SELECT * FROM \"public\".\"Invoice\";";
         List<String> sqlList = new ArrayList<>();
-        sqlList.add("SELECT * FROM \"public\".\"Phone\" WHERE invoice_Phone_id = ?;");
-        sqlList.add("SELECT * FROM \"public\".\"Tablet\" WHERE invoice_Tablet_id = ?;");
-        sqlList.add("SELECT * FROM \"public\".\"Laptop\" WHERE invoice_Laptop_id = ?;");
+        sqlList.add("SELECT * FROM \"public\".\"Phone\" WHERE id = ?;");
+        sqlList.add("SELECT * FROM \"public\".\"Tablet\" WHERE id = ?;");
+        sqlList.add("SELECT * FROM \"public\".\"Laptop\" WHERE id = ?;");
 
         try (Statement statement = CONNECTION.createStatement()) {
             List<Invoice<AbstractProduct>> invoices = new ArrayList<>();

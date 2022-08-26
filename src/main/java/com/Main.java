@@ -20,14 +20,9 @@ public class Main {
         InvoiceServiceDB invoiceServiceDB = new InvoiceServiceDB(invoiceRepositoryDB);
         PhoneRepositoryDB phoneRepositoryDB = new PhoneRepositoryDB();
         PhoneServiceDB phoneServiceDB = new PhoneServiceDB(phoneRepositoryDB);
-/*        TabletRepositoryDB tabletRepositoryDB = new TabletRepositoryDB();
-        TabletServiceDB tabletServiceDB = new TabletServiceDB(tabletRepositoryDB);
-        LaptopRepositoryDB laptopRepositoryDB = new LaptopRepositoryDB();
-        LaptopServiceDB laptopServiceDB = new LaptopServiceDB(laptopRepositoryDB);*/
-        List<String> products = new ArrayList<>(3);
-        products.add("INSERT INTO \"public\".\"Phone\" ( id, model, title, count, price) VALUES (?, model, title, 3, 300)");
-        Invoice<AbstractProduct> invoice = new Invoice<>();
-        invoice.setProducts(invoiceRepositoryDB.createProducts(products, invoice));
-        invoiceRepositoryDB.save(invoice);
+        List<AbstractProduct> products = new ArrayList<>();
+        products.add(phoneServiceDB.createProduct());
+        products.add(phoneServiceDB.createProduct());
+        invoiceServiceDB.createAndSaveInvoiceFromList(products);
     }
 }

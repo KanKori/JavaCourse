@@ -42,9 +42,10 @@ public class InvoiceServiceDB {
         String sql = "SELECT * FROM \"public\".\"Invoice\" WHERE sum > ?;";
 
         List<String> sqlList = new ArrayList<>();
-        sqlList.add("SELECT * FROM \"public\".\"Phone\" WHERE invoice_Phone_id = ?;");
-        sqlList.add("SELECT * FROM \"public\".\"Tablet\" WHERE invoice_Tablet_id = ?;");
-        sqlList.add("SELECT * FROM \"public\".\"Laptop\" WHERE invoice_Laptop_id = ?;");
+        sqlList.add("SELECT * FROM \"public\".\"Phone\" WHERE id = ?;");
+        sqlList.add("SELECT * FROM \"public\".\"Tablet\" WHERE id = ?;");
+        sqlList.add("SELECT * FROM \"public\".\"Laptop\" WHERE id = ?;");
+
 
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(sql)) {
             List<Invoice<AbstractProduct>> invoices = new ArrayList<>();

@@ -1,75 +1,97 @@
 create schema if not exists public
     authorization postgres;
 
-create table if not exists public."Invoice"
+CREATE TABLE IF NOT EXISTS public."Invoice"
 (
-    id character varying collate pg_catalog."default" not null,
-    sum bigint not null,
-    "time" time without time zone not null,
-    "date" date not null,
-    products_id character varying collate pg_catalog."default" not null,
-    constraint "Invoice_pkey" primary key (id),
-    constraint "Invoice_products_id_key" unique (products_id)
+    id character varying COLLATE pg_catalog."default" NOT NULL,
+    sum bigint,
+    "time" time without time zone,
+    "date" date,
+    CONSTRAINT "Invoice_pkey" PRIMARY KEY (id)
 )
 
-tablespace pg_default;
+TABLESPACE pg_default;
+ALTER TABLE IF EXISTS public."Invoice"
+    OWNER to postgres;
 
 
-create table if not exists public."Laptop"
+CREATE TABLE IF NOT EXISTS public."Laptop"
 (
-    id character varying collate pg_catalog."default" not null,
-    model character varying collate pg_catalog."default" not null,
-    manufacturer character varying collate pg_catalog."default" not null,
-    constraint "Laptop_pkey" primary key (id),
-    constraint "Invoice_id" foreign key (id)
-        references public."Invoice" (products_id) match simple
-        on update NO ACTION
-        ON delete NO ACTION
+    id character varying COLLATE pg_catalog."default" NOT NULL,
+    model character varying COLLATE pg_catalog."default" NOT NULL,
+    manufacturer character varying COLLATE pg_catalog."default" NOT NULL,
+    title character varying COLLATE pg_catalog."default",
+    count integer,
+    price double precision,
+    CONSTRAINT "Laptop_pkey" PRIMARY KEY (id),
+    CONSTRAINT "Invoice_Laptop_id" FOREIGN KEY (id)
+        REFERENCES public."Invoice" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
         NOT VALID
 )
 
 TABLESPACE pg_default;
 
-alter TABLE IF EXISTS public."Laptop"
+ALTER TABLE IF EXISTS public."Laptop"
     OWNER to postgres;
 
-create index if not exists "fki_Invoice_id"
-    on public."Laptop" using btree
+CREATE INDEX IF NOT EXISTS "fki_Invoice_Laptop_id"
+    ON public."Laptop" USING btree
     (id COLLATE pg_catalog."default" ASC NULLS LAST)
     TABLESPACE pg_default;
 
-create table if not exists public."Phone"
+CREATE TABLE IF NOT EXISTS public."Phone"
 (
-    id character varying collate pg_catalog."default" not null,
-    model character varying collate pg_catalog."default" not null,
-    manufacturer character varying collate pg_catalog."default" not null,
-    constraint "Phone_pkey" primary key (id),
-    constraint "Invoice_id" foreign key (id)
-        references public."Invoice" (products_id) match simple
-        on update NO ACTION
-        ON delete NO ACTION
+    id character varying COLLATE pg_catalog."default" NOT NULL,
+    model character varying COLLATE pg_catalog."default" NOT NULL,
+    manufacturer character varying COLLATE pg_catalog."default" NOT NULL,
+    title character varying COLLATE pg_catalog."default",
+    count integer,
+    price double precision,
+    CONSTRAINT "Phone_pkey" PRIMARY KEY (id),
+    CONSTRAINT "Invoice_Phone_id" FOREIGN KEY (id)
+        REFERENCES public."Invoice" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
         NOT VALID
 )
 
 TABLESPACE pg_default;
 
-alter TABLE IF EXISTS public."Phone"
+ALTER TABLE IF EXISTS public."Phone"
     OWNER to postgres;
 
-create table if not exists public."Tablet"
+
+CREATE INDEX IF NOT EXISTS "fki_Invoice_Phone_id"
+    ON public."Phone" USING btree
+    (id COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
+
+
+CREATE TABLE IF NOT EXISTS public."Tablet"
 (
-    id character varying collate pg_catalog."default" not null,
-    model character varying collate pg_catalog."default" not null,
-    manufacturer character varying collate pg_catalog."default" not null,
-    constraint "Tablet_pkey" primary key (id),
-    constraint "Invoice_id" foreign key (id)
-        references public."Invoice" (products_id) match simple
-        on update NO ACTION
-        ON delete NO ACTION
+    id character varying COLLATE pg_catalog."default" NOT NULL,
+    model character varying COLLATE pg_catalog."default" NOT NULL,
+    manufacturer character varying COLLATE pg_catalog."default" NOT NULL,
+    title character varying COLLATE pg_catalog."default",
+    count integer,
+    price double precision,
+    CONSTRAINT "Tablet_pkey" PRIMARY KEY (id),
+    CONSTRAINT "Invoice_Tablet_id" FOREIGN KEY (id)
+        REFERENCES public."Invoice" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
         NOT VALID
 )
 
 TABLESPACE pg_default;
 
-alter TABLE IF EXISTS public."Tablet"
+ALTER TABLE IF EXISTS public."Tablet"
     OWNER to postgres;
+
+CREATE INDEX IF NOT EXISTS "fki_Invoice_Tablet_id"
+    ON public."Tablet" USING btree
+    (id COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
+

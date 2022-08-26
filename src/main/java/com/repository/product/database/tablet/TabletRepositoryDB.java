@@ -68,6 +68,9 @@ public class TabletRepositoryDB implements IAbstractProductRepository<Tablet> {
         statement.setString(1, tablet.getId());
         statement.setString(2, tablet.getModel());
         statement.setString(3, tablet.getTabletManufacturer().name());
+        statement.setString(4, tablet.getTitle());
+        statement.setInt(5, tablet.getCount());
+        statement.setDouble(6, tablet.getCount());
     }
 
     @Override

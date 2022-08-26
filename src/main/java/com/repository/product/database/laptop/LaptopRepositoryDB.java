@@ -68,6 +68,9 @@ public class LaptopRepositoryDB implements IAbstractProductRepository<Laptop> {
         statement.setString(1, laptop.getId());
         statement.setString(2, laptop.getModel());
         statement.setString(3, laptop.getLaptopManufacturer().name());
+        statement.setString(4, laptop.getTitle());
+        statement.setInt(5, laptop.getCount());
+        statement.setDouble(6, laptop.getCount());
     }
 
     @Override

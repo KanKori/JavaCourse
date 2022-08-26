@@ -27,8 +27,7 @@ public class Main {
         List<String> products = new ArrayList<>(3);
         products.add("INSERT INTO \"public\".\"Phone\" (id) VALUES (?)");
         Invoice<AbstractProduct> invoice = new Invoice<>();
-        invoiceRepositoryDB.save(invoice);
         invoiceRepositoryDB.createProducts(products, invoice);
-
+        invoiceRepositoryDB.save(invoice);
     }
 }

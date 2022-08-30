@@ -12,9 +12,9 @@ import java.util.Random;
 
 public class ProductFactory {
     private static final Random RANDOM = new Random();
-    private static final ProductService<Phone> PHONE_SERVICE = PhoneService.getInstance();
-    private static final ProductService<Laptop> LAPTOP_SERVICE = LaptopService.getInstance();
-    private static final ProductService<Tablet> TABLET_SERVICE = TabletService.getInstance();
+    private static final AbstractProductService<Phone> PHONE_SERVICE = PhoneService.getInstance();
+    private static final AbstractProductService<Laptop> LAPTOP_SERVICE = LaptopService.getInstance();
+    private static final AbstractProductService<Tablet> TABLET_SERVICE = TabletService.getInstance();
 
 
     private ProductFactory() {

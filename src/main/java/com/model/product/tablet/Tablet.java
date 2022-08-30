@@ -1,6 +1,6 @@
 package com.model.product.tablet;
 
-import com.model.product.Product;
+import com.model.product.AbstractProduct;
 import com.model.product.specifications.ProductType;
 import com.model.product.tablet.specifications.TabletManufacturer;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class Tablet extends Product {
+public class Tablet extends AbstractProduct {
     private final String model;
     private final TabletManufacturer tabletManufacturer;
     private List<String> details;

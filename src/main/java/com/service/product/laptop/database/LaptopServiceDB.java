@@ -1,23 +1,23 @@
-package com.service.product.laptop;
+package com.service.product.laptop.database;
 
 import com.model.product.laptop.Laptop;
 import com.model.product.laptop.specifications.LaptopManufacturer;
-import com.repository.product.laptop.LaptopRepository;
+import com.repository.product.database.laptop.LaptopRepositoryDB;
 import com.service.product.AbstractProductService;
 
 import java.util.Random;
 
-public class LaptopService extends AbstractProductService<Laptop> {
+public class LaptopServiceDB extends AbstractProductService<Laptop> {
     private static final Random RANDOM = new Random();
-    private static LaptopService instance;
+    private static LaptopServiceDB instance;
 
-    public LaptopService(LaptopRepository repository) {
+    public LaptopServiceDB(LaptopRepositoryDB repository) {
         super(repository);
     }
 
-    public static LaptopService getInstance() {
+    public static LaptopServiceDB getInstance() {
         if (instance == null) {
-            instance = new LaptopService(LaptopRepository.getInstance());
+            instance = new LaptopServiceDB(LaptopRepositoryDB.getInstance());
         }
         return instance;
     }
@@ -35,12 +35,5 @@ public class LaptopService extends AbstractProductService<Laptop> {
         final LaptopManufacturer[] values = LaptopManufacturer.values();
         final int index = RANDOM.nextInt(values.length);
         return values[index];
-    }
-
-    public void deleteLaptopFindByIdIfManufacturerLenovo(String id) {
-        getRepository().findById(id)
-                .filter(checkingLaptop -> checkingLaptop.getLaptopManufacturer().equals(LaptopManufacturer.LENOVO))
-                .ifPresentOrElse(checkedLaptop -> getRepository().delete(checkedLaptop.getId()),
-                        () -> System.out.println("no one Lenovo Laptop founded"));
     }
 }

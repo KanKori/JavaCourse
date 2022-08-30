@@ -1,11 +1,11 @@
 package com.command;
 
 import com.command.util.UserInputUtil;
-import com.model.product.Product;
+import com.model.product.AbstractProduct;
 import com.model.product.specifications.ProductType;
 import com.service.product.laptop.LaptopService;
 import com.service.product.phone.PhoneService;
-import com.service.product.ProductService;
+import com.service.product.AbstractProductService;
 import com.service.product.tablet.TabletService;
 
 import java.io.BufferedReader;
@@ -42,7 +42,7 @@ public class Delete implements Command {
         return names;
     }
 
-    private void delete(ProductService<? extends Product> service) {
+    private void delete(AbstractProductService<? extends AbstractProduct> service) {
         while (true) {
             System.out.println("Enter product ID");
             try {

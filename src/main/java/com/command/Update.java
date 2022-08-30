@@ -1,11 +1,11 @@
 package com.command;
 
 import com.command.util.UserInputUtil;
-import com.model.product.Product;
+import com.model.product.AbstractProduct;
 import com.model.product.specifications.ProductType;
 import com.service.product.laptop.LaptopService;
 import com.service.product.phone.PhoneService;
-import com.service.product.ProductService;
+import com.service.product.AbstractProductService;
 import com.service.product.tablet.TabletService;
 import org.apache.commons.lang3.StringUtils;
 
@@ -41,7 +41,7 @@ public class Update implements Command {
         return names;
     }
 
-    private void update(ProductService<? extends Product> service) {
+    private void update(AbstractProductService<? extends AbstractProduct> service) {
         while (true) {
             System.out.println("Enter product ID");
             try {
@@ -49,20 +49,20 @@ public class Update implements Command {
                 do {
                     id = SCANNER.nextLine();
                 } while (id.length() == 0);
-                Product product = service.findByIdOrElseThrow(id);
+                AbstractProduct abstractProduct = service.findByIdOrElseThrow(id);
                 final List<String> names = Arrays.asList("Update Title", "Update Price", "Update Count");
                 int stop;
                 do {
                     int productTypeIndex = UserInputUtil.getUserInput(names.size(), names);
                     switch (names.get(productTypeIndex)) {
-                        case "Update Title" -> updateTitle(product);
-                        case "Update Price" -> updatePrice(product);
-                        case "Update Count" -> updateCount(product);
+                        case "Update Title" -> updateTitle(abstractProduct);
+                        case "Update Price" -> updatePrice(abstractProduct);
+                        case "Update Count" -> updateCount(abstractProduct);
                     }
                     System.out.println("Enter -1 to complete the update, or any other number to continue updating");
                     stop = SCANNER.nextInt();
                 } while (stop != -1);
-                service.update(product);
+                service.update(abstractProduct);
                 return;
             } catch (IllegalArgumentException e) {
                 System.out.println("Wrong ID. Try again");
@@ -72,31 +72,31 @@ public class Update implements Command {
         }
     }
 
-    private void updatePrice(Product product) throws IOException {
+    private void updatePrice(AbstractProduct abstractProduct) throws IOException {
         System.out.println("Enter new Price");
         String price = SCANNER.nextLine();
         if (StringUtils.isNumeric(price)) {
-            product.setPrice(Long.parseLong(price));
+            abstractProduct.setPrice(Long.parseLong(price));
         } else {
             System.out.println("Wrong input");
-            updatePrice(product);
+            updatePrice(abstractProduct);
         }
     }
 
-    private void updateTitle(Product product) throws IOException {
+    private void updateTitle(AbstractProduct abstractProduct) throws IOException {
         System.out.println("Enter new Title");
         String title = SCANNER.nextLine();
-        product.setTitle(title);
+        abstractProduct.setTitle(title);
     }
 
-    private void updateCount(Product product) throws IOException {
+    private void updateCount(AbstractProduct abstractProduct) throws IOException {
         System.out.println("Enter new Count");
         String count = SCANNER.nextLine();
         if (StringUtils.isNumeric(count)) {
-            product.setCount(Integer.parseInt(count));
+            abstractProduct.setCount(Integer.parseInt(count));
         } else {
             System.out.println("Wrong input");
-            updateCount(product);
+            updateCount(abstractProduct);
         }
     }
 }

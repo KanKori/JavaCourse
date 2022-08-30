@@ -4,14 +4,14 @@ import com.model.operating_system.OperatingSystem;
 import com.model.product.phone.specifications.PhoneManufacturer;
 import com.model.product.phone.Phone;
 import com.repository.product.phone.PhoneRepository;
-import com.service.product.ProductService;
+import com.service.product.AbstractProductService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Random;
 
-public class PhoneService extends ProductService<Phone> {
+public class PhoneService extends AbstractProductService<Phone> {
     private static final Random RANDOM = new Random();
     private static PhoneService instance;
 
@@ -22,13 +22,6 @@ public class PhoneService extends ProductService<Phone> {
     public static PhoneService getInstance() {
         if (instance == null) {
             instance = new PhoneService(PhoneRepository.getInstance());
-        }
-        return instance;
-    }
-
-    public static PhoneService getInstance(final PhoneRepository repository) {
-        if (instance == null) {
-            instance = new PhoneService(repository);
         }
         return instance;
     }

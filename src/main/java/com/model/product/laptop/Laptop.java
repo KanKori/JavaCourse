@@ -1,7 +1,7 @@
 package com.model.product.laptop;
 
 import com.model.product.laptop.specifications.LaptopManufacturer;
-import com.model.product.Product;
+import com.model.product.AbstractProduct;
 import com.model.product.specifications.ProductType;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class Laptop extends Product {
+public class Laptop extends AbstractProduct {
     private final String model;
     private final LaptopManufacturer laptopManufacturer;
 

@@ -1,17 +1,19 @@
-package com.service.product.tablet;
+package com.service.product.tablet.database;
 
 import com.model.product.tablet.Tablet;
 import com.model.product.tablet.specifications.TabletManufacturer;
+import com.repository.product.database.tablet.TabletRepositoryDB;
 import com.repository.product.tablet.TabletRepository;
 import com.service.product.AbstractProductService;
+import com.service.product.tablet.TabletService;
 
 import java.util.Random;
 
-public class TabletService extends AbstractProductService<Tablet> {
+public class TabletServiceDB extends AbstractProductService<Tablet> {
     private static final Random RANDOM = new Random();
     private static TabletService instance;
 
-    public TabletService(TabletRepository repository) {
+    public TabletServiceDB(TabletRepositoryDB repository) {
         super(repository);
     }
 
@@ -35,17 +37,5 @@ public class TabletService extends AbstractProductService<Tablet> {
         final TabletManufacturer[] values = TabletManufacturer.values();
         final int index = RANDOM.nextInt(values.length);
         return values[index];
-    }
-
-    public void deleteTabletFindByIdIfManufacturerGoogle(String id) {
-        getRepository().findById(id)
-                .filter(checkingTablet -> checkingTablet.getTabletManufacturer().equals(TabletManufacturer.GOOGLE))
-                .ifPresentOrElse(checkedTablet -> getRepository().delete(checkedTablet.getId()),
-                        () -> System.out.println("no one Google tablet founded"));
-    }
-
-    public boolean checkDetailExists(String detailToCheck) {
-        return getAll().stream().flatMap(phone -> phone.getDetails().stream())
-                .anyMatch(detail -> detail.equals(detailToCheck));
     }
 }

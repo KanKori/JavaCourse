@@ -19,5 +19,7 @@ public class Main {
         products.add(phoneServiceDB.createProduct());
         products.add(phoneServiceDB.createProduct());
         invoiceServiceDB.createAndSaveInvoiceFromList(products);
+        invoiceServiceDB.createAndSaveInvoiceFromList(products);
+        int inte = invoiceServiceDB.getInvoiceCount();
     }
 }

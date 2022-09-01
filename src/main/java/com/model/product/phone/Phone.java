@@ -7,18 +7,31 @@ import com.model.operating_system.OperatingSystem;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Transient;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
+@Entity
 public class Phone extends AbstractProduct {
+    @Column
     private final String model;
+    @Column
+    @Enumerated(EnumType.STRING)
     private final PhoneManufacturer phoneManufacturer;
+    @Transient
     private List<String> details;
+    @Transient
     private String currency;
+    @Transient
     private LocalDateTime creatingDate;
+    @Transient
     private OperatingSystem OS;
 
     public Phone(String title, String model,

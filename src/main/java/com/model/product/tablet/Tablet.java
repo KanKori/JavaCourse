@@ -6,14 +6,25 @@ import com.model.product.tablet.specifications.TabletManufacturer;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Transient;
 import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
+@Entity
 public class Tablet extends AbstractProduct {
+
+    @Column
     private final String model;
+    @Column
+    @Enumerated(EnumType.STRING)
     private final TabletManufacturer tabletManufacturer;
+    @Transient
     private List<String> details;
 
     public Tablet(String title, int count, double price, String model, TabletManufacturer tabletManufacturer, List<String> details) {

@@ -34,7 +34,7 @@ public class AnnotationService {
         singletonClasses.forEach(singletonClass -> {
             Constructor<?>[] declaredConstructors = singletonClass.getDeclaredConstructors();
             for (Constructor<?> declaredConstructor : declaredConstructors) {
-                if (declaredConstructor.isAnnotationPresent(Autowired.class)) {
+                if (declaredConstructor.isAnnotationPresent(Autowired.class) && declaredConstructor.getParameterCount() == 0) {
                     try {
                         Object constructorOfSingletonClass = singletonClass.getDeclaredConstructor();
                         singletonCache.put(singletonClass, constructorOfSingletonClass);
@@ -50,7 +50,7 @@ public class AnnotationService {
     private void cacheServices(Set<Class<?>> singletonClasses) {
         singletonClasses.forEach(singletonClass -> {
             for (Constructor<?> declaredConstructor : singletonClass.getDeclaredConstructors()) {
-                if (declaredConstructor.isAnnotationPresent(Autowired.class)) {
+                if (declaredConstructor.isAnnotationPresent(Autowired.class) && declaredConstructor.getParameterCount() == 1) {
                     try {
                         if (singletonClass.equals(LaptopService.class)) {
                             Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(LaptopRepository.class));

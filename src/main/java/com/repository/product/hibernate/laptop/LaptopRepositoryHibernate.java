@@ -5,6 +5,7 @@ import com.annotations.Singleton;
 import com.config.HibernateSessionFactoryUtil;
 import com.model.product.laptop.Laptop;
 import com.repository.invoice.database.InvoiceRepositoryDB;
+import com.repository.product.laptop.LaptopRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class LaptopRepositoryHibernate implements ILaptopRepositoryHibernate {
+public class LaptopRepositoryHibernate extends LaptopRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(InvoiceRepositoryDB.class);
     private final SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
     private static LaptopRepositoryHibernate instance;
@@ -50,7 +51,6 @@ public class LaptopRepositoryHibernate implements ILaptopRepositoryHibernate {
         session.close();
     }
 
-    @Override
     public List<Laptop> findAll() {
         Session session = sessionFactory.openSession();
         List<Laptop> phones = session.createQuery("select laptop from Laptop laptop", Laptop.class).getResultList();

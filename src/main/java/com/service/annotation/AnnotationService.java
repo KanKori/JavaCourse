@@ -2,6 +2,9 @@ package com.service.annotation;
 
 import com.annotations.Autowired;
 import com.annotations.Singleton;
+import com.repository.product.hibernate.laptop.LaptopRepositoryHibernate;
+import com.repository.product.hibernate.phone.PhoneRepositoryHibernate;
+import com.repository.product.hibernate.tablet.TabletRepositoryHibernate;
 import com.repository.product.laptop.LaptopRepository;
 import com.repository.product.phone.PhoneRepository;
 import com.repository.product.tablet.TabletRepository;
@@ -53,15 +56,15 @@ public class AnnotationService {
                 if (declaredConstructor.isAnnotationPresent(Autowired.class) && declaredConstructor.getParameterCount() == 1) {
                     try {
                         if (singletonClass.equals(LaptopService.class)) {
-                            Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(LaptopRepository.class));
+                            Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(LaptopRepositoryHibernate.class));
                             singletonCache.put(singletonClass, constructorOfClass);
                         } else {
                             if (singletonClass.equals(PhoneService.class)) {
-                                Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(PhoneRepository.class));
+                                Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(PhoneRepositoryHibernate.class));
                                 singletonCache.put(singletonClass, constructorOfClass);
                             } else {
                                 if (singletonClass.equals(TabletService.class)) {
-                                    Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(TabletRepository.class));
+                                    Object constructorOfClass = declaredConstructor.newInstance(singletonCache.get(TabletRepositoryHibernate.class));
                                     singletonCache.put(singletonClass, constructorOfClass);
                                 }
                             }

@@ -1,13 +1,9 @@
 package com.service.invoice.database;
 
-import com.config.JDBCConfig;
 import com.model.invoice.Invoice;
 import com.model.product.AbstractProduct;
 import com.repository.invoice.database.InvoiceRepositoryDB;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

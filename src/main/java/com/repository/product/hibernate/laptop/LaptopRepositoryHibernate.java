@@ -5,7 +5,6 @@ import com.annotations.Singleton;
 import com.config.HibernateSessionFactoryUtil;
 import com.model.product.laptop.Laptop;
 import com.repository.invoice.database.InvoiceRepositoryDB;
-import lombok.Setter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;

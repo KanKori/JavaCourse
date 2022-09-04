@@ -54,6 +54,6 @@ public class Invoice {
     }
 
     public Invoice() {
-        id = UUID.randomUUID().toString();
+        //id = UUID.randomUUID().toString();
     }
 }

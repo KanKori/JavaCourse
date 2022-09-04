@@ -4,7 +4,6 @@ import com.annotations.Autowired;
 import com.annotations.Singleton;
 import com.config.HibernateSessionFactoryUtil;
 import com.model.invoice.Invoice;
-import com.model.product.AbstractProduct;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 

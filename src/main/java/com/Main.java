@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        InvoiceRepositoryDB invoiceRepositoryDB = new InvoiceRepositoryDB();
+/*        InvoiceRepositoryDB invoiceRepositoryDB = new InvoiceRepositoryDB();
         InvoiceServiceDB invoiceServiceDB = new InvoiceServiceDB(invoiceRepositoryDB);
         PhoneRepositoryDB phoneRepositoryDB = new PhoneRepositoryDB();
         PhoneServiceDB phoneServiceDB = new PhoneServiceDB(phoneRepositoryDB);
@@ -26,7 +26,7 @@ public class Main {
 
         invoiceServiceDB.createAndSaveInvoiceFromList(products);
         invoiceServiceDB.createAndSaveInvoiceFromList(products);
-
+*/
 
         InvoiceRepositoryHibernate invoiceRepositoryHibernate = new InvoiceRepositoryHibernate();
         InvoiceServiceHibernate invoiceServiceHibernate = new InvoiceServiceHibernate(invoiceRepositoryHibernate);

@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,9 +28,14 @@ public class Invoice {
     private String id;
     @Column
     private double sum;
-    @OneToMany(mappedBy = "invoice",
+    @OneToMany(/*mappedBy = "invoice",*/
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "Invoice_Products",
+            joinColumns = {@JoinColumn(name = "invoice", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "product", referencedColumnName = "id")}
+    )
     private List<AbstractProduct> products;
     @Column
     private LocalDateTime localDateTime;

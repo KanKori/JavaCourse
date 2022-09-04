@@ -19,7 +19,7 @@ public class HibernateSessionFactoryUtil {
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .configure(new File("src/main/resources/hibernate.cfg.xml"))
+                    .configure()
                     .build();
             try {
                 sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();

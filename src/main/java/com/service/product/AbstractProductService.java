@@ -135,7 +135,7 @@ public abstract class AbstractProductService<T extends AbstractProduct> {
     public DoubleSummaryStatistics getPriceSummaryStatistic() {
         return repository.getAll()
                 .stream()
-                .mapToDouble(AbstractProduct::getPrice)
+                .mapToDouble(product -> product.getPrice())
                 .summaryStatistics();
     }
 

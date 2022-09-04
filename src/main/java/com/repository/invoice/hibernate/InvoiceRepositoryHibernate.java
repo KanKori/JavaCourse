@@ -35,7 +35,7 @@ public class InvoiceRepositoryHibernate implements IInvoiceRepositoryHibernate {
     }
 
     @Override
-    public void save(Invoice<AbstractProduct> invoice) {
+    public void save(Invoice invoice) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(invoice);
@@ -52,7 +52,7 @@ public class InvoiceRepositoryHibernate implements IInvoiceRepositoryHibernate {
     }
 
     @Override
-    public boolean update(Invoice<AbstractProduct> invoice) {
+    public boolean update(Invoice invoice) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.merge(invoice);
@@ -62,7 +62,7 @@ public class InvoiceRepositoryHibernate implements IInvoiceRepositoryHibernate {
     }
 
     @Override
-    public List<Invoice> findAllGreaterThanInputSumInvoices(double sum) {
+    public List<Invoice> getInvoicesCostlyThanPrice(double sum) {
         Session session = sessionFactory.openSession();
         List<Invoice> greater = session.createQuery("select invoice from Invoice invoice where invoice.sum > :sum",
                 Invoice.class).setParameter("sum", sum).getResultList();
@@ -73,8 +73,8 @@ public class InvoiceRepositoryHibernate implements IInvoiceRepositoryHibernate {
     @Override
     public int getInvoiceCount() {
         Session session = sessionFactory.openSession();
-        int count = ((Long) session.createQuery("select count(id) from Invoice")
-                .getSingleResult()).intValue();
+        int count = (int) session.createQuery("select count(id) from Invoice")
+                .getSingleResult();
         session.close();
         return count;
     }

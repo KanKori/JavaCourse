@@ -4,7 +4,7 @@ import com.annotations.Autowired;
 import com.annotations.Singleton;
 import com.config.HibernateSessionFactoryUtil;
 import com.model.product.phone.Phone;
-import com.repository.invoice.database.InvoiceRepositoryDB;
+import com.repository.invoice.hibernate.InvoiceRepositoryHibernate;
 import com.repository.product.phone.PhoneRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Singleton
 public class PhoneRepositoryHibernate extends PhoneRepository {
-    private static final Logger LOGGER = LoggerFactory.getLogger(InvoiceRepositoryDB.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(InvoiceRepositoryHibernate.class);
     private final SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
     private static PhoneRepositoryHibernate instance;
 

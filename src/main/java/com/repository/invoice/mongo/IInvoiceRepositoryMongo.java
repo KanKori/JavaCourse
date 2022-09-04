@@ -14,7 +14,7 @@ public interface IInvoiceRepositoryMongo {
 
     Optional<Invoice> findById(String id);
 
-    List<Invoice> findAllGreaterThanInputSumInvoices(double price);
+    List<Invoice> getInvoicesCostlyThanPrice(double price);
 
     int getInvoiceCount();
 

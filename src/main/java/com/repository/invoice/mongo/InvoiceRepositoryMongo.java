@@ -7,7 +7,6 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
 import com.model.invoice.Invoice;
-import com.model.product.AbstractProduct;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -21,11 +20,9 @@ import java.lang.reflect.Modifier;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.mongodb.client.model.Filters.eq;
 import static java.util.Arrays.asList;
@@ -78,7 +75,7 @@ public class InvoiceRepositoryMongo implements IInvoiceRepositoryMongo {
     }
 
     @Override
-    public List<Invoice> findAllGreaterThanInputSumInvoices(double price) {
+    public List<Invoice> getInvoicesCostlyThanPrice(double price) {
         List<Invoice> invoices = new ArrayList<>();
         Document unwind = new Document("$unwind", "$products");
         Document group = new Document("$group", new Document("_id", "$id")

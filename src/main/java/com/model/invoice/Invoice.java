@@ -19,7 +19,7 @@ import java.util.UUID;
 @Setter
 @Getter
 @Entity
-public class Invoice<T extends AbstractProduct> {
+public class Invoice {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -27,13 +27,19 @@ public class Invoice<T extends AbstractProduct> {
     @Column
     private double sum;
     @OneToMany(mappedBy = "invoice",
-            cascade = CascadeType.PERSIST,
+            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
-    private List<T> products;
+    private List<AbstractProduct> products;
     @Column
     private LocalDateTime localDateTime;
 
-    public Invoice(String id, double sum, List<T> products, LocalDateTime localDateTime) {
+    public Invoice(double sum, List<AbstractProduct> products, LocalDateTime localDateTime) {
+        this.sum = sum;
+        this.products = products;
+        this.localDateTime = localDateTime;
+    }
+
+    public Invoice(String id, double sum, List<AbstractProduct> products, LocalDateTime localDateTime) {
         this.id = id;
         this.sum = sum;
         this.products = products;

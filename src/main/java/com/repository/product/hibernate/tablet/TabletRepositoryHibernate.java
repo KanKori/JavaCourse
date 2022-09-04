@@ -4,7 +4,7 @@ import com.annotations.Autowired;
 import com.annotations.Singleton;
 import com.config.HibernateSessionFactoryUtil;
 import com.model.product.tablet.Tablet;
-import com.repository.invoice.database.InvoiceRepositoryDB;
+import com.repository.invoice.hibernate.InvoiceRepositoryHibernate;
 import com.repository.product.tablet.TabletRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Singleton
 public class TabletRepositoryHibernate extends TabletRepository {
-    private static final Logger LOGGER = LoggerFactory.getLogger(InvoiceRepositoryDB.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(InvoiceRepositoryHibernate.class);
     private final SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
     private static TabletRepositoryHibernate instance;
 

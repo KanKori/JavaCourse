@@ -37,7 +37,7 @@ public class InvoiceRepositoryHibernate implements IInvoiceRepositoryHibernate {
     public void save(Invoice invoice) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(invoice);
+        session.merge(invoice);
         session.getTransaction().commit();
         session.close();
     }

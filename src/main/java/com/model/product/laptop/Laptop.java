@@ -6,12 +6,20 @@ import com.model.product.specifications.ProductType;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Objects;
 
 @Getter
 @Setter
+@Entity
 public class Laptop extends AbstractProduct {
+
+    @Column
     private final String model;
+    @Enumerated(EnumType.STRING)
     private final LaptopManufacturer laptopManufacturer;
 
     public Laptop(String title, int count, double price, String model, LaptopManufacturer laptopManufacturer) {

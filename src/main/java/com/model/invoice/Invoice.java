@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,21 +21,32 @@ import java.util.UUID;
 @Setter
 @Getter
 @Entity
-public class Invoice<T extends AbstractProduct> {
+public class Invoice {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     @Column
     private double sum;
-    @OneToMany(mappedBy = "invoice",
-            cascade = CascadeType.PERSIST,
+    @OneToMany(/*mappedBy = "invoice",*/
+            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
-    private List<T> products;
+    @JoinTable(
+            name = "Invoice_Products",
+            joinColumns = {@JoinColumn(name = "invoice", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "product", referencedColumnName = "id")}
+    )
+    private List<AbstractProduct> products;
     @Column
     private LocalDateTime localDateTime;
 
-    public Invoice(String id, double sum, List<T> products, LocalDateTime localDateTime) {
+    public Invoice(double sum, List<AbstractProduct> products, LocalDateTime localDateTime) {
+        this.sum = sum;
+        this.products = products;
+        this.localDateTime = localDateTime;
+    }
+
+    public Invoice(String id, double sum, List<AbstractProduct> products, LocalDateTime localDateTime) {
         this.id = id;
         this.sum = sum;
         this.products = products;
@@ -41,6 +54,6 @@ public class Invoice<T extends AbstractProduct> {
     }
 
     public Invoice() {
-        id = UUID.randomUUID().toString();
+        //id = UUID.randomUUID().toString();
     }
 }

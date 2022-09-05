@@ -7,14 +7,14 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Optional;
 
-public interface IInvoiceRepository<T extends AbstractProduct> {
-    Invoice<T> createFromResultSet(ResultSet resultSet);
+public interface IInvoiceRepository {
+    Invoice createFromResultSet(ResultSet resultSet);
 
-    void save(Invoice<T> invoice);
+    void save(Invoice invoice);
 
-    Optional<Invoice<T>> findById(String id);
+    Optional<Invoice> findById(String id);
 
-    List<Invoice<T>> findAll();
+    List<Invoice> findAll();
 
     boolean delete(String id);
 }

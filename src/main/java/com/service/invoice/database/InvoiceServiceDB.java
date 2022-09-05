@@ -17,15 +17,15 @@ public class InvoiceServiceDB {
     }
 
     public void createAndSaveInvoiceFromList(List<AbstractProduct> invoiceProducts) {
-        Invoice<AbstractProduct> invoice = new Invoice<>();
+        Invoice invoice = new Invoice();
         invoice.setLocalDateTime(LocalDateTime.now());
         invoice.setSum(invoiceProducts.stream().mapToDouble(AbstractProduct::getPrice).sum());
         invoice.setProducts(new ArrayList<>(invoiceProducts));
         invoiceRepositoryDB.save(invoice);
     }
 
-    public List<Invoice<AbstractProduct>> getInvoicesCostlyThanPrice(double price) {
-       return invoiceRepositoryDB.getInvoicesCostlyThanPrice(price);
+    public List<Invoice> getInvoicesCostlyThanPrice(double price) {
+        return invoiceRepositoryDB.getInvoicesCostlyThanPrice(price);
     }
 
     public int getInvoiceCount() {

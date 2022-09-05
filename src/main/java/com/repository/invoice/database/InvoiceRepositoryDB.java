@@ -29,14 +29,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> {
+public class InvoiceRepositoryDB implements IInvoiceRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(InvoiceRepositoryDB.class);
     private static final Connection CONNECTION = JDBCConfig.getConnection();
 
     @Override
-    public Invoice<AbstractProduct> createFromResultSet(ResultSet resultSet) {
+    public Invoice createFromResultSet(ResultSet resultSet) {
         try {
-            return new Invoice<>(
+            return new Invoice(
                     resultSet.getObject("id").toString(),
                     resultSet.getDouble("sum"),
                     null,
@@ -52,7 +52,7 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
     }
 
     @Override
-    public void save(Invoice<AbstractProduct> invoice) {
+    public void save(Invoice invoice) {
         String sql = "INSERT INTO \"public\".\"Invoice\" (id, sum, time, date) VALUES (?, ?, ?, ?);";
 
         Map<Class<? extends AbstractProduct>, String> sqlPutMap = new HashMap<>();
@@ -90,8 +90,8 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
         }
     }
 
-    public List<AbstractProduct> createProducts(List<String> sqlList, Invoice<AbstractProduct> invoice) {
-        List<AbstractProduct> abstractProduct = new ArrayList<>();
+    public List createProducts(List<String> sqlList, Invoice invoice) {
+        List abstractProduct = new ArrayList<>();
         for (String sqlQuery : sqlList) {
             try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(sqlQuery)) {
                 preparedStatement.setString(1, invoice.getId());
@@ -134,7 +134,7 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
     }
 
     @Override
-    public Optional<Invoice<AbstractProduct>> findById(String id) {
+    public Optional<Invoice> findById(String id) {
         String sql = "SELECT * FROM \"public\".\"Invoice\" WHERE id = ?;";
 
         List<String> sqlList = new ArrayList<>();
@@ -146,7 +146,7 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Invoice<AbstractProduct> invoice = createFromResultSet(resultSet);
+                Invoice invoice = createFromResultSet(resultSet);
                 invoice.setProducts(createProducts(sqlList, invoice));
                 return Optional.of(invoice);
             }
@@ -159,7 +159,7 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
     }
 
     @Override
-    public List<Invoice<AbstractProduct>> findAll() {
+    public List<Invoice> findAll() {
         String sql = "SELECT * FROM \"public\".\"Invoice\";";
         List<String> sqlList = new ArrayList<>();
         sqlList.add("SELECT * FROM \"public\".\"Phone\" WHERE id = ?;");
@@ -167,10 +167,10 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
         sqlList.add("SELECT * FROM \"public\".\"Laptop\" WHERE id = ?;");
 
         try (Statement statement = CONNECTION.createStatement()) {
-            List<Invoice<AbstractProduct>> invoices = new ArrayList<>();
+            List<Invoice> invoices = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                Invoice<AbstractProduct> invoice = createFromResultSet(resultSet);
+                Invoice invoice = createFromResultSet(resultSet);
                 invoice.setProducts(createProducts(sqlList, invoice));
                 invoices.add(invoice);
             }
@@ -193,7 +193,7 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
         }
     }
 
-    public List<Invoice<AbstractProduct>> getInvoicesCostlyThanPrice(double price) {
+    public List<Invoice> getInvoicesCostlyThanPrice(double price) {
         String sql = "SELECT * FROM \"public\".\"Invoice\" WHERE sum > ?;";
 
         List<String> sqlList = new ArrayList<>();
@@ -203,12 +203,12 @@ public class InvoiceRepositoryDB implements IInvoiceRepository<AbstractProduct> 
 
 
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(sql)) {
-            List<Invoice<AbstractProduct>> invoices = new ArrayList<>();
+            List<Invoice> invoices = new ArrayList<>();
 
             preparedStatement.setDouble(1, price);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Invoice<AbstractProduct> invoice = createFromResultSet(resultSet);
+                Invoice invoice = createFromResultSet(resultSet);
                 invoice.setProducts(createProducts(sqlList, invoice));
                 invoices.add(invoice);
             }

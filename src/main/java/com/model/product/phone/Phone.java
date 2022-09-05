@@ -1,16 +1,20 @@
 package com.model.product.phone;
 
+import com.model.invoice.Invoice;
 import com.model.product.phone.specifications.PhoneManufacturer;
 import com.model.product.AbstractProduct;
 import com.model.product.specifications.ProductType;
 import com.model.operating_system.OperatingSystem;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,12 +23,13 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Phone extends AbstractProduct {
     @Column
-    private final String model;
+    private String model;
     @Column
     @Enumerated(EnumType.STRING)
-    private final PhoneManufacturer phoneManufacturer;
+    private PhoneManufacturer phoneManufacturer;
     @Transient
     private List<String> details;
     @Transient

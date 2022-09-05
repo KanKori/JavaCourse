@@ -4,7 +4,8 @@ import com.annotations.Autowired;
 import com.annotations.Singleton;
 import com.config.HibernateSessionFactoryUtil;
 import com.model.product.tablet.Tablet;
-import com.repository.invoice.database.InvoiceRepositoryDB;
+import com.repository.invoice.hibernate.InvoiceRepositoryHibernate;
+import com.repository.product.tablet.TabletRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -14,8 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class TabletRepositoryHibernate implements ITabletRepositoryHibernate {
-    private static final Logger LOGGER = LoggerFactory.getLogger(InvoiceRepositoryDB.class);
+public class TabletRepositoryHibernate extends TabletRepository {
+    private static final Logger LOGGER = LoggerFactory.getLogger(InvoiceRepositoryHibernate.class);
     private final SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
     private static TabletRepositoryHibernate instance;
 
@@ -50,7 +51,6 @@ public class TabletRepositoryHibernate implements ITabletRepositoryHibernate {
         session.close();
     }
 
-    @Override
     public List<Tablet> findAll() {
         Session session = sessionFactory.openSession();
         List<Tablet> tablets = session.createQuery("select tablet from Tablet tablet", Tablet.class).getResultList();

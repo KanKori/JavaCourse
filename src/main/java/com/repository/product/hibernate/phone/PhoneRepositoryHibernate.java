@@ -4,7 +4,8 @@ import com.annotations.Autowired;
 import com.annotations.Singleton;
 import com.config.HibernateSessionFactoryUtil;
 import com.model.product.phone.Phone;
-import com.repository.invoice.database.InvoiceRepositoryDB;
+import com.repository.invoice.hibernate.InvoiceRepositoryHibernate;
+import com.repository.product.phone.PhoneRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -14,8 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class PhoneRepositoryHibernate implements IPhoneRepositoryHibernate {
-    private static final Logger LOGGER = LoggerFactory.getLogger(InvoiceRepositoryDB.class);
+public class PhoneRepositoryHibernate extends PhoneRepository {
+    private static final Logger LOGGER = LoggerFactory.getLogger(InvoiceRepositoryHibernate.class);
     private final SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
     private static PhoneRepositoryHibernate instance;
 
@@ -50,7 +51,6 @@ public class PhoneRepositoryHibernate implements IPhoneRepositoryHibernate {
         session.close();
     }
 
-    @Override
     public List<Phone> findAll() {
         Session session = sessionFactory.openSession();
         List<Phone> phones = session.createQuery("select phone from Phone phone", Phone.class).getResultList();

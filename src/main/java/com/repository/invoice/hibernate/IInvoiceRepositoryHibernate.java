@@ -8,13 +8,13 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface IInvoiceRepositoryHibernate {
-    void save(Invoice<AbstractProduct> invoice);
+    void save(Invoice invoice);
 
     Optional<Invoice> findById(String id);
 
-    boolean update(Invoice<AbstractProduct> invoice);
+    boolean update(Invoice invoice);
 
-    List<Invoice> findAllGreaterThanInputSumInvoices(double sum);
+    List<Invoice> getInvoicesCostlyThanPrice(double sum);
 
     int getInvoiceCount();
 

@@ -15,18 +15,6 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-/*        InvoiceRepositoryDB invoiceRepositoryDB = new InvoiceRepositoryDB();
-        InvoiceServiceDB invoiceServiceDB = new InvoiceServiceDB(invoiceRepositoryDB);
-        PhoneRepositoryDB phoneRepositoryDB = new PhoneRepositoryDB();
-        PhoneServiceDB phoneServiceDB = new PhoneServiceDB(phoneRepositoryDB);
-
-        List<AbstractProduct> products = new ArrayList<>();
-        products.add(phoneServiceDB.createProduct());
-        products.add(phoneServiceDB.createProduct());
-
-        invoiceServiceDB.createAndSaveInvoiceFromList(products);
-        invoiceServiceDB.createAndSaveInvoiceFromList(products);
-*/
 
         InvoiceRepositoryHibernate invoiceRepositoryHibernate = new InvoiceRepositoryHibernate();
         InvoiceServiceHibernate invoiceServiceHibernate = new InvoiceServiceHibernate(invoiceRepositoryHibernate);

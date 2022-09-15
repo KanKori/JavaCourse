@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
@@ -17,12 +18,13 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
-        <property name="hibernate.default_schema">public_hibernate</property>
+        <property name="hibernate.default_schema">public</property>
         <mapping class="com.model.invoice.Invoice"/>
         <mapping class="com.model.product.AbstractProduct"/>
         <mapping class="com.model.product.laptop.Laptop"/>
         <mapping class="com.model.product.tablet.Tablet"/>
         <mapping class="com.model.product.phone.Phone"/>
+
 
     </session-factory>
 </hibernate-configuration>

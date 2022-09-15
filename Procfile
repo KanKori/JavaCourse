@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/JavaCourse-1.0-SNAPSHOT.jar
+web: java $JAVA_OPTS -jar target/JavaCourse-1.0-SNAPSHOT-new.jar

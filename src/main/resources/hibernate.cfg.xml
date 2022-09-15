@@ -7,18 +7,17 @@
     <session-factory>
 
         <property name="dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
-        <property name="connection.url">jdbc:postgresql://ec2-52-200-5-135.compute-1.amazonaws.com/dforo299o56n5h
-        </property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/JavaCourse</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.username">azlhruziaqyovx</property>
-        <property name="connection.password">4202ce2f68a5c3f991a3a2517f6015ac31fcfa1df1fd0a510fa51e2cd816a0fd</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">root</property>
 
         <property name="hbm2ddl.auto">create-drop</property>
 
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
-        <property name="hibernate.default_schema">public</property>
+        <property name="hibernate.default_schema">public_hibernate</property>
         <mapping class="com.model.invoice.Invoice"/>
         <mapping class="com.model.product.AbstractProduct"/>
         <mapping class="com.model.product.laptop.Laptop"/>

@@ -1,6 +1,5 @@
 package com.config;
 
-import com.repository.product.database.phone.PhoneRepositoryDB;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

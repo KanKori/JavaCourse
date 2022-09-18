@@ -84,7 +84,7 @@ public class PhoneRepositoryHibernate extends PhoneRepository {
     public boolean delete(String id) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.remove(findById(id).get());
+            session.remove(findById(id).orElse(null));
             session.getTransaction().commit();
             session.close();
             return true;
